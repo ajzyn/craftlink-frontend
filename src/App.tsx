@@ -1,12 +1,12 @@
-import './App.css'
+import "./App.css"
+import { ClientLayout } from "@/app/layouts/client-layout.tsx"
 
-function App() {
+interface AppProps {
+  children?: React.ReactNode
+}
 
-  return (
-    <div className="text-red">
-      asdasd
-    </div>
-  )
+const App = ({ children }: AppProps) => {
+  return <ClientLayout>{children}</ClientLayout>
 }
 
 export default App

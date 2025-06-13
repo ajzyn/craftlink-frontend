@@ -1,0 +1,166 @@
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { Loader2, Lock, Mail, User } from "lucide-react"
+
+import { Button } from "@/components/ui/button"
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+
+import { useRegisterMutation } from "../api/auth-queries"
+import { type RegisterFormData, registerSchema } from "../validation/register-schema"
+import { toast } from "sonner"
+
+export const RegisterForm = () => {
+  const registerMutation = useRegisterMutation()
+
+  const form = useForm<RegisterFormData>({
+    resolver: zodResolver(registerSchema),
+    defaultValues: {
+      username: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+  })
+
+  const onSubmit = async (data: RegisterFormData) => {
+    try {
+      await registerMutation.mutateAsync({
+        username: data.username,
+        email: data.email,
+        password: data.password,
+      })
+
+      toast("Sukces!", {
+        description: "Konto zostało utworzone pomyślnie.",
+      })
+
+      // Reset form after successful registration
+      form.reset()
+    } catch (error) {
+      toast("Błąd rejestracji", {
+        description: "Sprawdź swoje dane i spróbuj ponownie.",
+      })
+    }
+  }
+
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <FormField
+          control={form.control}
+          name="username"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Nazwa użytkownika</FormLabel>
+              <FormControl>
+                <div className="relative">
+                  <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    placeholder="Wprowadź nazwę użytkownika"
+                    className="pl-10"
+                    disabled={registerMutation.isPending}
+                    {...field}
+                  />
+                </div>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl>
+                <div className="relative">
+                  <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    type="email"
+                    placeholder="Wprowadź email"
+                    className="pl-10"
+                    disabled={registerMutation.isPending}
+                    {...field}
+                  />
+                </div>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Hasło</FormLabel>
+              <FormControl>
+                <div className="relative">
+                  <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    type="password"
+                    placeholder="Wprowadź hasło"
+                    className="pl-10"
+                    disabled={registerMutation.isPending}
+                    {...field}
+                  />
+                </div>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="confirmPassword"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Potwierdź hasło</FormLabel>
+              <FormControl>
+                <div className="relative">
+                  <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    type="password"
+                    placeholder="Potwierdź hasło"
+                    className="pl-10"
+                    disabled={registerMutation.isPending}
+                    {...field}
+                  />
+                </div>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <Button
+          type="submit"
+          className="w-full"
+          disabled={registerMutation.isPending}
+          variant="secondary"
+        >
+          {registerMutation.isPending ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Rejestrowanie...
+            </>
+          ) : (
+            "Zarejestruj się"
+          )}
+        </Button>
+      </form>
+    </Form>
+  )
+}
