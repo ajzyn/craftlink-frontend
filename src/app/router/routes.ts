@@ -16,7 +16,7 @@ export const appRoutes: AppRouteConfig[] = [
   // requiredAuthorities: ["ADMIN"],
   // },
   {
-    path: "/dashbaord",
+    path: "/dashboard",
     element: lazyRouteComponent(() => import("@/features/dashboard/pages/dashboard-page.tsx")),
   },
 ]

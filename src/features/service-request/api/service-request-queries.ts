@@ -6,6 +6,12 @@ export const useAllServiceRequestsQuery = () => {
   return useQuery({
     queryKey: serviceRequestQueryKeys.all,
     queryFn: serviceRequestApi.getAllRequests,
-    staleTime: 5 * 60 * 1000,
+  })
+}
+
+export const useAllServiceCategoriesQuery = () => {
+  return useQuery({
+    queryKey: serviceRequestQueryKeys.all,
+    queryFn: serviceRequestApi.getAllCategoriesRequests,
   })
 }
