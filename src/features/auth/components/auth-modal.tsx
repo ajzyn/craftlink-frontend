@@ -1,6 +1,6 @@
 import { AuthForm } from "@/features/auth/components/auth-form.tsx"
 import { DeviceType } from "@/shared/types/device.ts"
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog.tsx"
+import { Dialog, DialogContent } from "@/components/ui/dialog.tsx"
 
 interface AuthModalProps {
   isOpen: boolean
@@ -13,10 +13,7 @@ export const AuthModal = ({ isOpen, onClose, defaultMode = "login" }: AuthModalP
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md">
-        <DialogHeader>
-          <DialogTitle>Logowanie do CraftLink</DialogTitle>
-        </DialogHeader>
+      <DialogContent className="max-w-md">
         <AuthForm
           // onSuccess={onClose}
           // onClose={onClose}

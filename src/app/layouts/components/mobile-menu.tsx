@@ -100,9 +100,8 @@ export const MobileMenu = ({
               variant="ghost"
               className="w-full justify-start h-14 px-4 text-lg hover:bg-muted"
               onClick={onClose}
-              asChild
             >
-              <a href="/register" className="flex items-center space-x-4">
+              <a href="/register" className="flex items-center space-x-4 w-full">
                 <span className="text-muted-foreground text-xl">
                   <LogIn />
                 </span>

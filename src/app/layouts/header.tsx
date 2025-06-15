@@ -79,9 +79,9 @@ export const Header = () => {
               className="group hover:bg-transparent"
             >
               {isMobileMenuOpen ? (
-                <X className="w-8 h-8 text-muted-foreground group-hover:text-foreground transition-colors duration-200" />
+                <X className="size-8 text-muted-foreground group-hover:text-foreground transition-colors duration-200" />
               ) : (
-                <Menu className="w-8 h-8 text-muted-foreground group-hover:text-foreground transition-colors duration-200" />
+                <Menu className="size-8 text-muted-foreground group-hover:text-foreground transition-colors duration-200" />
               )}
             </Button>
           </div>

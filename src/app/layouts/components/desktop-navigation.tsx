@@ -41,7 +41,7 @@ export const DesktopNavigation = ({ navigationItems, user, onLogout }: DesktopNa
         </Button>
       ))}
 
-      <Separator orientation="vertical" className="h-4 mx-4" />
+      <Separator orientation="vertical" className="!h-6" />
 
       {user ? (
         <DropdownMenu>
@@ -94,7 +94,7 @@ export const DesktopNavigation = ({ navigationItems, user, onLogout }: DesktopNa
       ) : (
         <Button
           variant="ghost"
-          className="cursor-pointer hover:bg-muted text-muted-foreground text-md"
+          className="cursor-pointer hover:bg-transparent text-muted-foreground text-md"
         >
           Craftlink dla wykonawców
         </Button>

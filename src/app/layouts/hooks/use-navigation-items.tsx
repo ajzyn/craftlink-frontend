@@ -1,5 +1,5 @@
 import { UserType } from "@/features/auth/types/auth.ts"
-import { BarChart, Briefcase, ShoppingBag, User, Users } from "lucide-react"
+import { BarChart, Briefcase, Hammer, ShoppingBag, User, Users } from "lucide-react"
 import { type ReactNode, useMemo } from "react"
 
 export interface MenuElement {
@@ -32,7 +32,7 @@ export const useNavigationItems = (
     }
 
     return [
-      { label: "Usługi", href: "/services", icon: <User /> },
+      { label: "Usługi", href: "/services", icon: <Hammer /> },
       {
         label: "Zaloguj",
         icon: <User />,
