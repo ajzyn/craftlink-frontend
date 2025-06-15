@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<svg viewBox="0 0 200 200" baseProfile="tiny" height="100%" version="1.2" width="100%"
+     xmlns="http://www.w3.org/2000/svg"
+>
+    <defs/>
+    <circle cx="100px" cy="100px" fill="#FFD700" r="90px"/>
+    <path d="M 130 100 A 60 60 0 1 1 130 99.9" fill="none" stroke="white" stroke-width="10"/>
+    <path d="M 106 92 Q 118 84 126 92" fill="none" stroke="white" stroke-width="3"/>
+    <text fill="white" font-family="sans-serif" font-size="20px" font-weight="bold" text-anchor="middle" x="100px"
+          y="170px">Craftlink
+    </text>
+</svg>

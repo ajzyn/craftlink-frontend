@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query"
-import { queryKeys } from "@/shared/api/query-keys.ts"
 import { serviceRequestApi } from "@/features/service-request/api/service-request-api.ts"
+import { serviceRequestQueryKeys } from "@/features/service-request/api/service-request-query-keys.ts"
 
-export const useCurrentUserQuery = () => {
+export const useAllServiceRequestsQuery = () => {
   return useQuery({
-    queryKey: queryKeys.serviceRequest.all,
+    queryKey: serviceRequestQueryKeys.all,
     queryFn: serviceRequestApi.getAllRequests,
     staleTime: 5 * 60 * 1000,
   })

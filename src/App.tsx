@@ -1,12 +1,8 @@
 import "./App.css"
-import { ClientLayout } from "@/app/layouts/client-layout.tsx"
+import { AppProviders } from "@/app/providers"
 
-interface AppProps {
-  children?: React.ReactNode
-}
-
-const App = ({ children }: AppProps) => {
-  return <ClientLayout>{children}</ClientLayout>
+const App = () => {
+  return <AppProviders />
 }
 
 export default App

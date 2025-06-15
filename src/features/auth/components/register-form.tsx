@@ -62,10 +62,10 @@ export const RegisterForm = () => {
               <FormLabel>Nazwa użytkownika</FormLabel>
               <FormControl>
                 <div className="relative">
-                  <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                  <User className="absolute left-3 top-4 h-4 w-4 text-muted-foreground" />
                   <Input
                     placeholder="Wprowadź nazwę użytkownika"
-                    className="pl-10"
+                    className="pl-10 min-h-12"
                     disabled={registerMutation.isPending}
                     {...field}
                   />
@@ -84,11 +84,11 @@ export const RegisterForm = () => {
               <FormLabel>Email</FormLabel>
               <FormControl>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                  <Mail className="absolute left-3 top-4 h-4 w-4 text-muted-foreground" />
                   <Input
                     type="email"
                     placeholder="Wprowadź email"
-                    className="pl-10"
+                    className="pl-10 min-h-12"
                     disabled={registerMutation.isPending}
                     {...field}
                   />
@@ -107,11 +107,11 @@ export const RegisterForm = () => {
               <FormLabel>Hasło</FormLabel>
               <FormControl>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                  <Lock className="absolute left-3 top-4 h-4 w-4 text-muted-foreground" />
                   <Input
                     type="password"
                     placeholder="Wprowadź hasło"
-                    className="pl-10"
+                    className="pl-10 min-h-12"
                     disabled={registerMutation.isPending}
                     {...field}
                   />
@@ -130,11 +130,11 @@ export const RegisterForm = () => {
               <FormLabel>Potwierdź hasło</FormLabel>
               <FormControl>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                  <Lock className="absolute left-3 top-4 h-4 w-4 text-muted-foreground" />
                   <Input
                     type="password"
                     placeholder="Potwierdź hasło"
-                    className="pl-10"
+                    className="pl-10 min-h-12"
                     disabled={registerMutation.isPending}
                     {...field}
                   />

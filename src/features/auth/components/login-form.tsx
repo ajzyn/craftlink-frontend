@@ -32,8 +32,7 @@ export const LoginForm = () => {
 
   const onSubmit = async (data: LoginFormData) => {
     try {
-      const { token } = await loginMutation.mutateAsync(data)
-      // console.log(token)
+      await loginMutation.mutateAsync(data)
       toast("Sukces!", {
         description: "Zostałeś pomyślnie zalogowany.",
       })
@@ -55,12 +54,12 @@ export const LoginForm = () => {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <div className="relative">
-                  <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                <div className="relative items items-center justify-center">
+                  <Mail className="absolute left-3 top-4 h-4 w-4 text-muted-foreground" />
                   <Input
                     type="email"
                     placeholder="Wprowadź email"
-                    className="pl-10"
+                    className="pl-10 min-h-12"
                     disabled={loginMutation.isPending}
                     {...field}
                   />
@@ -79,11 +78,11 @@ export const LoginForm = () => {
               <FormLabel>Hasło</FormLabel>
               <FormControl>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                  <Lock className="absolute left-3 top-4 h-4 w-4 text-muted-foreground" />
                   <Input
                     type="password"
                     placeholder="Wprowadź hasło"
-                    className="pl-10"
+                    className="pl-10 min-h-12"
                     disabled={loginMutation.isPending}
                     {...field}
                   />

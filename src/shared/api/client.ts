@@ -66,8 +66,6 @@ class ApiClient {
 
         if (token) {
           config.headers.Authorization = `Bearer ${token}`
-        } else {
-          return Promise.reject()
         }
 
         return config
