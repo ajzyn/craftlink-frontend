@@ -9,12 +9,10 @@ export interface AppRouteConfig {
 }
 
 export const appRoutes: AppRouteConfig[] = [
-  // {
-  // path: "/login",
-  // element: lazyRouteComponent(() => import("@/features/auth/pages/login-page.tsx")),
-  // isPrivate: true,
-  // requiredAuthorities: ["ADMIN"],
-  // },
+  {
+    path: "/",
+    element: lazyRouteComponent(() => import("@/features/dashboard/pages/dashboard-page.tsx")),
+  },
   {
     path: "/dashboard",
     element: lazyRouteComponent(() => import("@/features/dashboard/pages/dashboard-page.tsx")),

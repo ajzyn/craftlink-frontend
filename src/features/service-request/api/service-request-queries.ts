@@ -8,10 +8,3 @@ export const useAllServiceRequestsQuery = () => {
     queryFn: serviceRequestApi.getAllRequests,
   })
 }
-
-export const useAllServiceCategoriesQuery = () => {
-  return useQuery({
-    queryKey: serviceRequestQueryKeys.all,
-    queryFn: serviceRequestApi.getAllCategoriesRequests,
-  })
-}

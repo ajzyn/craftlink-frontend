@@ -79,9 +79,10 @@ class ApiClient {
       response => response,
       async error => {
         const originalRequest = error.config
+
         const alreadyRetried = originalRequest.headers?.["x-retry-attempted"] === "true"
 
-        if (alreadyRetried) {
+        if (alreadyRetried || !error.response) {
           return Promise.reject(error)
         }
 

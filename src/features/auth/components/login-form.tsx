@@ -46,20 +46,19 @@ export const LoginForm = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-10 mt-10">
         <FormField
           control={form.control}
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel className="text-sm text-foreground">Email</FormLabel>
               <FormControl>
                 <div className="relative items items-center justify-center">
-                  <Mail className="absolute left-3 top-4 h-4 w-4 text-muted-foreground" />
+                  <Mail className="absolute left-3 top-5 h-4 w-4 text-muted-foreground" />
                   <Input
                     type="email"
                     placeholder="Wprowadź email"
-                    className="pl-10 min-h-12"
                     disabled={loginMutation.isPending}
                     {...field}
                   />
@@ -78,11 +77,10 @@ export const LoginForm = () => {
               <FormLabel>Hasło</FormLabel>
               <FormControl>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-4 h-4 w-4 text-muted-foreground" />
+                  <Lock className="absolute left-3 top-5 h-4 w-4 text-muted-foreground" />
                   <Input
                     type="password"
                     placeholder="Wprowadź hasło"
-                    className="pl-10 min-h-12"
                     disabled={loginMutation.isPending}
                     {...field}
                   />
@@ -93,7 +91,7 @@ export const LoginForm = () => {
           )}
         />
 
-        <Button type="submit" className="w-full" disabled={loginMutation.isPending}>
+        <Button type="submit" className="w-full py-6 mt-6" disabled={loginMutation.isPending}>
           {loginMutation.isPending ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />

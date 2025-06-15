@@ -14,7 +14,7 @@ import { useBreakpoint } from "@/shared/hooks/use-breakpoint.tsx"
 import { AuthModal } from "@/features/auth/components/auth-modal.tsx"
 import { AuthFullScreen } from "@/features/auth/components/auth-full-screen.tsx"
 
-export const Header = () => {
+export const Navigation = () => {
   const { user, logout } = useAuthStore()
   const router = useRouter()
   const { mutateAsync: logoutMutation } = useLogoutMutation()
