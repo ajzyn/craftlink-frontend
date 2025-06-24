@@ -37,6 +37,7 @@
     --popover-foreground: var(--gray-900);
 
     --primary: var(--yellow-400);
+    --primary-hover: var(--yellow-900);
     --primary-foreground: var(--gray-900);
 
     --secondary: var(--gray-100);
@@ -311,7 +312,11 @@
         @apply text-primary font-semibold;
     }
 
-    .text-brand {
-        @apply bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent font-bold;
+    .text-primary-hover {
+        color: var(--primary-hover);
+    }
+
+    .hover\:text-primary-hover:hover {
+        color: var(--primary-hover);
     }
 }

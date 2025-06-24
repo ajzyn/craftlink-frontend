@@ -82,7 +82,7 @@ class ApiClient {
 
         const alreadyRetried = originalRequest.headers?.["x-retry-attempted"] === "true"
 
-        if (alreadyRetried || !error.response) {
+        if (alreadyRetried || !error.response || error.response.status !== 401) {
           return Promise.reject(error)
         }
 
