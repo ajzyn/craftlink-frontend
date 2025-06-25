@@ -1,12 +1,8 @@
-import './App.css'
+import "./App.css"
+import { AppProviders } from "@/app/providers"
 
-function App() {
-
-  return (
-    <div className="text-red">
-      asdasd
-    </div>
-  )
+const App = () => {
+  return <AppProviders />
 }
 
 export default App

@@ -1,8 +1,8 @@
-import '@tanstack/react-router'
+import "@tanstack/react-router"
 
-declare module '@tanstack/react-router' {
-    interface DefaultRouteMeta {
-        requiresAuth: boolean
-        allowedRoles?: UserRole[]
-    }
+declare module "@tanstack/react-router" {
+  interface DefaultRouteMeta {
+    requiresAuth: boolean
+    allowedRoles?: UserRole[]
+  }
 }
