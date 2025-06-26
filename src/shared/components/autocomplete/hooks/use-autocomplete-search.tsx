@@ -1,6 +1,5 @@
-import { useCallback, useMemo } from "react"
+import { useMemo } from "react"
 import type { AutocompleteOption } from "../types/autocomplete-option.ts"
-import { defaultFilterOption } from "../utils/default-filter-option"
 import { useQuery } from "@tanstack/react-query"
 
 interface UseSearchResult<T extends AutocompleteOption> {
@@ -12,18 +11,16 @@ interface UseSearchResult<T extends AutocompleteOption> {
 export const useAutocompleteSearch = <T extends AutocompleteOption>(
    debouncedInputValue: string,
    options: T[] = [],
+   filterOption: (option: T, inputValue: string) => boolean,
    queryFn?: (query: string) => Promise<T[]>,
-   filterOption: (option: T, inputValue: string) => boolean = defaultFilterOption,
 ): UseSearchResult<T> => {
-   const stableFilterOption = useCallback(filterOption, [])
-
    const localResults = useMemo(() => {
       if (!debouncedInputValue) {
          return options
       }
 
-      return options.filter(option => stableFilterOption(option, debouncedInputValue))
-   }, [debouncedInputValue, options, stableFilterOption])
+      return options.filter(option => filterOption(option, debouncedInputValue))
+   }, [debouncedInputValue, options, filterOption])
 
    const shouldUseApi = useMemo(
       () => Boolean(queryFn && localResults.length === 0 && debouncedInputValue.trim()),

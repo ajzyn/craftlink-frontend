@@ -1,7 +1,6 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import type { AutocompleteOption } from "./types/autocomplete-option"
 import { defaultGetOptionLabel } from "./utils/get-default-label"
-import { defaultGetOptionValue } from "./utils/get-default-value"
 import { defaultGetOptionKey } from "./utils/get-default-key"
 import { defaultFilterOption } from "./utils/default-filter-option"
 import { useAutocompleteSearch } from "./hooks/use-autocomplete-search"
@@ -38,7 +37,6 @@ export const FormAutocomplete = <T extends AutocompleteOption>({
    className = "",
    debounceMs = 400,
    getOptionLabel = defaultGetOptionLabel,
-   getOptionValue = defaultGetOptionValue,
    getOptionKey = defaultGetOptionKey,
    filterOption = defaultFilterOption,
    allowCustomValue = false,
@@ -47,18 +45,10 @@ export const FormAutocomplete = <T extends AutocompleteOption>({
    const [isOpen, setIsOpen] = useState(false)
    const [highlightedIndex, setHighlightedIndex] = useState(-1)
 
-   const containerRef = useRef<HTMLDivElement>(null)
-
-   const stableGetOptionLabel = useCallback(getOptionLabel, [])
-   const stableGetOptionValue = useCallback(getOptionValue, [])
-   const stableGetOptionKey = useCallback(getOptionKey, [])
-   const stableFilterOption = useCallback(filterOption, [])
-
    const selectedOption = useMemo(() => {
-      if (!value) return null
-      if (typeof value === "object") return value as T
-      return options.find(option => stableGetOptionValue(option) === value) || null
-   }, [value, options, stableGetOptionValue])
+      if (!value || typeof value !== "object") return null
+      return value as T
+   }, [value])
 
    const debouncedInputValue = useDebounce(inputValue, debounceMs)
 
@@ -66,27 +56,27 @@ export const FormAutocomplete = <T extends AutocompleteOption>({
       data: suggestions,
       loading,
       error,
-   } = useAutocompleteSearch(debouncedInputValue, options, queryFn, stableFilterOption)
+   } = useAutocompleteSearch(debouncedInputValue, options, filterOption, queryFn)
 
    useEffect(() => {
       if (selectedOption) {
-         setInputValue(stableGetOptionLabel(selectedOption))
+         setInputValue(getOptionLabel(selectedOption))
       } else if (typeof value === "string") {
          setInputValue(value)
       } else if (!value) {
          setInputValue("")
       }
-   }, [value, selectedOption, stableGetOptionLabel])
+   }, [value, selectedOption])
 
    const handleSelect = useCallback(
       (selectedOption: T) => {
-         const label = stableGetOptionLabel(selectedOption)
+         const label = getOptionLabel(selectedOption)
          setInputValue(label)
          setIsOpen(false)
          setHighlightedIndex(-1)
          onChange(selectedOption, label)
       },
-      [stableGetOptionLabel, onChange],
+      [onChange],
    )
 
    const handleClear = useCallback(() => {
@@ -138,32 +128,27 @@ export const FormAutocomplete = <T extends AutocompleteOption>({
                setIsOpen(false)
                setHighlightedIndex(-1)
                break
+            case "Tab":
+               setIsOpen(false)
+               setHighlightedIndex(-1)
+               break
          }
       },
       [isOpen, suggestions, highlightedIndex, handleSelect, allowCustomValue, inputValue],
    )
 
-   const handleFocus = useCallback(() => {
-      if (!disabled) {
-         setIsOpen(true)
-      }
-   }, [disabled])
+   const handleFocus = () => !disabled && setIsOpen(true)
 
-   const handleBlur = useCallback(() => {
+   const handleBlur = () => {
       setTimeout(() => {
-         const activeElement = document.activeElement
-         const isInContainer = containerRef.current?.contains(activeElement)
-
-         if (!isInContainer) {
-            setIsOpen(false)
-            setHighlightedIndex(-1)
-            onBlur()
-         }
-      }, 100)
-   }, [onBlur])
+         setIsOpen(false)
+         setHighlightedIndex(-1)
+         onBlur()
+      }, 0)
+   }
 
    return (
-      <div className={cn("relative", className)} ref={containerRef}>
+      <div className={cn("relative", className)}>
          <div className="relative">
             <Input
                type="text"
@@ -177,7 +162,6 @@ export const FormAutocomplete = <T extends AutocompleteOption>({
                className={cn(
                   "pl-10 pr-10",
                   error && "border-destructive focus-visible:ring-destructive",
-                  className,
                )}
             />
 
@@ -201,7 +185,7 @@ export const FormAutocomplete = <T extends AutocompleteOption>({
             </div>
          </div>
 
-         {isOpen && !disabled && (
+         {isOpen && (
             <div className="absolute z-50 w-full mt-1 bg-popover text-popover-foreground border border-border rounded-md shadow-lg max-h-60 overflow-auto">
                {loading ? (
                   <div className="px-4 py-3 text-sm text-muted-foreground flex items-center gap-2">
@@ -213,17 +197,16 @@ export const FormAutocomplete = <T extends AutocompleteOption>({
                ) : suggestions.length > 0 ? (
                   <div className="py-1">
                      {suggestions.map((suggestion, index) => {
-                        const key = stableGetOptionKey(suggestion)
-                        const label = stableGetOptionLabel(suggestion)
-                        const isSelected =
-                           selectedOption && stableGetOptionKey(selectedOption) === key
+                        const key = getOptionKey(suggestion)
+                        const label = getOptionLabel(suggestion)
+                        const isSelected = selectedOption && getOptionKey(selectedOption) === key
                         const isHighlighted = index === highlightedIndex
 
                         return (
                            <button
                               key={key}
                               type="button"
-                              onClick={() => handleSelect(suggestion)}
+                              onMouseDown={() => handleSelect(suggestion)}
                               onMouseEnter={() => setHighlightedIndex(index)}
                               className={cn(
                                  "w-full px-4 py-2 text-sm text-left transition-colors flex justify-between items-center",
@@ -246,7 +229,7 @@ export const FormAutocomplete = <T extends AutocompleteOption>({
                   <div className="px-4 py-3 text-sm text-muted-foreground">
                      {debouncedInputValue ? (
                         <>
-                           Brak wyników dla "{inputValue}"
+                           Brak wyników dla "{debouncedInputValue}"
                            {queryFn && (
                               <div className="text-xs mt-1">
                                  Sprawdź pisownię lub spróbuj innych słów
