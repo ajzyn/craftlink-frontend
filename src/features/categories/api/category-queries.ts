@@ -8,3 +8,10 @@ export const useAllCategoriesQuery = () => {
     queryKey: categoryRequestQueryKeys.all,
   })
 }
+
+export const useCategoryDetailsQuery = (slug: string) => {
+  return useQuery({
+    queryFn: () => categoryApi.getCategoryRequest(slug),
+    queryKey: categoryRequestQueryKeys.detail(slug),
+  })
+}

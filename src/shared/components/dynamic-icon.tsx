@@ -4,7 +4,7 @@ import type { ComponentType } from "react"
 import { capitalize } from "lodash"
 
 interface DynamicIconProps extends Omit<LucideProps, "ref"> {
-  iconName: string
+  iconName?: string
 }
 
 export const DynamicIcon = ({ iconName, ...props }: DynamicIconProps) => {

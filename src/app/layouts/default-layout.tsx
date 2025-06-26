@@ -11,9 +11,9 @@ export const DefaultLayout = ({ children }: DefaultLayoutProps) => {
   return (
     <div className="min-h-screen bg-background w-full">
       <Navigation />
-      <div className="mt-16"></div>
+      <div className="mt-17"></div>
 
-      <main className="p-6 bg-gradient-to-br from-blue-50 via-background to-teal-50">
+      <main className="bg-gradient-to-br from-blue-50 via-background to-teal-50">
         <Toaster />
         {children}
       </main>

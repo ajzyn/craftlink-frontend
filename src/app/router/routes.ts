@@ -14,7 +14,7 @@ export const appRoutes: AppRouteConfig[] = [
     element: lazyRouteComponent(() => import("@/features/dashboard/pages/dashboard-page.tsx")),
   },
   {
-    path: "/dashboard",
-    element: lazyRouteComponent(() => import("@/features/dashboard/pages/dashboard-page.tsx")),
+    path: "/kategoria/$categorySlug",
+    element: lazyRouteComponent(() => import("@/features/categories/pages/category-page.tsx")),
   },
 ]
