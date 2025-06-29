@@ -3,8 +3,8 @@ import { serviceRequestApi } from "@/features/service-request/api/service-reques
 import { serviceRequestQueryKeys } from "@/features/service-request/api/service-request-query-keys.ts"
 
 export const useAllServiceRequestsQuery = () => {
-  return useQuery({
-    queryKey: serviceRequestQueryKeys.all,
-    queryFn: serviceRequestApi.getAllRequests,
-  })
+   return useQuery({
+      queryKey: serviceRequestQueryKeys.all,
+      queryFn: serviceRequestApi.getAllRequest,
+   })
 }

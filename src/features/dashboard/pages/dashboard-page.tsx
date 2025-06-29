@@ -8,12 +8,12 @@ const DashboardPage = () => {
          <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
             <div>
                <div className="text-center">
-                  <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6">
+                  <h1 className="text-display-lg sm:text-display-xl lg:text-display-2xl text-foreground mb-6">
                      Znajdź zaufanych <span className="text-primary">specjalistów</span>
                      <br />
                      do dowolnej usługi
                   </h1>
-                  <p className="text-xl text-muted-foreground mb-12 max-w-3xl mx-auto">
+                  <p className="text-body-xl text-muted-foreground mb-12 max-w-3xl mx-auto">
                      Połącz się ze zweryfikowanymi fachowcami w swojej okolicy. Otrzymaj oferty,
                      porównaj usługi i zatrudnij z pewnością – do potrzeb domowych i biznesowych.
                   </p>
