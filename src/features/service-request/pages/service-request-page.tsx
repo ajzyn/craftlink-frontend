@@ -1,25 +1,71 @@
+import { ServiceRequestHero } from "@/features/service-request/components/service-request-hero.tsx"
 import { useParams } from "@tanstack/react-router"
 import { useServiceDetailsQuery } from "@/features/services/api/service-queries.ts"
-import { CategoryBanner } from "@/shared/components/category-banner.tsx"
+import { useCitiesQuery } from "@/shared/api/shared-queries.ts"
+import type { CityDto } from "@/shared/types/location.ts"
 import { ErrorState } from "@/shared/components/error-state.tsx"
+import { useState } from "react"
+import { ServiceRequestCreationModal } from "@/features/service-request/components/service-request-creation-modal.tsx"
 
 const ServiceRequestPage = () => {
    const { serviceSlug } = useParams({ from: "/zamowienie-uslugi/$serviceSlug" })
-   const { data: service, isLoading, isError, refetch } = useServiceDetailsQuery(serviceSlug)
+   const [isStepperOpen, setIsStepperOpen] = useState(false)
+   const [selectedCity, setSelectedCity] = useState<CityDto | null>(null)
 
-   if (isError) {
-      return <ErrorState onRetry={refetch} isRetrying={isLoading} />
+   const {
+      data: service,
+      isLoading: isLoadingService,
+      isError: isErrorService,
+      refetch: refetchService,
+   } = useServiceDetailsQuery(serviceSlug)
+   const {
+      data: cities,
+      isLoading: isLoadingCities,
+      isError: isErrorCities,
+      refetch: refetchCities,
+   } = useCitiesQuery()
+
+   if (isErrorCities || isErrorService) {
+      return (
+         <ErrorState
+            onRetry={() => {
+               refetchService()
+               refetchCities()
+            }}
+            isRetrying={isLoadingCities || isLoadingService}
+         />
+      )
+   }
+
+   const handleSelectLocation = (city: CityDto | null) => {
+      if (city) {
+         setSelectedCity(city)
+         setIsStepperOpen(true)
+      }
+   }
+
+   const handleModalClose = () => {
+      setIsStepperOpen(false)
    }
 
    return (
-      <>
-         <CategoryBanner
-            name={service?.name}
-            iconName={service?.category?.iconName}
-            imageUrl={service?.category?.imageKey}
-            isLoading={isLoading}
+      <div>
+         <ServiceRequestHero
+            service={service}
+            cities={cities}
+            isLoadingService={isLoadingService}
+            handleSelectLocation={handleSelectLocation}
          />
-      </>
+
+         {service && selectedCity && isStepperOpen && (
+            <ServiceRequestCreationModal
+               isOpen={isStepperOpen}
+               handleClose={handleModalClose}
+               selectedCity={selectedCity}
+               service={service}
+            />
+         )}
+      </div>
    )
 }
 
