@@ -1,19 +1,10 @@
 import type { LucideIcon } from "lucide-react"
+import type { ServiceRequestData } from "@/features/service-request/types/service-request-form-schema.ts"
 
 export interface ServiceRequestStep {
    id: number
    title: string
    icon: LucideIcon
-}
-
-export interface ServiceRequestData {
-   district: string
-   serviceTime: {
-      type: "asap" | "few_days" | "weeks" | "flexible" | "exact"
-      exactDate?: Date
-   }
-   description: {
-      text: string
-      images: File[]
-   }
+   component: React.ReactNode
+   validate?: keyof ServiceRequestData
 }

@@ -278,7 +278,7 @@
     }
 
     .text-body-lg {
-        @apply text-lg font-normal leading-relaxed;
+        @apply !text-lg font-normal leading-relaxed;
     }
 
     .text-body {
@@ -293,8 +293,12 @@
         @apply text-xs font-medium leading-tight tracking-wide uppercase;
     }
 
+    .text-label-xl {
+        @apply !text-lg !font-medium !leading-tight !text-foreground;
+    }
+
     .text-label {
-        @apply text-sm font-medium leading-tight;
+        @apply text-sm font-medium leading-tight text-foreground;
     }
 
     .text-muted {

@@ -2,13 +2,13 @@ import { useMemo } from "react"
 import type { AutocompleteOption } from "../types/autocomplete-option.ts"
 import { useQuery } from "@tanstack/react-query"
 
-interface UseSearchResult<T extends AutocompleteOption> {
+interface UseSearchResult<T extends AutocompleteOption | string> {
    data: T[]
    loading: boolean
    error?: Error | null
 }
 
-export const useAutocompleteSearch = <T extends AutocompleteOption>(
+export const useAutocompleteSearch = <T extends AutocompleteOption | string>(
    debouncedInputValue: string,
    options: T[] = [],
    filterOption: (option: T, inputValue: string) => boolean,

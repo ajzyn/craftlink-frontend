@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
 import { useDebounce } from "@/shared/hooks/use-debounce.tsx"
 
-interface FormAutocompleteProps<T extends AutocompleteOption> {
+interface FormAutocompleteProps<T extends AutocompleteOption | string> {
    value?: string | number | T | null
    onChange?: (value: T | null, inputValue?: string) => void
    onBlur?: () => void
@@ -26,7 +26,7 @@ interface FormAutocompleteProps<T extends AutocompleteOption> {
    allowCustomValue?: boolean
 }
 
-export const FormAutocomplete = <T extends AutocompleteOption>({
+export const FormAutocomplete = <T extends AutocompleteOption | string>({
    value,
    onChange = () => {},
    onBlur = () => {},
@@ -66,7 +66,7 @@ export const FormAutocomplete = <T extends AutocompleteOption>({
       } else if (!value) {
          setInputValue("")
       }
-   }, [value, selectedOption])
+   }, [value, selectedOption, getOptionLabel])
 
    const handleSelect = useCallback(
       (selectedOption: T) => {
@@ -76,7 +76,7 @@ export const FormAutocomplete = <T extends AutocompleteOption>({
          setHighlightedIndex(-1)
          onChange(selectedOption, label)
       },
-      [onChange],
+      [getOptionLabel, onChange],
    )
 
    const handleClear = useCallback(() => {
@@ -216,7 +216,7 @@ export const FormAutocomplete = <T extends AutocompleteOption>({
                               )}
                            >
                               <span className="truncate">{label}</span>
-                              {suggestion.slug && (
+                              {typeof suggestion !== "string" && suggestion.slug && (
                                  <span className="text-xs text-muted-foreground ml-2 flex-shrink-0">
                                     #{suggestion.slug}
                                  </span>
