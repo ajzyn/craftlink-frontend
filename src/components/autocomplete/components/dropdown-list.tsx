@@ -1,4 +1,4 @@
-import type { AutocompleteOption } from "@/shared/components/autocomplete/types/autocomplete-option"
+import type { AutocompleteOption } from "@/components/autocomplete/types/autocomplete-option"
 
 interface DropdownListProps<T extends AutocompleteOption> {
    suggestions: T[]

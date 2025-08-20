@@ -3,8 +3,8 @@ import { useCategoryDetailsQuery } from "@/features/categories/api/category-quer
 import { Button } from "@/components/ui/button"
 import { ServiceItem } from "@/features/categories/components/service-item"
 import { ServiceItemSkeleton } from "@/features/categories/components/skeletons/service-item-skeleton"
-import { ErrorState } from "@/shared/components/error-state"
-import { CategoryBanner } from "@/shared/components/category-banner"
+import { ErrorState } from "@/components/shared/error-state"
+import { CategoryBanner } from "@/components/shared/category-banner"
 
 const CategoryPage = () => {
    const router = useRouter()

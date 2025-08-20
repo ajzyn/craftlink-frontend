@@ -1,5 +1,5 @@
 import { Search } from "lucide-react"
-import { FormAutocomplete } from "@/shared/components/autocomplete/autocomplete"
+import { FormAutocomplete } from "@/components/autocomplete/autocomplete"
 import { serviceApi } from "@/features/services/api/service-api"
 import type { ServiceBasicDto } from "@/features/services/types/service-types"
 import { useRouter } from "@tanstack/react-router"

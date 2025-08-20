@@ -7,12 +7,12 @@ import { useMenuState } from "../hooks/use-menu-state"
 import { useNavigationItems } from "../hooks/use-navigation-items"
 import { useRouter } from "@tanstack/react-router"
 import { useLogoutMutation } from "@/features/auth/api/auth-queries"
-import { Logo } from "@/shared/components/logo"
 import { MobileMenu } from "@/app/layouts/components/mobile-menu"
 import { DesktopNavigation } from "@/app/layouts/components/desktop-navigation"
 import { useBreakpoint } from "@/shared/hooks/use-breakpoint"
 import { AuthModal } from "@/features/auth/components/auth-modal"
 import { AuthFullScreen } from "@/features/auth/components/auth-full-screen"
+import { Logo } from "@/components/shared/logo"
 
 export const Navigation = () => {
    const { user, logout } = useAuthStore()

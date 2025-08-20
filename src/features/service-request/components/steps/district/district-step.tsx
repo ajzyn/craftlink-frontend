@@ -1,10 +1,10 @@
 import { useCityDistrictsQuery } from "@/shared/api/shared-queries"
 import { Search } from "lucide-react"
-import { FormAutocomplete } from "@/shared/components/autocomplete/autocomplete"
-import { ErrorState } from "@/shared/components/error-state"
 import { FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form"
 import { useFormContext } from "react-hook-form"
 import type { ServiceRequestData } from "@/features/service-request/utils/service-request-form-schema"
+import { FormAutocomplete } from "@/components/autocomplete/autocomplete"
+import { ErrorState } from "@/components/shared/error-state"
 
 interface DistrictStepProps {
    cityName: string

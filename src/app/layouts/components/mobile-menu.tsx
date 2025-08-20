@@ -1,9 +1,9 @@
 import type { UserDto } from "@/features/auth/types/auth-types"
 import { Button } from "@/components/ui/button"
 import { LogIn, LogOut, Settings } from "lucide-react"
-import { Footer } from "@/shared/components/footer"
 import type { MenuElement } from "@/app/layouts/hooks/use-navigation-items"
 import { Separator } from "@/components/ui/separator"
+import { Footer } from "@/components/shared/footer"
 
 interface MobileMenuProps {
    isOpen: boolean
