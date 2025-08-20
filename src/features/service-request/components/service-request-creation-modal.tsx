@@ -16,7 +16,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import {
    createServiceRequestSchema,
    type ServiceRequestData,
-} from "@/features/service-request/types/service-request-form-schema"
+} from "@/features/service-request/utils/service-request-form-schema"
 import { Form } from "@/components/ui/form"
 import { Bell, Clock, FileText, MapPin } from "lucide-react"
 import type { ServiceRequestStep } from "@/features/service-request/types/step"

@@ -16,7 +16,7 @@ import { Input } from "@/components/ui/input"
 
 import { useLoginMutation } from "../api/auth-queries"
 import { toast } from "sonner"
-import { type LoginFormData, loginSchema } from "@/features/auth/validation/login-schema"
+import { type LoginFormData, loginSchema } from "@/features/auth/utils/login-schema"
 
 export const LoginForm = () => {
    const router = useRouter()

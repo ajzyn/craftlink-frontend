@@ -4,7 +4,7 @@ import { FormAutocomplete } from "@/shared/components/autocomplete/autocomplete"
 import { ErrorState } from "@/shared/components/error-state"
 import { FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form"
 import { useFormContext } from "react-hook-form"
-import type { ServiceRequestData } from "@/features/service-request/types/service-request-form-schema"
+import type { ServiceRequestData } from "@/features/service-request/utils/service-request-form-schema"
 
 interface DistrictStepProps {
    cityName: string
