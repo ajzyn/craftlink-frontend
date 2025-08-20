@@ -1,4 +1,4 @@
-import type { CityDto } from "@/shared/types/location"
+import type { CityDto } from "@/shared/types/location-types"
 import type { ServiceDetailsDto } from "@/features/services/types/service-types"
 import { useMemo, useState } from "react"
 import {
@@ -19,7 +19,7 @@ import {
 } from "@/features/service-request/utils/service-request-form-schema"
 import { Form } from "@/components/ui/form"
 import { Bell, Clock, FileText, MapPin } from "lucide-react"
-import type { ServiceRequestStep } from "@/features/service-request/types/step"
+import type { ServiceRequestStep } from "@/features/service-request/types/step-types"
 import { Description } from "@/features/service-request/components/steps/description/description"
 import { Summary } from "@/features/service-request/components/steps/summary/summary"
 

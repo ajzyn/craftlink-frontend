@@ -1,5 +1,5 @@
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { deadlineLabels, DeadlineType } from "@/features/service-request/types/deadline-type"
+import { deadlineLabels, DeadlineType } from "@/features/service-request/types/deadline-types"
 import { useFormContext, useWatch } from "react-hook-form"
 import type { ServiceRequestData } from "@/features/service-request/utils/service-request-form-schema"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"

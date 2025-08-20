@@ -1,4 +1,4 @@
-import { UserType } from "@/features/auth/types/auth"
+import { UserType } from "@/features/auth/types/auth-types"
 import { BarChart, Briefcase, Hammer, ShoppingBag, User, Users } from "lucide-react"
 import { type ReactNode, useMemo } from "react"
 

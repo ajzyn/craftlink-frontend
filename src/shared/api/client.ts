@@ -1,6 +1,6 @@
 import axios, { type AxiosInstance, type AxiosResponse } from "axios"
 import { useAuthStore } from "@/features/auth/stores/auth-store"
-import type { AuthenticationResponse } from "@/features/auth/types/auth"
+import type { AuthenticationResponse } from "@/features/auth/types/auth-types"
 
 const API_BASE_URL = "http://localhost:8080/api"
 

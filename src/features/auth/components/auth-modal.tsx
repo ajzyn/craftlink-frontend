@@ -1,5 +1,5 @@
 import { AuthForm } from "@/features/auth/components/auth-form"
-import { DeviceType } from "@/shared/types/device"
+import { DeviceType } from "@/shared/types/device-types"
 import { Dialog, DialogContent } from "@/components/ui/dialog"
 
 interface AuthModalProps {

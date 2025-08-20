@@ -1,4 +1,4 @@
-import type { UserDto } from "@/features/auth/types/auth"
+import type { UserDto } from "@/features/auth/types/auth-types"
 import { Button } from "@/components/ui/button"
 import { LogIn, LogOut, Settings } from "lucide-react"
 import { Footer } from "@/shared/components/footer"

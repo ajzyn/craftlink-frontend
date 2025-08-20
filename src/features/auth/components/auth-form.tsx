@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { LoginForm } from "./login-form"
 import { RegisterForm } from "./register-form"
-import { DeviceType } from "@/shared/types/device"
+import { DeviceType } from "@/shared/types/device-types"
 import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button"
 

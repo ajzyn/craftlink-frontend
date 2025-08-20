@@ -1,5 +1,5 @@
 import { apiClient } from "@/shared/api/client"
-import type { ServiceRequestDto } from "@/features/service-request/types/service-request"
+import type { ServiceRequestDto } from "@/features/service-request/types/service-request-types"
 
 export const serviceRequestApi = {
    getAllRequest: async () => {

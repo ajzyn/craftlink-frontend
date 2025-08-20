@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { DeadlineType } from "@/features/service-request/types/deadline-type"
+import { DeadlineType } from "@/features/service-request/types/deadline-types"
 
 export const createServiceRequestSchema = (hasDistricts: boolean) =>
    z.object({

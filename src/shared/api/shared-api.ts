@@ -1,5 +1,5 @@
 import { apiClient } from "@/shared/api/client"
-import type { CityDto } from "@/shared/types/location"
+import type { CityDto } from "@/shared/types/location-types"
 
 export const sharedApi = {
    getAllCities: async () => {

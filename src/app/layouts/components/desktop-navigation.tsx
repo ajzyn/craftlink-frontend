@@ -9,7 +9,7 @@ import {
    DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Separator } from "@/components/ui/separator"
-import { type UserDto, UserType } from "@/features/auth/types/auth"
+import { type UserDto, UserType } from "@/features/auth/types/auth-types"
 import { ChevronDown, LogOut, Settings } from "lucide-react"
 
 interface DesktopNavigationProps {

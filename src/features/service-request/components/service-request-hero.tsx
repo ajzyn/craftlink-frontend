@@ -1,4 +1,4 @@
-import type { CityDto } from "@/shared/types/location"
+import type { CityDto } from "@/shared/types/location-types"
 import { CategoryBanner } from "@/shared/components/category-banner"
 import { Search } from "lucide-react"
 import { FormAutocomplete } from "@/shared/components/autocomplete/autocomplete"

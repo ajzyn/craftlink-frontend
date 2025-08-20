@@ -1,4 +1,4 @@
-import type { ServiceRequestRequestDto } from "@/features/service-request/types/service-request"
+import type { ServiceRequestRequestDto } from "@/features/service-request/types/service-request-types"
 
 export const serviceRequestQueryKeys = {
    all: ["service-request", "all"],

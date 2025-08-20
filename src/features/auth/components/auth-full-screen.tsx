@@ -1,6 +1,6 @@
 import { AuthForm } from "@/features/auth/components/auth-form"
 import { Button } from "@/components/ui/button"
-import { DeviceType } from "@/shared/types/device"
+import { DeviceType } from "@/shared/types/device-types"
 
 interface AuthFullScreenProps {
    isOpen: boolean
