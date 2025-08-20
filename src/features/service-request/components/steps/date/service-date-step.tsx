@@ -1,10 +1,10 @@
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form.tsx"
-import { deadlineLabels, DeadlineType } from "@/features/service-request/types/deadline-type.ts"
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { deadlineLabels, DeadlineType } from "@/features/service-request/types/deadline-type"
 import { useFormContext, useWatch } from "react-hook-form"
-import type { ServiceRequestData } from "@/features/service-request/types/service-request-form-schema.ts"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group.tsx"
+import type { ServiceRequestData } from "@/features/service-request/types/service-request-form-schema"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { useEffect } from "react"
-import { DeadlineCalendar } from "@/features/service-request/components/steps/date/deadline-calendar.tsx"
+import { DeadlineCalendar } from "@/features/service-request/components/steps/date/deadline-calendar"
 
 export const ServiceDateStep = () => {
    const { control, setValue } = useFormContext<ServiceRequestData>()

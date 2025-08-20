@@ -1,22 +1,22 @@
 import { Navigate } from "@tanstack/react-router"
-import { useAuthStore } from "@/features/auth/stores/auth-store.ts"
+import { useAuthStore } from "@/features/auth/stores/auth-store"
 import type { ReactNode } from "react"
 
 interface ProtectedRouteProps {
-  children: ReactNode
-  requiredAuthorities?: string[]
+   children: ReactNode
+   requiredAuthorities?: string[]
 }
 
 export const ProtectedRoute = ({ children, requiredAuthorities = [] }: ProtectedRouteProps) => {
-  const { user } = useAuthStore()
+   const { user } = useAuthStore()
 
-  if (!user) return <Navigate to="/login" />
-  if (
-    requiredAuthorities.length > 0 &&
-    !requiredAuthorities.some(auth => user.authorities.includes(auth))
-  ) {
-    return <div>Brak dostępu</div>
-  }
+   if (!user) return <Navigate to="/login" />
+   if (
+      requiredAuthorities.length > 0 &&
+      !requiredAuthorities.some(auth => user.authorities.includes(auth))
+   ) {
+      return <div>Brak dostępu</div>
+   }
 
-  return <>{children}</>
+   return <>{children}</>
 }

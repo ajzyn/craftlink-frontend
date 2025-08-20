@@ -1,6 +1,6 @@
-import { AuthForm } from "@/features/auth/components/auth-form.tsx"
-import { Button } from "@/components/ui/button.tsx"
-import { DeviceType } from "@/shared/types/device.ts"
+import { AuthForm } from "@/features/auth/components/auth-form"
+import { Button } from "@/components/ui/button"
+import { DeviceType } from "@/shared/types/device"
 
 interface AuthFullScreenProps {
    isOpen: boolean

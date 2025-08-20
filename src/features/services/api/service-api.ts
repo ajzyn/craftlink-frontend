@@ -1,5 +1,5 @@
-import { apiClient } from "@/shared/api/client.ts"
-import type { ServiceBasicDto, ServiceDetailsDto } from "@/features/services/types/service-types.ts"
+import { apiClient } from "@/shared/api/client"
+import type { ServiceBasicDto, ServiceDetailsDto } from "@/features/services/types/service-types"
 
 export const serviceApi = {
    getSearchServicesRequest: async (searchPhrase: string) => {

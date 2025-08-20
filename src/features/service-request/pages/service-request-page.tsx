@@ -1,11 +1,11 @@
-import { ServiceRequestHero } from "@/features/service-request/components/service-request-hero.tsx"
+import { ServiceRequestHero } from "@/features/service-request/components/service-request-hero"
 import { useParams } from "@tanstack/react-router"
-import { useServiceDetailsQuery } from "@/features/services/api/service-queries.ts"
-import { useCitiesQuery } from "@/shared/api/shared-queries.ts"
-import type { CityDto } from "@/shared/types/location.ts"
-import { ErrorState } from "@/shared/components/error-state.tsx"
+import { useServiceDetailsQuery } from "@/features/services/api/service-queries"
+import { useCitiesQuery } from "@/shared/api/shared-queries"
+import type { CityDto } from "@/shared/types/location"
+import { ErrorState } from "@/shared/components/error-state"
 import { useState } from "react"
-import { ServiceRequestCreationModal } from "@/features/service-request/components/service-request-creation-modal.tsx"
+import { ServiceRequestCreationModal } from "@/features/service-request/components/service-request-creation-modal"
 
 const ServiceRequestPage = () => {
    const { serviceSlug } = useParams({ from: "/zamowienie-uslugi/$serviceSlug" })

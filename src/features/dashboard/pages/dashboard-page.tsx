@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card"
-import { SelectService } from "@/features/dashboard/components/select-service.tsx"
-import { CategoriesList } from "@/features/dashboard/components/categories-list.tsx"
+import { SelectService } from "@/features/dashboard/components/select-service"
+import { CategoriesList } from "@/features/dashboard/components/categories-list"
 
 const DashboardPage = () => {
    return (

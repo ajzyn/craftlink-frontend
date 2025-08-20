@@ -1,6 +1,6 @@
-import { AuthForm } from "@/features/auth/components/auth-form.tsx"
-import { DeviceType } from "@/shared/types/device.ts"
-import { Dialog, DialogContent } from "@/components/ui/dialog.tsx"
+import { AuthForm } from "@/features/auth/components/auth-form"
+import { DeviceType } from "@/shared/types/device"
+import { Dialog, DialogContent } from "@/components/ui/dialog"
 
 interface AuthModalProps {
    isOpen: boolean

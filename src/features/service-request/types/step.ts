@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react"
-import type { ServiceRequestData } from "@/features/service-request/types/service-request-form-schema.ts"
+import type { ServiceRequestData } from "@/features/service-request/types/service-request-form-schema"
 
 export interface ServiceRequestStep {
    id: number

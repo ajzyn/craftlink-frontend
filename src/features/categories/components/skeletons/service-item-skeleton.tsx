@@ -1,5 +1,5 @@
-import { Card, CardContent } from "@/components/ui/card.tsx"
-import { Skeleton } from "@/components/ui/skeleton.tsx"
+import { Card, CardContent } from "@/components/ui/card"
+import { Skeleton } from "@/components/ui/skeleton"
 
 export const ServiceItemSkeleton = () => {
    return (

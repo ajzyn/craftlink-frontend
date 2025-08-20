@@ -1,7 +1,7 @@
-import type { ServiceRequestRequestDto } from "@/features/service-request/types/service-request.ts"
+import type { ServiceRequestRequestDto } from "@/features/service-request/types/service-request"
 
 export const serviceRequestQueryKeys = {
-  all: ["service-request", "all"],
-  detail: (id: string) => ["service-request", "detail", id],
-  fliters: (filters: ServiceRequestRequestDto) => ["service-request", "list", filters],
+   all: ["service-request", "all"],
+   detail: (id: string) => ["service-request", "detail", id],
+   fliters: (filters: ServiceRequestRequestDto) => ["service-request", "list", filters],
 }

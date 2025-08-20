@@ -1,8 +1,8 @@
-import { Button } from "@/components/ui/button.tsx"
+import { Button } from "@/components/ui/button"
 import { ArrowLeft } from "lucide-react"
-import { DynamicIcon } from "@/shared/components/dynamic-icon.tsx"
+import { DynamicIcon } from "@/shared/components/dynamic-icon"
 import { useRouter } from "@tanstack/react-router"
-import { Skeleton } from "@/components/ui/skeleton.tsx"
+import { Skeleton } from "@/components/ui/skeleton"
 
 interface CategoryBannerProps {
    name?: string

@@ -1,5 +1,5 @@
 import { useMemo } from "react"
-import type { AutocompleteOption } from "../types/autocomplete-option.ts"
+import type { AutocompleteOption } from "../types/autocomplete-option"
 import { useQuery } from "@tanstack/react-query"
 
 interface UseSearchResult<T extends AutocompleteOption | string> {

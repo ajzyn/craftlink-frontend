@@ -1,10 +1,10 @@
 import { useParams, useRouter } from "@tanstack/react-router"
-import { useCategoryDetailsQuery } from "@/features/categories/api/category-queries.ts"
-import { Button } from "@/components/ui/button.tsx"
-import { ServiceItem } from "@/features/categories/components/service-item.tsx"
-import { ServiceItemSkeleton } from "@/features/categories/components/skeletons/service-item-skeleton.tsx"
-import { ErrorState } from "@/shared/components/error-state.tsx"
-import { CategoryBanner } from "@/shared/components/category-banner.tsx"
+import { useCategoryDetailsQuery } from "@/features/categories/api/category-queries"
+import { Button } from "@/components/ui/button"
+import { ServiceItem } from "@/features/categories/components/service-item"
+import { ServiceItemSkeleton } from "@/features/categories/components/skeletons/service-item-skeleton"
+import { ErrorState } from "@/shared/components/error-state"
+import { CategoryBanner } from "@/shared/components/category-banner"
 
 const CategoryPage = () => {
    const router = useRouter()

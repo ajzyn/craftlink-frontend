@@ -1,5 +1,5 @@
-import type { CityDto } from "@/shared/types/location.ts"
-import type { ServiceDetailsDto } from "@/features/services/types/service-types.ts"
+import type { CityDto } from "@/shared/types/location"
+import type { ServiceDetailsDto } from "@/features/services/types/service-types"
 import { useMemo, useState } from "react"
 import {
    Dialog,
@@ -7,21 +7,21 @@ import {
    DialogFooter,
    DialogHeader,
    DialogTitle,
-} from "@/components/ui/dialog.tsx"
-import { DistrictStep } from "./steps/district/district-step.tsx"
-import { Button } from "@/components/ui/button.tsx"
-import { ServiceDateStep } from "@/features/service-request/components/steps/date/service-date-step.tsx"
+} from "@/components/ui/dialog"
+import { DistrictStep } from "@/features/service-request/components/steps/district/district-step"
+import { Button } from "@/components/ui/button"
+import { ServiceDateStep } from "@/features/service-request/components/steps/date/service-date-step"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import {
    createServiceRequestSchema,
    type ServiceRequestData,
-} from "@/features/service-request/types/service-request-form-schema.ts"
-import { Form } from "@/components/ui/form.tsx"
+} from "@/features/service-request/types/service-request-form-schema"
+import { Form } from "@/components/ui/form"
 import { Bell, Clock, FileText, MapPin } from "lucide-react"
-import type { ServiceRequestStep } from "@/features/service-request/types/step.ts"
-import { Description } from "@/features/service-request/components/steps/description/description.tsx"
-import { Summary } from "@/features/service-request/components/steps/summary/summary.tsx"
+import type { ServiceRequestStep } from "@/features/service-request/types/step"
+import { Description } from "@/features/service-request/components/steps/description/description"
+import { Summary } from "@/features/service-request/components/steps/summary/summary"
 
 interface ServiceRequestCreationModalProps {
    isOpen: boolean

@@ -1,5 +1,5 @@
-import type { CategoryServiceDto } from "@/features/categories/types/category-types.ts"
-import { Card, CardContent } from "@/components/ui/card.tsx"
+import type { CategoryServiceDto } from "@/features/categories/types/category-types"
+import { Card, CardContent } from "@/components/ui/card"
 import { ChevronRight } from "lucide-react"
 import { useRouter } from "@tanstack/react-router"
 

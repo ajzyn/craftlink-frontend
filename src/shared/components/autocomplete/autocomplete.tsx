@@ -7,7 +7,7 @@ import { useAutocompleteSearch } from "./hooks/use-autocomplete-search"
 import { ChevronDown, X } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
-import { useDebounce } from "@/shared/hooks/use-debounce.tsx"
+import { useDebounce } from "@/shared/hooks/use-debounce"
 
 interface FormAutocompleteProps<T extends AutocompleteOption | string> {
    value?: string | number | T | null

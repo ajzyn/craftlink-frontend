@@ -11,20 +11,20 @@ export interface AppRouteConfig {
 export const appRoutes: AppRouteConfig[] = [
    {
       path: "/",
-      element: lazyRouteComponent(() => import("@/features/dashboard/pages/dashboard-page.tsx")),
+      element: lazyRouteComponent(() => import("@/features/dashboard/pages/dashboard-page")),
    },
    {
       path: "/kategoria/$categorySlug",
-      element: lazyRouteComponent(() => import("@/features/categories/pages/category-page.tsx")),
+      element: lazyRouteComponent(() => import("@/features/categories/pages/category-page")),
    },
    {
       path: "/zamowienie-uslugi/$serviceSlug",
       element: lazyRouteComponent(
-         () => import("@/features/service-request/pages/service-request-page.tsx"),
+         () => import("@/features/service-request/pages/service-request-page"),
       ),
    },
    {
       path: "/kontakt",
-      element: lazyRouteComponent(() => import("@/features/categories/pages/category-page.tsx")), //TODO: create this page
+      element: lazyRouteComponent(() => import("@/features/categories/pages/category-page")), //TODO: create this page
    },
 ]

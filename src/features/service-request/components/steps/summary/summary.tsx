@@ -3,10 +3,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { Clock, FileText, MapPin } from "lucide-react"
 import type { ServiceRequestData } from "@/features/service-request/types/service-request-form-schema"
-import { deadlineLabels, DeadlineType } from "@/features/service-request/types/deadline-type.ts"
+import { deadlineLabels, DeadlineType } from "@/features/service-request/types/deadline-type"
 import { format } from "date-fns"
-import type { CityDto } from "@/shared/types/location.ts"
-import type { ServiceDetailsDto } from "@/features/services/types/service-types.ts"
+import type { CityDto } from "@/shared/types/location"
+import type { ServiceDetailsDto } from "@/features/services/types/service-types"
 import { pl } from "date-fns/locale"
 
 interface SummaryStepProps {

@@ -1,8 +1,8 @@
 import { Skeleton } from "@/components/ui/skeleton"
-import { useAllCategoriesQuery } from "@/features/categories/api/category-queries.ts"
-import { DynamicIcon } from "@/shared/components/dynamic-icon.tsx"
+import { useAllCategoriesQuery } from "@/features/categories/api/category-queries"
+import { DynamicIcon } from "@/shared/components/dynamic-icon"
 import { useRouter } from "@tanstack/react-router"
-import { ErrorState } from "@/shared/components/error-state.tsx"
+import { ErrorState } from "@/shared/components/error-state"
 
 export const CategoriesList = () => {
    const router = useRouter()

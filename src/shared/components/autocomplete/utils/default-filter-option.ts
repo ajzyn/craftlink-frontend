@@ -1,4 +1,4 @@
-import type { AutocompleteOption } from "@/shared/components/autocomplete/types/autocomplete-option.ts"
+import type { AutocompleteOption } from "@/shared/components/autocomplete/types/autocomplete-option"
 
 export const defaultFilterOption = <T extends AutocompleteOption | string>(
    option: T,

@@ -1,4 +1,4 @@
-import type { CategoryBasicDto } from "@/features/categories/types/category-types.ts"
+import type { CategoryBasicDto } from "@/features/categories/types/category-types"
 
 export interface ServiceBasicDto {
    id: number

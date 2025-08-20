@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
-import { serviceRequestApi } from "@/features/service-request/api/service-request-api.ts"
-import { serviceRequestQueryKeys } from "@/features/service-request/api/service-request-query-keys.ts"
+import { serviceRequestApi } from "@/features/service-request/api/service-request-api"
+import { serviceRequestQueryKeys } from "@/features/service-request/api/service-request-query-keys"
 
 export const useAllServiceRequestsQuery = () => {
    return useQuery({

@@ -1,7 +1,7 @@
 import { Toaster } from "sonner"
 import type { ReactNode } from "react"
-import { Navigation } from "@/app/layouts/components/navigation.tsx"
-import { Footer } from "@/shared/components/footer.tsx"
+import { Navigation } from "@/app/layouts/components/navigation"
+import { Footer } from "@/shared/components/footer"
 
 interface DefaultLayoutProps {
    children: ReactNode

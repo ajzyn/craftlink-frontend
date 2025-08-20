@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
-import { sharedApi } from "@/shared/api/shared-api.ts"
-import { locationsQueryKeys } from "@/shared/api/shared-query-keys.ts"
+import { sharedApi } from "@/shared/api/shared-api"
+import { locationsQueryKeys } from "@/shared/api/shared-query-keys"
 
 export const useCitiesQuery = () => {
    return useQuery({
