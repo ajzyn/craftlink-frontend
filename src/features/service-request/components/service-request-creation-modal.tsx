@@ -1,6 +1,6 @@
 import type { CityDto } from "@/shared/types/location-types"
 import type { ServiceDetailsDto } from "@/features/services/types/service-types"
-import { useMemo, useState } from "react"
+import { useMemo } from "react"
 import {
    Dialog,
    DialogContent,
@@ -11,17 +11,12 @@ import {
 import { DistrictStep } from "@/features/service-request/components/steps/district/district-step"
 import { Button } from "@/components/ui/button"
 import { ServiceDateStep } from "@/features/service-request/components/steps/date/service-date-step"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import {
-   createServiceRequestSchema,
-   type ServiceRequestData,
-} from "@/features/service-request/utils/service-request-form-schema"
 import { Form } from "@/components/ui/form"
 import { Bell, Clock, FileText, MapPin } from "lucide-react"
 import type { ServiceRequestStep } from "@/features/service-request/types/step-types"
 import { Description } from "@/features/service-request/components/steps/description/description"
 import { Summary } from "@/features/service-request/components/steps/summary/summary"
+import { useServiceRequestStepper } from "@/features/service-request/hooks/use-service-request-stepper"
 
 interface ServiceRequestCreationModalProps {
    isOpen: boolean
@@ -36,23 +31,6 @@ export const ServiceRequestCreationModal = ({
    selectedCity,
    service,
 }: ServiceRequestCreationModalProps) => {
-   const [currentStep, setCurrentStep] = useState(selectedCity.hasDistricts ? 0 : 1)
-
-   const form = useForm<ServiceRequestData>({
-      resolver: zodResolver(createServiceRequestSchema(selectedCity.hasDistricts)),
-      defaultValues: {
-         district: "",
-         serviceTime: {
-            type: undefined,
-            exactDate: undefined,
-         },
-         description: {
-            text: "",
-            images: [],
-         },
-      },
-   })
-
    const stepsConfig: ServiceRequestStep[] = useMemo(
       () => [
          {
@@ -86,29 +64,8 @@ export const ServiceRequestCreationModal = ({
       [selectedCity, service],
    )
 
-   const handleMoveBack = () => {
-      setCurrentStep(prev => prev - 1)
-   }
-
-   const handleMoveForward = async () => {
-      const step = stepsConfig.find(s => s.id === currentStep)
-      if (!step) return
-
-      if (step.validate) {
-         const isValid = await form.trigger(step.validate)
-         if (!isValid) return
-      }
-
-      setCurrentStep(prev => prev + 1)
-   }
-
-   const renderStepContent = () => {
-      return stepsConfig.find(step => step.id === currentStep)?.component ?? null
-   }
-
-   const onSubmit = (data: ServiceRequestData) => {
-      console.log(data)
-   }
+   const { currentStep, form, handleMoveBack, handleMoveForward, onSubmit, renderStepContent } =
+      useServiceRequestStepper(selectedCity.hasDistricts, stepsConfig)
 
    return (
       <Dialog open={isOpen} onOpenChange={handleClose}>

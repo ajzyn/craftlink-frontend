@@ -1,29 +1,25 @@
 import { ServiceRequestHero } from "@/features/service-request/components/service-request-hero"
 import { useParams } from "@tanstack/react-router"
-import { useServiceDetailsQuery } from "@/features/services/api/service-queries"
-import { useCitiesQuery } from "@/shared/api/shared-queries"
-import type { CityDto } from "@/shared/types/location-types"
-import { useState } from "react"
 import { ServiceRequestCreationModal } from "@/features/service-request/components/service-request-creation-modal"
 import { ErrorState } from "@/components/shared/error-state"
+import { useServiceRequestPage } from "@/features/service-request/hooks/use-service-request-page"
 
 const ServiceRequestPage = () => {
    const { serviceSlug } = useParams({ from: "/zamowienie-uslugi/$serviceSlug" })
-   const [isStepperOpen, setIsStepperOpen] = useState(false)
-   const [selectedCity, setSelectedCity] = useState<CityDto | null>(null)
-
    const {
-      data: service,
-      isLoading: isLoadingService,
-      isError: isErrorService,
-      refetch: refetchService,
-   } = useServiceDetailsQuery(serviceSlug)
-   const {
-      data: cities,
-      isLoading: isLoadingCities,
-      isError: isErrorCities,
-      refetch: refetchCities,
-   } = useCitiesQuery()
+      service,
+      cities,
+      selectedCity,
+      isStepperOpen,
+      isLoadingService,
+      isLoadingCities,
+      isErrorService,
+      isErrorCities,
+      handleSelectLocation,
+      handleModalClose,
+      refetchService,
+      refetchCities,
+   } = useServiceRequestPage(serviceSlug)
 
    if (isErrorCities || isErrorService) {
       return (
@@ -35,17 +31,6 @@ const ServiceRequestPage = () => {
             isRetrying={isLoadingCities || isLoadingService}
          />
       )
-   }
-
-   const handleSelectLocation = (city: CityDto | null) => {
-      if (city) {
-         setSelectedCity(city)
-         setIsStepperOpen(true)
-      }
-   }
-
-   const handleModalClose = () => {
-      setIsStepperOpen(false)
    }
 
    return (

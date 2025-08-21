@@ -1,23 +1,18 @@
 import { Menu, X } from "lucide-react"
-import { useAuthStore } from "@/features/auth/stores/auth-store"
 import { Button } from "@/components/ui/button"
-import { toast } from "sonner"
 import { cn } from "@/lib/utils"
 import { useMenuState } from "../hooks/use-menu-state"
 import { useNavigationItems } from "../hooks/use-navigation-items"
-import { useRouter } from "@tanstack/react-router"
-import { useLogoutMutation } from "@/features/auth/api/auth-queries"
 import { MobileMenu } from "@/app/layouts/components/mobile-menu"
 import { DesktopNavigation } from "@/app/layouts/components/desktop-navigation"
 import { useBreakpoint } from "@/shared/hooks/use-breakpoint"
 import { AuthModal } from "@/features/auth/components/auth-modal"
 import { AuthFullScreen } from "@/features/auth/components/auth-full-screen"
 import { Logo } from "@/components/shared/logo"
+import { useAuthNavigation } from "@/features/auth/hooks/use-auth-navigation"
 
 export const Navigation = () => {
-   const { user, logout } = useAuthStore()
-   const router = useRouter()
-   const { mutateAsync: logoutMutation } = useLogoutMutation()
+   const { user, handleLogout } = useAuthNavigation()
    const { isMobile } = useBreakpoint()
 
    const {
@@ -38,18 +33,6 @@ export const Navigation = () => {
       handleOpenLoginMobileView,
       user?.userType,
    )
-
-   const handleLogout = async () => {
-      try {
-         await logoutMutation()
-         toast.success("Wylogowano pomyślnie!")
-      } catch (error) {
-         console.warn("Logout failed. User is logged out locally:", error)
-      } finally {
-         logout()
-         router.navigate({ to: "/dashboard" })
-      }
-   }
 
    return (
       <>
