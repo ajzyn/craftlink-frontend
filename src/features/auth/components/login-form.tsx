@@ -22,6 +22,7 @@ import { jwtDecode } from "jwt-decode"
 import type { JwtPayload, UserDto } from "@/features/auth/types/auth-types"
 
 export const LoginForm = ({ handleClose }: { handleClose?: VoidFunction }) => {
+   //TOOD: move to a custom hook. same with register form
    const router = useRouter()
    const loginMutation = useLoginMutation()
    const { setUser, setAccessToken } = useAuthStore()

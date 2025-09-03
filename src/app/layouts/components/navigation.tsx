@@ -8,11 +8,9 @@ import { DesktopNavigation } from "@/app/layouts/components/desktop-navigation"
 import { AuthModal } from "@/features/auth/components/auth-modal"
 import { Logo } from "@/components/shared/logo"
 import { useAuthNavigation } from "@/features/auth/hooks/use-auth-navigation"
-import { useAuthStore } from "@/features/auth/stores/use-auth-store"
 
 export const Navigation = () => {
-   const { user, handleLogout } = useAuthNavigation()
-   const { isLoading } = useAuthStore()
+   const { user, handleLogout, isLoading } = useAuthNavigation()
 
    const {
       isScrolled,
@@ -72,7 +70,6 @@ export const Navigation = () => {
             </div>
          </header>
 
-         {/*mobile*/}
          <MobileMenu
             isOpen={isMobileMenuOpen}
             navigationItems={navigationItems}

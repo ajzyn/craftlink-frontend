@@ -4,7 +4,7 @@ import { useLogoutMutation } from "@/features/auth/api/auth-queries"
 import { toast } from "sonner"
 
 export const useAuthNavigation = () => {
-   const { user, logout } = useAuthStore()
+   const { user, logout, isLoading } = useAuthStore()
    const router = useRouter()
    const { mutateAsync: logoutMutation } = useLogoutMutation()
 
@@ -16,12 +16,13 @@ export const useAuthNavigation = () => {
          console.warn("Logout failed. User is logged out locally:", error)
       } finally {
          logout()
-         router.navigate({ to: "/dashboard" })
+         router.navigate({ to: "/" })
       }
    }
 
    return {
       user,
       handleLogout,
+      isLoading,
    }
 }
