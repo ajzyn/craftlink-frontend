@@ -1,13 +1,14 @@
 import { useCallback, useEffect, useState } from "react"
 import { usePreventScrolling } from "@/shared/hooks/use-prevent-scrolling"
+import { useRouter } from "@tanstack/react-router"
 
 export const useMenuState = () => {
    const [isScrolled, setIsScrolled] = useState(false)
    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
    const [isLoginDialogOpen, setIsLoginDialogOpen] = useState(false)
-   const [isLoginMobileViewOpen, setIsLoginMobileViewOpen] = useState(false)
+   const router = useRouter()
 
-   usePreventScrolling({ isActive: isMobileMenuOpen || isLoginMobileViewOpen })
+   usePreventScrolling({ isActive: isMobileMenuOpen })
 
    useEffect(() => {
       const handleScroll = () => {
@@ -31,24 +32,17 @@ export const useMenuState = () => {
    }, [])
 
    const handleOpenLoginMobileView = useCallback(() => {
-      setIsLoginMobileViewOpen(true)
-      setIsMobileMenuOpen(false)
-   }, [])
-
-   const handleCloseLoginMobileView = useCallback(() => {
-      setIsLoginMobileViewOpen(false)
-   }, [])
+      router.navigate({ to: "/login" })
+   }, [router])
 
    return {
       isScrolled,
       isMobileMenuOpen,
       setIsMobileMenuOpen,
       isLoginDialogOpen,
-      isLoginMobileViewOpen,
       handleCloseMobileMenu,
       handleOpenLoginDialog,
       handleCloseLoginDialog,
       handleOpenLoginMobileView,
-      handleCloseLoginMobileView,
    }
 }

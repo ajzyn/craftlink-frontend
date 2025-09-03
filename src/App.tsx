@@ -1,8 +1,7 @@
-import "./App.css"
 import { AppProviders } from "@/app/providers"
 
 const App = () => {
-  return <AppProviders />
+   return <AppProviders />
 }
 
 export default App

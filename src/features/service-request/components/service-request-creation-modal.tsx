@@ -39,7 +39,12 @@ export const ServiceRequestCreationModal = ({
                <DialogTitle className="text-xl font-semibold">{activeStep?.title}</DialogTitle>
             </DialogHeader>
 
-            <ServiceRequestDetailsForm form={form} formId={formId}>
+            <ServiceRequestDetailsForm
+               form={form}
+               formId={formId}
+               selectedCity={selectedCity}
+               service={service}
+            >
                {activeStep?.component}
             </ServiceRequestDetailsForm>
 

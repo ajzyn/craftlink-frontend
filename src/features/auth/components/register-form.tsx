@@ -16,9 +16,15 @@ import { Input } from "@/components/ui/input"
 import { useRegisterMutation } from "../api/auth-queries"
 import { type RegisterFormData, registerSchema } from "../utils/register-schema"
 import { toast } from "sonner"
+import { jwtDecode } from "jwt-decode"
+import type { JwtPayload, UserDto } from "@/features/auth/types/auth-types"
+import { useRouter } from "@tanstack/react-router"
+import { useAuthStore } from "@/features/auth/stores/use-auth-store"
 
-export const RegisterForm = () => {
+export const RegisterForm = ({ handleClose }: { handleClose?: VoidFunction }) => {
    const registerMutation = useRegisterMutation()
+   const router = useRouter()
+   const { setUser, setAccessToken } = useAuthStore()
 
    const form = useForm<RegisterFormData>({
       resolver: zodResolver(registerSchema),
@@ -32,22 +38,33 @@ export const RegisterForm = () => {
 
    const onSubmit = async (data: RegisterFormData) => {
       try {
-         await registerMutation.mutateAsync({
+         const { token } = await registerMutation.mutateAsync({
             username: data.username,
             email: data.email,
             password: data.password,
          })
 
+         const decoded = jwtDecode<JwtPayload>(token)
+         const user: UserDto = {
+            email: decoded.email,
+            id: decoded.sub,
+            authorities: decoded.authorities,
+            userType: decoded.userType,
+         }
+
+         setUser(user)
+         setAccessToken(token)
+
          toast("Sukces!", {
             description: "Konto zostało utworzone pomyślnie.",
          })
-
-         // Reset form after successful registration
-         form.reset()
+         router.navigate({ to: "/" })
+         handleClose?.()
       } catch (error) {
          toast("Błąd rejestracji", {
-            description: "Sprawdź swoje dane i spróbuj ponownie.",
+            description: "Dane nieprawidłowe. Spróbuj ponownie.",
          })
+         form.reset()
       }
    }
 

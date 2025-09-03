@@ -21,7 +21,7 @@ export const MobileMenu = ({
    onLogout,
 }: MobileMenuProps) => {
    const getUserInitials = (user: UserDto) => {
-      return user?.username ? user.username[0].toUpperCase() : "U"
+      return user.email[0].toUpperCase()
    }
 
    if (!isOpen) return null
@@ -66,7 +66,7 @@ export const MobileMenu = ({
                               {getUserInitials(user)}
                            </div>
                            <div className="flex-1 min-w-0">
-                              <div className="font-medium text-lg truncate">{user.username}</div>
+                              <div className="font-medium text-lg truncate">{user.email}</div>
                            </div>
                         </div>
 

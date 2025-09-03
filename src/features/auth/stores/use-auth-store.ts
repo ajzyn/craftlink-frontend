@@ -1,19 +1,26 @@
 import { create } from "zustand"
-import type { AuthState, UserDto } from "@/features/auth/types/auth-types"
+import type { UserDto } from "@/features/auth/types/auth-types"
 
 interface AuthActions {
    setUser: (user: UserDto) => void
    setAccessToken: (token: string) => void
    login: (user: UserDto, token: string) => void
    logout: () => void
-   setLoading: (loading: boolean) => void
+   setIsLoading: (value: boolean) => void
+}
+
+interface AuthState {
+   user: UserDto | null
+   accessToken: string | null
+   isAuthenticated: boolean
+   isLoading: boolean
 }
 
 export const useAuthStore = create<AuthState & AuthActions>(set => ({
    user: null,
    accessToken: null,
    isAuthenticated: false,
-   isLoading: false,
+   isLoading: true,
 
    setUser: user => set({ user, isAuthenticated: true }),
 
@@ -33,5 +40,5 @@ export const useAuthStore = create<AuthState & AuthActions>(set => ({
          isAuthenticated: false,
       }),
 
-   setLoading: loading => set({ isLoading: loading }),
+   setIsLoading: value => set({ isLoading: value }),
 }))

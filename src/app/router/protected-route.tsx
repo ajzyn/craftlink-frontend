@@ -1,10 +1,11 @@
 import { Navigate } from "@tanstack/react-router"
-import { useAuthStore } from "@/features/auth/stores/auth-store"
+import { useAuthStore } from "@/features/auth/stores/use-auth-store"
 import type { ReactNode } from "react"
+import type { Authority } from "@/features/auth/types/auth-types"
 
 interface ProtectedRouteProps {
    children: ReactNode
-   requiredAuthorities?: string[]
+   requiredAuthorities?: Authority[]
 }
 
 export const ProtectedRoute = ({ children, requiredAuthorities = [] }: ProtectedRouteProps) => {

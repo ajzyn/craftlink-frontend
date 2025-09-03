@@ -9,7 +9,7 @@ import {
    DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Separator } from "@/components/ui/separator"
-import { type UserDto, UserType } from "@/features/auth/types/auth-types"
+import { type UserDto } from "@/features/auth/types/auth-types"
 import { ChevronDown, LogOut, Settings } from "lucide-react"
 
 interface DesktopNavigationProps {
@@ -20,7 +20,7 @@ interface DesktopNavigationProps {
 
 export const DesktopNavigation = ({ navigationItems, user, onLogout }: DesktopNavigationProps) => {
    const getUserInitials = (user: UserDto) => {
-      return user?.username ? user.username[0].toUpperCase() : "U"
+      return user.email[0].toUpperCase()
    }
 
    return (
@@ -33,10 +33,10 @@ export const DesktopNavigation = ({ navigationItems, user, onLogout }: DesktopNa
                      <span className="text-md">{item.label}</span>
                   </a>
                ) : (
-                  <button onClick={item.onClick?.desktop} className="flex items-center space-x-2">
+                  <div onClick={item.onClick?.desktop} className="flex items-center space-x-2">
                      <span className="text-muted-foreground">{item.icon}</span>
                      <span className="text-md">{item.label}</span>
-                  </button>
+                  </div>
                )}
             </Button>
          ))}
@@ -45,35 +45,27 @@ export const DesktopNavigation = ({ navigationItems, user, onLogout }: DesktopNa
 
          {user ? (
             <DropdownMenu>
-               <DropdownMenuTrigger asChild>
-                  <Button
-                     variant="outline"
-                     className="flex items-center space-x-3 h-12 px-4 bg-muted/50 hover:bg-muted"
-                  >
-                     <div className="h-8 w-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white text-sm font-medium">
-                        {getUserInitials(user)}
+               <DropdownMenuTrigger>
+                  <Button asChild variant="ghost">
+                     <div className="flex items-center space-x-3 h-12 px-4 bg-muted/50 hover:bg-muted">
+                        <div className="h-8 w-8 bg-gradient-to-r from-primary to-accent rounded-full flex items-center justify-center text-white text-sm font-medium">
+                           {getUserInitials(user)}
+                        </div>
+                        <ChevronDown size={16} className="text-muted-foreground" />
                      </div>
-                     <ChevronDown size={16} className="text-muted-foreground" />
                   </Button>
                </DropdownMenuTrigger>
 
                <DropdownMenuContent className="w-56" align="end">
                   <DropdownMenuLabel>
                      <div className="flex flex-col space-y-1">
-                        <p className="text-sm font-medium">{user.username}</p>
-                        <p className="text-xs text-muted-foreground">
-                           {user.userType === UserType.SPECIALIST
-                              ? "Specjalista"
-                              : user.userType === UserType.CLIENT
-                                ? "Klient"
-                                : "Administrator"}
-                        </p>
+                        <p className="text-sm font-medium">{user.email}</p>
                      </div>
                   </DropdownMenuLabel>
 
                   <DropdownMenuSeparator />
 
-                  <DropdownMenuItem asChild>
+                  <DropdownMenuItem>
                      <a href="/settings" className="flex items-center space-x-2 cursor-pointer">
                         <Settings size={16} />
                         <span>Ustawienia</span>

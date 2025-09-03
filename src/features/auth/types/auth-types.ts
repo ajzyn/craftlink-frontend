@@ -4,11 +4,15 @@ export enum UserType {
    SPECIALIST = "SPECIALIST",
 }
 
+export enum Authority {
+   ADMIN = "ADMIN",
+   CLIENT = "CLIENT",
+}
+
 export interface UserDto {
-   id: number
-   username: string
-   authorities: string
-   specializationSlugs: Set<string>
+   id: string
+   email: string
+   authorities: Authority[]
    userType: UserType
 }
 
@@ -24,13 +28,13 @@ export interface RegisterRequest {
 }
 
 export interface AuthenticationResponse {
-   user: UserDto
    token: string
 }
 
-export interface AuthState {
-   user: UserDto | null
-   accessToken: string | null
-   isAuthenticated: boolean
-   isLoading: boolean
+export interface JwtPayload {
+   email: string
+   sub: string
+   iat: number
+   authorities: Authority[]
+   userType: UserType
 }

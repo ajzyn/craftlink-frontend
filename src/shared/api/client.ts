@@ -1,6 +1,7 @@
 import axios, { type AxiosInstance, type AxiosResponse } from "axios"
-import { useAuthStore } from "@/features/auth/stores/auth-store"
-import type { AuthenticationResponse } from "@/features/auth/types/auth-types"
+import { useAuthStore } from "@/features/auth/stores/use-auth-store"
+import type { AuthenticationResponse, JwtPayload, UserDto } from "@/features/auth/types/auth-types"
+import { jwtDecode } from "jwt-decode"
 
 const API_BASE_URL = "http://localhost:8080/api"
 
@@ -111,15 +112,21 @@ class ApiClient {
             this.isRefreshing = true
 
             try {
-               const refreshResponse = await this.refreshToken()
-               const { token, user } = refreshResponse.data
+               const { data } = await this.refreshToken()
+               const decoded = jwtDecode<JwtPayload>(data.token)
+               const user: UserDto = {
+                  email: decoded.email,
+                  id: decoded.sub,
+                  authorities: decoded.authorities,
+                  userType: decoded.userType,
+               }
 
-               useAuthStore.getState().setAccessToken(token)
+               useAuthStore.getState().setAccessToken(data.token)
                useAuthStore.getState().setUser(user)
 
-               this.processQueue(null, token)
+               this.processQueue(null, data.token)
 
-               originalRequest.headers.Authorization = `Bearer ${token}`
+               originalRequest.headers.Authorization = `Bearer ${data.token}`
                return this.client.request(originalRequest)
             } catch (refreshError) {
                this.processQueue(refreshError, null)
@@ -128,6 +135,7 @@ class ApiClient {
                return Promise.reject(refreshError)
             } finally {
                this.isRefreshing = false
+               useAuthStore.getState().setIsLoading(false)
             }
          },
       )

@@ -6,12 +6,12 @@ import type {
 
 export const categoryApi = {
    getAllCategoriesRequests: async () => {
-      const response = await apiClient.get<CategoryBasicDto[]>("/categories")
+      const response = await apiClient.get<CategoryBasicDto[]>("/sec/categories")
       return response.data
    },
 
    getCategoryDetailsRequest: async (slug: string) => {
-      const response = await apiClient.get<CategoryDetailsDto>(`/categories/${slug}`)
+      const response = await apiClient.get<CategoryDetailsDto>(`/sec/categories/${slug}`)
       return response.data
    },
 }

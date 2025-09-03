@@ -8,7 +8,7 @@ export const authApi = {
    },
 
    register: async (data: RegisterRequest) => {
-      const response = await apiClient.post<{ message: string }>("/auth/register-client", {
+      const response = await apiClient.post<AuthenticationResponse>("/auth/register-client", {
          email: data.email,
          password: data.password,
       })

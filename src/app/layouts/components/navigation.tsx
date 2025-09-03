@@ -5,23 +5,20 @@ import { useMenuState } from "../hooks/use-menu-state"
 import { useNavigationItems } from "../hooks/use-navigation-items"
 import { MobileMenu } from "@/app/layouts/components/mobile-menu"
 import { DesktopNavigation } from "@/app/layouts/components/desktop-navigation"
-import { useBreakpoint } from "@/shared/hooks/use-breakpoint"
 import { AuthModal } from "@/features/auth/components/auth-modal"
-import { AuthFullScreen } from "@/features/auth/components/auth-full-screen"
 import { Logo } from "@/components/shared/logo"
 import { useAuthNavigation } from "@/features/auth/hooks/use-auth-navigation"
+import { useAuthStore } from "@/features/auth/stores/use-auth-store"
 
 export const Navigation = () => {
    const { user, handleLogout } = useAuthNavigation()
-   const { isMobile } = useBreakpoint()
+   const { isLoading } = useAuthStore()
 
    const {
       isScrolled,
       isMobileMenuOpen,
       setIsMobileMenuOpen,
       isLoginDialogOpen,
-      isLoginMobileViewOpen,
-      handleCloseLoginMobileView,
       handleCloseLoginDialog,
       handleOpenLoginDialog,
       handleCloseMobileMenu,
@@ -48,26 +45,30 @@ export const Navigation = () => {
             <div className="h-16 lg:h-18 w-full flex items-center justify-between">
                <Logo />
 
-               <DesktopNavigation
-                  navigationItems={navigationItems}
-                  user={user}
-                  onLogout={handleLogout}
-               />
+               {!isLoading && (
+                  <>
+                     <DesktopNavigation
+                        navigationItems={navigationItems}
+                        user={user}
+                        onLogout={handleLogout}
+                     />
 
-               <div className="lg:hidden">
-                  <Button
-                     onClick={() => setIsMobileMenuOpen(prev => !prev)}
-                     variant="ghost"
-                     size="icon"
-                     className="group hover:bg-transparent"
-                  >
-                     {isMobileMenuOpen ? (
-                        <X className="size-8 text-muted-foreground group-hover:text-foreground transition-colors duration-200" />
-                     ) : (
-                        <Menu className="size-8 text-muted-foreground group-hover:text-foreground transition-colors duration-200" />
-                     )}
-                  </Button>
-               </div>
+                     <div className="lg:hidden">
+                        <Button
+                           onClick={() => setIsMobileMenuOpen(prev => !prev)}
+                           variant="ghost"
+                           size="icon"
+                           className="group hover:bg-transparent"
+                        >
+                           {isMobileMenuOpen ? (
+                              <X className="size-8 text-muted-foreground group-hover:text-foreground transition-colors duration-200" />
+                           ) : (
+                              <Menu className="size-8 text-muted-foreground group-hover:text-foreground transition-colors duration-200" />
+                           )}
+                        </Button>
+                     </div>
+                  </>
+               )}
             </div>
          </header>
 
@@ -80,12 +81,7 @@ export const Navigation = () => {
             onLogout={handleLogout}
          />
 
-         {isMobile ? (
-            <AuthFullScreen
-               isOpen={isLoginMobileViewOpen}
-               handleClose={handleCloseLoginMobileView}
-            />
-         ) : (
+         {isLoginDialogOpen && (
             <AuthModal isOpen={isLoginDialogOpen} handleClose={handleCloseLoginDialog} />
          )}
       </>

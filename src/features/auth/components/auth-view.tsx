@@ -6,12 +6,12 @@ import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button"
 
 interface AuthFormProps {
-   defaultMode: "login" | "register"
    variant: DeviceType
+   handleClose?: VoidFunction
 }
 
-export const AuthForm = ({ defaultMode = "login", variant = DeviceType.MOBILE }: AuthFormProps) => {
-   const [isLogin, setIsLogin] = useState(defaultMode === "login")
+export const AuthView = ({ variant = DeviceType.MOBILE, handleClose }: AuthFormProps) => {
+   const [isLogin, setIsLogin] = useState(true)
 
    const toggleMode = () => {
       setIsLogin(!isLogin)
@@ -19,7 +19,6 @@ export const AuthForm = ({ defaultMode = "login", variant = DeviceType.MOBILE }:
 
    return (
       <div className={`space-y-6 ${variant === DeviceType.MOBILE ? "p-6" : ""}`}>
-         {/* Header */}
          <div className="text-center space-y-2">
             <h2 className={`font-bold ${variant === DeviceType.MOBILE ? "text-2xl" : "text-xl"}`}>
                {isLogin ? "Zaloguj się" : "Zarejestruj się"}
@@ -31,7 +30,13 @@ export const AuthForm = ({ defaultMode = "login", variant = DeviceType.MOBILE }:
             </p>
          </div>
 
-         <div>{isLogin ? <LoginForm /> : <RegisterForm />}</div>
+         <div>
+            {isLogin ? (
+               <LoginForm handleClose={handleClose} />
+            ) : (
+               <RegisterForm handleClose={handleClose} />
+            )}
+         </div>
 
          <div className="space-y-4">
             <Separator />

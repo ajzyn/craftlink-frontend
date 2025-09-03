@@ -17,10 +17,14 @@ import { Input } from "@/components/ui/input"
 import { useLoginMutation } from "../api/auth-queries"
 import { toast } from "sonner"
 import { type LoginFormData, loginSchema } from "@/features/auth/utils/login-schema"
+import { useAuthStore } from "@/features/auth/stores/use-auth-store"
+import { jwtDecode } from "jwt-decode"
+import type { JwtPayload, UserDto } from "@/features/auth/types/auth-types"
 
-export const LoginForm = () => {
+export const LoginForm = ({ handleClose }: { handleClose?: VoidFunction }) => {
    const router = useRouter()
    const loginMutation = useLoginMutation()
+   const { setUser, setAccessToken } = useAuthStore()
 
    const form = useForm<LoginFormData>({
       resolver: zodResolver(loginSchema),
@@ -32,15 +36,29 @@ export const LoginForm = () => {
 
    const onSubmit = async (data: LoginFormData) => {
       try {
-         await loginMutation.mutateAsync(data)
+         const { token } = await loginMutation.mutateAsync(data)
+
+         const decoded = jwtDecode<JwtPayload>(token)
+         const user: UserDto = {
+            email: decoded.email,
+            id: decoded.sub,
+            authorities: decoded.authorities,
+            userType: decoded.userType,
+         }
+
+         setUser(user)
+         setAccessToken(token)
+
          toast("Sukces!", {
             description: "Zostałeś pomyślnie zalogowany.",
          })
-         router.navigate({ to: "/home" })
+         router.navigate({ to: "/" })
+         handleClose?.()
       } catch (error) {
          toast("Błąd logowania", {
-            description: "Sprawdź swoje dane i spróbuj ponownie.",
+            description: "Dane nieprawidłowe. Spróbuj ponownie.",
          })
+         form.reset()
       }
    }
 
