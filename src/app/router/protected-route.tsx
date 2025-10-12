@@ -1,7 +1,7 @@
-import { Navigate } from "@tanstack/react-router"
 import { useAuthStore } from "@/features/auth/stores/use-auth-store"
 import type { ReactNode } from "react"
 import type { Authority } from "@/features/auth/types/auth-types"
+import { Navigate } from "@tanstack/react-router"
 
 interface ProtectedRouteProps {
    children: ReactNode

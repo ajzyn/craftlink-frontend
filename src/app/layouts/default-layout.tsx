@@ -1,7 +1,7 @@
 import { Toaster } from "sonner"
 import type { ReactNode } from "react"
 import { Navigation } from "@/app/layouts/components/navigation"
-import { Footer } from "react-day-picker"
+import { Footer } from "@/components/shared/footer"
 
 interface DefaultLayoutProps {
    children: ReactNode

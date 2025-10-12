@@ -25,6 +25,7 @@ export interface RegisterRequest {
    email: string
    password: string
    username: string
+   userType: UserType
 }
 
 export interface AuthenticationResponse {

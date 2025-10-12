@@ -1,4 +1,4 @@
-import { apiClient } from "@/shared/api/client"
+import { apiClient } from "@/shared/api/httpClient"
 import type { AuthenticationResponse, LoginRequest, RegisterRequest } from "../types/auth-types"
 
 export const authApi = {
@@ -8,9 +8,11 @@ export const authApi = {
    },
 
    register: async (data: RegisterRequest) => {
-      const response = await apiClient.post<AuthenticationResponse>("/auth/register-client", {
+      const response = await apiClient.post<AuthenticationResponse>("/auth/register", {
          email: data.email,
          password: data.password,
+         username: data.username,
+         userType: data.userType,
       })
       return response.data
    },

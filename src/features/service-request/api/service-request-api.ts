@@ -1,4 +1,4 @@
-import { apiClient } from "@/shared/api/client"
+import { apiClient } from "@/shared/api/httpClient"
 import type {
    CreateJobRequestRequestDto,
    ServiceRequestDto,
@@ -6,15 +6,15 @@ import type {
 
 export const serviceRequestApi = {
    getAllRequest: async () => {
-      const response = await apiClient.get<ServiceRequestDto[]>("/sec/service-requests")
+      const response = await apiClient.get<ServiceRequestDto[]>("/sec/job-requests")
       return response.data
    },
    getAllMyRequest: async () => {
-      const response = await apiClient.get<ServiceRequestDto[]>("/sec/service-requests")
+      const response = await apiClient.get<ServiceRequestDto[]>("/sec/job-requests")
       return response.data
    },
    createJobRequest: async (requestDto: CreateJobRequestRequestDto) => {
-      const response = await apiClient.post<ServiceRequestDto>("/service-requests", requestDto)
+      const response = await apiClient.post<ServiceRequestDto>("/sec/job-requests", requestDto)
       return response.data
    },
 }

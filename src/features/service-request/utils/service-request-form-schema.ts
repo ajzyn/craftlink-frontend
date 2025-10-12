@@ -29,7 +29,10 @@ export const createServiceRequestSchema = (hasDistricts: boolean) =>
          }),
 
       description: z.object({
-         text: z.string().min(20, "Opis musi mieć co najmniej 20 znaków"),
+         text: z
+            .string()
+            .min(20, "Opis musi mieć co najmniej 20 znaków")
+            .max(500, "Opis musi mieć maksymalnie 500 znaków"),
          images: z.array(z.instanceof(File)).optional(),
       }),
    })

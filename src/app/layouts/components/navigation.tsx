@@ -7,10 +7,10 @@ import { MobileMenu } from "@/app/layouts/components/mobile-menu"
 import { DesktopNavigation } from "@/app/layouts/components/desktop-navigation"
 import { AuthModal } from "@/features/auth/components/auth-modal"
 import { Logo } from "@/components/shared/logo"
-import { useAuthNavigation } from "@/features/auth/hooks/use-auth-navigation"
+import { useAuthSession } from "@/features/auth/hooks/use-auth-session"
 
 export const Navigation = () => {
-   const { user, handleLogout, isLoading } = useAuthNavigation()
+   const { user, handleLogout, isLoading } = useAuthSession()
 
    const {
       isScrolled,

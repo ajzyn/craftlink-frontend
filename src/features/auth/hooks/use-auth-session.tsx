@@ -3,7 +3,7 @@ import { useRouter } from "@tanstack/react-router"
 import { useLogoutMutation } from "@/features/auth/api/auth-queries"
 import { toast } from "sonner"
 
-export const useAuthNavigation = () => {
+export const useAuthSession = () => {
    const { user, logout, isLoading } = useAuthStore()
    const router = useRouter()
    const { mutateAsync: logoutMutation } = useLogoutMutation()
@@ -13,6 +13,7 @@ export const useAuthNavigation = () => {
          await logoutMutation()
          toast.success("Wylogowano pomyślnie!")
       } catch (error) {
+         toast.error("Logout failed")
          console.warn("Logout failed. User is logged out locally:", error)
       } finally {
          logout()

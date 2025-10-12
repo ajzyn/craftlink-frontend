@@ -20,25 +20,20 @@ export const ServiceRequestDetailsForm = ({
    selectedCity,
    service,
 }: ServiceRequestDetailsFormProps) => {
-   const { mutate } = useCreateJobRequestMutation()
+   const { mutate: createJobMutation } = useCreateJobRequestMutation()
 
    const onSubmit = (data: ServiceRequestData) => {
-      const preferredDate =
+      //TODO: move to utils
+      const exactDate =
          data.serviceTime.type === "EXACT_DATE" && data.serviceTime.exactDate
             ? data.serviceTime.exactDate.toISOString().split("T")[0]
             : new Date().toISOString().split("T")[0]
 
-      const deadline =
-         data.serviceTime.type === "EXACT_DATE" && data.serviceTime.exactDate
-            ? data.serviceTime.exactDate.toISOString().split("T")[0]
-            : undefined
-
-      mutate({
+      createJobMutation({
          city: selectedCity.name,
          district: data.district || "",
          deadlineType: data.serviceTime.type,
-         deadline,
-         preferredDate,
+         exactDate,
          serviceId: service.id.toString(),
          description: data.description.text,
       })

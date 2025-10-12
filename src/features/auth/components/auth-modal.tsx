@@ -13,7 +13,9 @@ interface AuthModalProps {
 export const AuthModal = ({ isOpen, handleClose }: AuthModalProps) => {
    const { user } = useAuthStore()
 
-   useEffect(handleClose, [handleClose, user])
+   useEffect(() => {
+      if (user) handleClose()
+   }, [handleClose, user])
 
    if (!isOpen) return null
 

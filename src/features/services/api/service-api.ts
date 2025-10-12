@@ -1,4 +1,4 @@
-import { apiClient } from "@/shared/api/client"
+import { apiClient } from "@/shared/api/httpClient"
 import type { ServiceBasicDto, ServiceDetailsDto } from "@/features/services/types/service-types"
 
 export const serviceApi = {

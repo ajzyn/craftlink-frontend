@@ -1,5 +1,3 @@
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
 import { Loader2, Lock, Mail, User } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -12,61 +10,40 @@ import {
    FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-
-import { useRegisterMutation } from "../api/auth-queries"
+import { useAuthForm } from "@/features/auth/hooks/use-auth-form"
+import { useRegisterMutation } from "@/features/auth/api/auth-queries"
 import { type RegisterFormData, registerSchema } from "../utils/register-schema"
-import { toast } from "sonner"
-import { jwtDecode } from "jwt-decode"
-import type { JwtPayload, UserDto } from "@/features/auth/types/auth-types"
-import { useRouter } from "@tanstack/react-router"
-import { useAuthStore } from "@/features/auth/stores/use-auth-store"
+import type { UserType } from "@/features/auth/types/auth-types"
 
-export const RegisterForm = ({ handleClose }: { handleClose?: VoidFunction }) => {
+interface RegisterFormProps {
+   handleClose?: VoidFunction
+   userType: UserType
+}
+
+export const RegisterForm = ({ handleClose, userType }: RegisterFormProps) => {
    const registerMutation = useRegisterMutation()
-   const router = useRouter()
-   const { setUser, setAccessToken } = useAuthStore()
 
-   const form = useForm<RegisterFormData>({
-      resolver: zodResolver(registerSchema),
+   const registerWithUserType = async (data: RegisterFormData) => {
+      const { confirmPassword, ...rest } = data
+      return registerMutation.mutateAsync({
+         ...rest,
+         userType,
+      })
+   }
+
+   const { form, onSubmit } = useAuthForm({
+      schema: registerSchema,
       defaultValues: {
          username: "",
          email: "",
          password: "",
          confirmPassword: "",
       },
+      mutation: registerWithUserType,
+      successMessage: "Konto zostało utworzone pomyślnie.",
+      errorMessage: "Nie udało się utworzyć konta.",
+      onSuccess: handleClose,
    })
-
-   const onSubmit = async (data: RegisterFormData) => {
-      try {
-         const { token } = await registerMutation.mutateAsync({
-            username: data.username,
-            email: data.email,
-            password: data.password,
-         })
-
-         const decoded = jwtDecode<JwtPayload>(token)
-         const user: UserDto = {
-            email: decoded.email,
-            id: decoded.sub,
-            authorities: decoded.authorities,
-            userType: decoded.userType,
-         }
-
-         setUser(user)
-         setAccessToken(token)
-
-         toast("Sukces!", {
-            description: "Konto zostało utworzone pomyślnie.",
-         })
-         router.navigate({ to: "/" })
-         handleClose?.()
-      } catch (error) {
-         toast("Błąd rejestracji", {
-            description: "Dane nieprawidłowe. Spróbuj ponownie.",
-         })
-         form.reset()
-      }
-   }
 
    return (
       <Form {...form}>
@@ -160,12 +137,7 @@ export const RegisterForm = ({ handleClose }: { handleClose?: VoidFunction }) =>
                )}
             />
 
-            <Button
-               type="submit"
-               className="w-full py-6"
-               disabled={registerMutation.isPending}
-               variant="secondary"
-            >
+            <Button type="submit" className="w-full py-6" disabled={registerMutation.isPending}>
                {registerMutation.isPending ? (
                   <>
                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />

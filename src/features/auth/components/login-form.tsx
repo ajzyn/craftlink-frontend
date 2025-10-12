@@ -1,6 +1,3 @@
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useRouter } from "@tanstack/react-router"
 import { Loader2, Lock, Mail } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -15,53 +12,20 @@ import {
 import { Input } from "@/components/ui/input"
 
 import { useLoginMutation } from "../api/auth-queries"
-import { toast } from "sonner"
-import { type LoginFormData, loginSchema } from "@/features/auth/utils/login-schema"
-import { useAuthStore } from "@/features/auth/stores/use-auth-store"
-import { jwtDecode } from "jwt-decode"
-import type { JwtPayload, UserDto } from "@/features/auth/types/auth-types"
+import { loginSchema } from "@/features/auth/utils/login-schema"
+import { useAuthForm } from "@/features/auth/hooks/use-auth-form"
 
 export const LoginForm = ({ handleClose }: { handleClose?: VoidFunction }) => {
-   //TOOD: move to a custom hook. same with register form
-   const router = useRouter()
    const loginMutation = useLoginMutation()
-   const { setUser, setAccessToken } = useAuthStore()
 
-   const form = useForm<LoginFormData>({
-      resolver: zodResolver(loginSchema),
-      defaultValues: {
-         email: "",
-         password: "",
-      },
+   const { form, onSubmit } = useAuthForm({
+      schema: loginSchema,
+      defaultValues: { email: "", password: "" },
+      mutation: loginMutation.mutateAsync,
+      successMessage: "Zostałeś pomyślnie zalogowany.",
+      errorMessage: "Nieprawidłowy email lub hasło.",
+      onSuccess: handleClose,
    })
-
-   const onSubmit = async (data: LoginFormData) => {
-      try {
-         const { token } = await loginMutation.mutateAsync(data)
-
-         const decoded = jwtDecode<JwtPayload>(token)
-         const user: UserDto = {
-            email: decoded.email,
-            id: decoded.sub,
-            authorities: decoded.authorities,
-            userType: decoded.userType,
-         }
-
-         setUser(user)
-         setAccessToken(token)
-
-         toast("Sukces!", {
-            description: "Zostałeś pomyślnie zalogowany.",
-         })
-         router.navigate({ to: "/" })
-         handleClose?.()
-      } catch (error) {
-         toast("Błąd logowania", {
-            description: "Dane nieprawidłowe. Spróbuj ponownie.",
-         })
-         form.reset()
-      }
-   }
 
    return (
       <Form {...form}>

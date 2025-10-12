@@ -3,6 +3,7 @@ import type { ServiceDetailsDto } from "@/features/services/types/service-types"
 import {
    Dialog,
    DialogContent,
+   DialogDescription,
    DialogFooter,
    DialogHeader,
    DialogTitle,
@@ -11,6 +12,7 @@ import { useServiceRequestStepper } from "@/features/service-request/hooks/use-s
 import { useServiceRequestSteps } from "@/features/service-request/hooks/use-service-request-steps"
 import { ServiceRequestDetailsForm } from "@/features/service-request/components/service-request-details-form"
 import { ServiceRequestNavigation } from "@/features/service-request/components/service-request-navigation"
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden"
 
 interface ServiceRequestCreationModalProps {
    isOpen: boolean
@@ -38,6 +40,9 @@ export const ServiceRequestCreationModal = ({
             <DialogHeader>
                <DialogTitle className="text-xl font-semibold">{activeStep?.title}</DialogTitle>
             </DialogHeader>
+            <VisuallyHidden>
+               <DialogDescription></DialogDescription>
+            </VisuallyHidden>
 
             <ServiceRequestDetailsForm
                form={form}

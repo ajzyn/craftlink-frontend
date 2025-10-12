@@ -12,8 +12,7 @@ export interface CreateJobRequestRequestDto {
    city: string
    district: string
    deadlineType: DeadlineType
-   deadline?: string // LocalDate in Java, using string for ISO date format in TS
-   preferredDate: string // LocalDate in Java, using string for ISO date format in TS
-   serviceId: string // UUID in Java, using string in TS
+   exactDate?: string
+   serviceId: string
    description: string
 }

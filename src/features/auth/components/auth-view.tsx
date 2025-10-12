@@ -4,6 +4,7 @@ import { RegisterForm } from "./register-form"
 import { DeviceType } from "@/shared/types/device-types"
 import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button"
+import { UserType } from "@/features/auth/types/auth-types"
 
 interface AuthFormProps {
    variant: DeviceType
@@ -34,7 +35,7 @@ export const AuthView = ({ variant = DeviceType.MOBILE, handleClose }: AuthFormP
             {isLogin ? (
                <LoginForm handleClose={handleClose} />
             ) : (
-               <RegisterForm handleClose={handleClose} />
+               <RegisterForm userType={UserType.CLIENT} handleClose={handleClose} />
             )}
          </div>
 
