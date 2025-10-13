@@ -1,4 +1,4 @@
-import { apiClient } from "@/shared/api/httpClient"
+import { apiClient } from "@/shared/api/http-client"
 import type { CityDto } from "@/shared/types/location-types"
 
 export const sharedApi = {

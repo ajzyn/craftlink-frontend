@@ -1,4 +1,4 @@
-import { apiClient } from "@/shared/api/httpClient"
+import { apiClient } from "@/shared/api/http-client"
 import type { AuthenticationResponse, LoginRequest, RegisterRequest } from "../types/auth-types"
 
 export const authApi = {
