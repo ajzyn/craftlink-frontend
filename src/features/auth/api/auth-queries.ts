@@ -1,20 +1,17 @@
-import { useMutation } from "@tanstack/react-query"
 import { authApi } from "./auth-api"
+import { useBaseMutation } from "@/shared/api/use-base-mutation"
 
-export const useLoginMutation = () => {
-  return useMutation({
-    mutationFn: authApi.login,
-  })
-}
+export const useLoginMutation = () =>
+   useBaseMutation(authApi.login, {
+      invalidateKeys: [["currentUser"]],
+   })
 
-export const useRegisterMutation = () => {
-  return useMutation({
-    mutationFn: authApi.register,
-  })
-}
+export const useRegisterMutation = () =>
+   useBaseMutation(authApi.register, {
+      invalidateKeys: [["currentUser"]],
+   })
 
-export const useLogoutMutation = () => {
-  return useMutation({
-    mutationFn: authApi.logout,
-  })
-}
+export const useLogoutMutation = () =>
+   useBaseMutation(authApi.logout, {
+      invalidateKeys: [["currentUser"]],
+   })

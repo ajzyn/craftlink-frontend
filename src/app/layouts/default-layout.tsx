@@ -1,23 +1,23 @@
 import { Toaster } from "sonner"
 import type { ReactNode } from "react"
-import { Navigation } from "@/app/layouts/components/navigation.tsx"
-import { Footer } from "@/shared/components/footer.tsx"
+import { Navigation } from "@/app/layouts/components/navigation"
+import { Footer } from "@/components/shared/footer"
 
 interface DefaultLayoutProps {
-  children: ReactNode
+   children: ReactNode
 }
 
 export const DefaultLayout = ({ children }: DefaultLayoutProps) => {
-  return (
-    <div className="min-h-screen bg-background w-full">
-      <Navigation />
-      <div className="mt-16"></div>
+   return (
+      <div className="min-h-screen flex flex-col bg-background w-full">
+         <Navigation />
+         <div className="mt-17"></div>
 
-      <main className="p-6 bg-gradient-to-br from-blue-50 via-background to-teal-50">
-        <Toaster />
-        {children}
-      </main>
-      <Footer />
-    </div>
-  )
+         <main className="bg-gradient-to-br from-yellow-50 via-background to-teal-50">
+            <Toaster />
+            {children}
+         </main>
+         <Footer />
+      </div>
+   )
 }

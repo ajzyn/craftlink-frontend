@@ -1,26 +1,33 @@
-import { AuthForm } from "@/features/auth/components/auth-form.tsx"
-import { DeviceType } from "@/shared/types/device.ts"
-import { Dialog, DialogContent } from "@/components/ui/dialog.tsx"
+import { AuthView } from "@/features/auth/components/auth-view"
+import { DeviceType } from "@/shared/types/device-types"
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog"
+import { useAuthStore } from "@/features/auth/stores/use-auth-store"
+import { useEffect } from "react"
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden"
 
 interface AuthModalProps {
-  isOpen: boolean
-  onClose: VoidFunction
-  defaultMode?: "login" | "register"
+   isOpen: boolean
+   handleClose: VoidFunction
 }
 
-export const AuthModal = ({ isOpen, onClose, defaultMode = "login" }: AuthModalProps) => {
-  if (!isOpen) return null
+export const AuthModal = ({ isOpen, handleClose }: AuthModalProps) => {
+   const { user } = useAuthStore()
 
-  return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-md">
-        <AuthForm
-          // onSuccess={onClose}
-          // onClose={onClose}
-          defaultMode={defaultMode}
-          variant={DeviceType.DESKTOP}
-        />
-      </DialogContent>
-    </Dialog>
-  )
+   useEffect(() => {
+      if (user) handleClose()
+   }, [handleClose, user])
+
+   if (!isOpen) return null
+
+   return (
+      <Dialog open={isOpen} onOpenChange={handleClose}>
+         <DialogContent className="max-w-md">
+            <VisuallyHidden>
+               <DialogTitle></DialogTitle>
+               <DialogDescription></DialogDescription>
+            </VisuallyHidden>
+            <AuthView handleClose={handleClose} variant={DeviceType.DESKTOP} />
+         </DialogContent>
+      </Dialog>
+   )
 }

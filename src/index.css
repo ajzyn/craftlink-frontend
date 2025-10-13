@@ -37,8 +37,11 @@
     --popover-foreground: var(--gray-900);
 
     --primary: var(--yellow-400);
-    --primary-hover: var(--yellow-900);
+    --primary-hover: var(--yellow-700);
     --primary-foreground: var(--gray-900);
+
+    --error: #f87171;
+    --success: #34d399;
 
     --secondary: var(--gray-100);
     --secondary-foreground: var(--gray-700);
@@ -56,14 +59,6 @@
     --input: var(--gray-200);
     --ring: var(--yellow-400);
 
-    --sidebar: oklch(1 0 0);
-    --sidebar-foreground: var(--gray-700);
-    --sidebar-primary: var(--yellow-400);
-    --sidebar-primary-foreground: var(--gray-900);
-    --sidebar-accent: var(--gray-50);
-    --sidebar-accent-foreground: var(--gray-800);
-    --sidebar-border: var(--gray-200);
-    --sidebar-ring: var(--yellow-400);
 }
 
 .dark {
@@ -78,6 +73,9 @@
 
     --primary: var(--yellow-400);
     --primary-foreground: var(--gray-900);
+
+    --error: #f87171;
+    --success: #34d399;
 
     --secondary: var(--gray-700);
     --secondary-foreground: var(--gray-200);
@@ -94,15 +92,6 @@
     --border: var(--gray-700);
     --input: var(--gray-700);
     --ring: var(--yellow-400);
-
-    --sidebar: var(--gray-800);
-    --sidebar-foreground: var(--gray-200);
-    --sidebar-primary: var(--yellow-400);
-    --sidebar-primary-foreground: var(--gray-900);
-    --sidebar-accent: var(--gray-700);
-    --sidebar-accent-foreground: var(--gray-100);
-    --sidebar-border: var(--gray-700);
-    --sidebar-ring: var(--yellow-400);
 }
 
 @theme inline {
@@ -121,7 +110,11 @@
     --color-popover-foreground: var(--popover-foreground);
 
     --color-primary: var(--primary);
+    --color-primary-hover: var(--primary-hover);
     --color-primary-foreground: var(--primary-foreground);
+
+    --color-primary-error: var(--error);
+    --color-primary-success: var(--success);
 
     --color-secondary: var(--secondary);
     --color-secondary-foreground: var(--secondary-foreground);
@@ -161,14 +154,6 @@
     --color-yellow-800: var(--yellow-800);
     --color-yellow-900: var(--yellow-900);
 
-    --color-sidebar: var(--sidebar);
-    --color-sidebar-foreground: var(--sidebar-foreground);
-    --color-sidebar-primary: var(--sidebar-primary);
-    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-    --color-sidebar-accent: var(--sidebar-accent);
-    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-    --color-sidebar-border: var(--sidebar-border);
-    --color-sidebar-ring: var(--sidebar-ring);
 
     --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     --font-mono: "SF Mono", Consolas, "Liberation Mono", Menlo, Courier, monospace;
@@ -268,6 +253,10 @@
         @apply text-2xl font-semibold leading-tight tracking-tight;
     }
 
+    .text-heading-2xl {
+        @apply text-2xl font-semibold leading-snug tracking-tight;
+    }
+
     .text-heading-xl {
         @apply text-xl font-semibold leading-snug tracking-tight;
     }
@@ -284,8 +273,12 @@
         @apply text-sm font-semibold leading-snug tracking-tight;
     }
 
+    .text-body-xl {
+        @apply text-xl font-normal leading-relaxed;
+    }
+
     .text-body-lg {
-        @apply text-lg font-normal leading-relaxed;
+        @apply !text-lg font-normal leading-relaxed;
     }
 
     .text-body {
@@ -300,8 +293,12 @@
         @apply text-xs font-medium leading-tight tracking-wide uppercase;
     }
 
+    .text-label-xl {
+        @apply !text-lg !font-medium !leading-tight !text-foreground;
+    }
+
     .text-label {
-        @apply text-sm font-medium leading-tight;
+        @apply text-sm font-medium leading-tight text-foreground;
     }
 
     .text-muted {
@@ -312,11 +309,33 @@
         @apply text-primary font-semibold;
     }
 
-    .text-primary-hover {
-        color: var(--primary-hover);
+    .text-error {
+        @apply text-primary-error font-semibold;
     }
 
-    .hover\:text-primary-hover:hover {
-        color: var(--primary-hover);
+    .text-success {
+        @apply text-primary-success font-semibold;
+    }
+
+    .overlay {
+        @apply absolute inset-0 bg-black/50;
+    }
+
+    .section-content {
+        @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+    }
+
+    .pressed-button {
+        @apply cursor-pointer hover:scale-[0.98] hover:shadow-inner active:scale-[0.96] transition-all duration-150;
     }
 }
+
+:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/*[data-radix-popper-content-wrapper] {*/
+/*    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;*/
+/*    border-radius: 0.375rem;*/
+/*}*/
