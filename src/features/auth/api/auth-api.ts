@@ -3,21 +3,22 @@ import type { AuthenticationResponse, LoginRequest, RegisterRequest } from "../t
 
 export const authApi = {
    login: async (data: LoginRequest) => {
-      const response = await apiClient.post<AuthenticationResponse>("/auth/login", data)
+      const response = await apiClient.post<AuthenticationResponse, LoginRequest>(
+         "/auth/login",
+         data,
+      )
       return response.data
    },
 
    register: async (data: RegisterRequest) => {
-      const response = await apiClient.post<AuthenticationResponse>("/auth/register", {
-         email: data.email,
-         password: data.password,
-         username: data.username,
-         userType: data.userType,
-      })
+      const response = await apiClient.post<AuthenticationResponse, RegisterRequest>(
+         "/auth/register",
+         data,
+      )
       return response.data
    },
 
    logout: async () => {
-      await apiClient.get("/auth/logout")
+      await apiClient.post("/auth/logout")
    },
 }

@@ -10,8 +10,8 @@ class ApiClient {
    private client: AxiosInstance
    private isRefreshing = false
    private failedQueue: Array<{
-      resolve: (value?: any) => void
-      reject: (error?: any) => void
+      resolve: (token?: string | null) => void
+      reject: (error?: unknown) => void
    }> = []
 
    private constructor() {
@@ -36,12 +36,18 @@ class ApiClient {
       return this.client.get(url)
    }
 
-   async post<T>(url: string, data?: any): Promise<AxiosResponse<T>> {
-      return this.client.post(url, data)
+   async post<TResponse, TRequest = unknown>(
+      url: string,
+      data?: TRequest,
+   ): Promise<AxiosResponse<TResponse, TRequest>> {
+      return this.client.post<TResponse, AxiosResponse<TResponse, TRequest>, TRequest>(url, data)
    }
 
-   async put<T>(url: string, data?: any): Promise<AxiosResponse<T>> {
-      return this.client.put(url, data)
+   async put<TResponse, TRequest = unknown>(
+      url: string,
+      data?: TRequest,
+   ): Promise<AxiosResponse<TResponse, TRequest>> {
+      return this.client.put<TResponse, AxiosResponse<TResponse, TRequest>, TRequest>(url, data)
    }
 
    async delete<T>(url: string): Promise<AxiosResponse<T>> {

@@ -9,7 +9,7 @@ type BaseMutationOptions<TData, TVariables> = {
    invalidateKeys?: string[][]
 } & Omit<UseMutationOptions<TData, unknown, TVariables>, "mutationFn">
 
-export const useBaseMutation = <TData, TVariables>(
+export const useBaseMutation = <TData = void, TVariables = void>(
    mutationFn: MutationFunction<TData, TVariables>,
    { invalidateKeys, ...rest }: BaseMutationOptions<TData, TVariables> = {},
 ) => {

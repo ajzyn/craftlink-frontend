@@ -24,9 +24,7 @@ export const appRoutes: AppRouteConfig[] = [
    },
    {
       path: "/zamowienie-uslugi/$serviceSlug",
-      element: lazyRouteComponent(
-         () => import("@/features/service-request/pages/service-request-page"),
-      ),
+      element: lazyRouteComponent(() => import("@/features/job-request/pages/job-request-page")),
    },
    {
       path: "/kontakt",
