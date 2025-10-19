@@ -1,5 +1,5 @@
 import { useRouter } from "@tanstack/react-router"
-import LogoSvg from "../../../public/assets/logo.svg?react"
+import LogoSvg from "../../public/assets/logo.svg?react"
 
 export const Logo = () => {
    const router = useRouter()

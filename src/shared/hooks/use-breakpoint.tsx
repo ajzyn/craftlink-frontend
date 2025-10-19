@@ -1,47 +1,32 @@
 import { useEffect, useState } from "react"
 
-const tailwindBreakpoints = {
-  sm: "640px",
-  md: "768px",
-  lg: "1024px",
-  xl: "1280px",
-  "2xl": "1536px",
+const breakpoints = {
+   sm: 640,
+   md: 768,
+   lg: 1024,
+   xl: 1280,
+   "2xl": 1536,
 }
 
 export const useBreakpoint = () => {
-  const [currentBreakpoint, setCurrentBreakpoint] = useState("xs")
+   const [width, setWidth] = useState<number>(typeof window !== "undefined" ? window.innerWidth : 0)
 
-  useEffect(() => {
-    const breakpointEntries = Object.entries(tailwindBreakpoints).sort(
-      ([, a], [, b]) => parseInt(b) - parseInt(a),
-    )
+   useEffect(() => {
+      const handleResize = () => setWidth(window.innerWidth)
+      window.addEventListener("resize", handleResize)
+      handleResize()
+      return () => window.removeEventListener("resize", handleResize)
+   }, [])
 
-    const updateBreakpoint = () => {
-      const width = window.innerWidth
-
-      for (const [name, size] of breakpointEntries) {
-        if (width >= parseInt(size)) {
-          setCurrentBreakpoint(name)
-          return
-        }
-      }
-      setCurrentBreakpoint("xs")
-    }
-
-    updateBreakpoint()
-    window.addEventListener("resize", updateBreakpoint)
-    return () => window.removeEventListener("resize", updateBreakpoint)
-  }, [])
-
-  return {
-    current: currentBreakpoint,
-    isXs: currentBreakpoint === "xs",
-    isSm: currentBreakpoint === "sm",
-    isMd: currentBreakpoint === "md",
-    isLg: currentBreakpoint === "lg",
-    isXl: currentBreakpoint === "xl",
-    is2Xl: currentBreakpoint === "2xl",
-    isMobile: ["xs", "sm", "md"].includes(currentBreakpoint),
-    isDesktop: ["lg", "xl", "2xl"].includes(currentBreakpoint),
-  }
+   return {
+      width,
+      isSm: width >= breakpoints.sm,
+      isMd: width >= breakpoints.md,
+      isLg: width >= breakpoints.lg,
+      isXl: width >= breakpoints.xl,
+      is2Xl: width >= breakpoints["2xl"],
+      isMobile: width < breakpoints.md,
+      isTablet: width >= breakpoints.md && width < breakpoints.lg,
+      isDesktop: width >= breakpoints.lg,
+   }
 }

@@ -3,7 +3,7 @@ import { useBaseMutation } from "@/shared/api/use-base-mutation"
 
 export const useLoginMutation = () =>
    useBaseMutation(authApi.login, {
-      invalidateKeys: [["currentUser"]],
+      invalidateKeys: [["currentUser"]], //TODO: move to keys
    })
 
 export const useRegisterMutation = () =>
