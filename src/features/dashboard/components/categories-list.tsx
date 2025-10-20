@@ -1,5 +1,5 @@
 import { Skeleton } from "@/components/ui/skeleton"
-import { useAllCategoriesQuery } from "@/features/categories/api/category-queries"
+import { useAllCategoriesQuery } from "@/features/categories/api/queries"
 import { useRouter } from "@tanstack/react-router"
 import { ErrorState } from "@/components/error-state"
 import { DynamicIcon } from "@/components/dynamic-icon"

@@ -2,6 +2,7 @@ import { Toaster } from "sonner"
 import type { ReactNode } from "react"
 import { Navigation } from "@/app/layouts/components/navigation"
 import { Footer } from "@/components/footer"
+import { ChatWindow } from "@/features/chat/components/chat-window"
 
 interface DefaultLayoutProps {
    children: ReactNode
@@ -15,6 +16,7 @@ export const DefaultLayout = ({ children }: DefaultLayoutProps) => {
 
          <main className="bg-gradient-to-br from-yellow-50 via-background to-teal-50">
             <Toaster />
+            <ChatWindow />
             {children}
          </main>
          <Footer />

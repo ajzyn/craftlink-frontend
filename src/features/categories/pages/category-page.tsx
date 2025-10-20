@@ -1,5 +1,5 @@
 import { useParams, useRouter } from "@tanstack/react-router"
-import { useCategoryDetailsQuery } from "@/features/categories/api/category-queries"
+import { useCategoryDetailsQuery } from "@/features/categories/api/queries"
 import { Button } from "@/components/ui/button"
 import { ServiceItem } from "@/features/categories/components/service-item"
 import { ServiceItemSkeleton } from "@/features/categories/components/skeletons/service-item-skeleton"
