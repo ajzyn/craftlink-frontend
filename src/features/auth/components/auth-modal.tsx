@@ -1,32 +1,56 @@
-import { AuthView } from "@/features/auth/components/auth-view"
 import { DeviceType } from "@/shared/types/device-types"
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog"
 import { useAuthStore } from "@/features/auth/stores/use-auth-store"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden"
+import { AuthLayout } from "@/features/auth/layouts/auth-layout"
+import { LoginForm } from "@/features/auth/components/login-form"
+import { RegisterForm } from "@/features/auth/components/register-form"
+import { UserType } from "@/features/auth/types/auth-types"
 
 interface AuthModalProps {
    isOpen: boolean
-   handleClose: VoidFunction
+   onClose: VoidFunction
 }
 
-export const AuthModal = ({ isOpen, handleClose }: AuthModalProps) => {
+export const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
    const { user } = useAuthStore()
+   const [isLogin, setIsLogin] = useState(true)
 
    useEffect(() => {
-      if (user) handleClose()
-   }, [handleClose, user])
+      if (user) onClose()
+   }, [onClose, user])
 
-   if (!isOpen) return null
+   const toggleMode = () => {
+      setIsLogin(!isLogin)
+   }
 
    return (
-      <Dialog open={isOpen} onOpenChange={handleClose}>
+      <Dialog open={isOpen} onOpenChange={onClose}>
          <DialogContent className="max-w-md">
             <VisuallyHidden>
                <DialogTitle></DialogTitle>
                <DialogDescription></DialogDescription>
             </VisuallyHidden>
-            <AuthView handleClose={handleClose} variant={DeviceType.DESKTOP} />
+            <AuthLayout
+               title={isLogin ? "Zaloguj się" : "Zarejestruj się"}
+               description={
+                  isLogin
+                     ? "Wprowadź swoje dane logowania aby kontynuować"
+                     : "Wypełnij poniższe pola aby założyć konto"
+               }
+               toggleLabel={
+                  isLogin ? "Nie masz konta? Zarejestruj się" : "Masz już konto? Zaloguj się"
+               }
+               variant={DeviceType.DESKTOP}
+               onToggleMode={toggleMode}
+            >
+               {isLogin ? (
+                  <LoginForm onClose={onClose} />
+               ) : (
+                  <RegisterForm userType={UserType.CLIENT} onClose={onClose} />
+               )}
+            </AuthLayout>
          </DialogContent>
       </Dialog>
    )

@@ -123,6 +123,7 @@ class ApiClient {
                const user: UserDto = {
                   email: decoded.email,
                   id: decoded.sub,
+                  username: decoded.username,
                   authorities: decoded.authorities,
                   userType: decoded.userType,
                }
@@ -137,7 +138,7 @@ class ApiClient {
             } catch (refreshError) {
                this.processQueue(refreshError, null)
                useAuthStore.getState().logout()
-               window.location.href = "/login"
+               window.location.href = "/dashboard"
                return Promise.reject(refreshError)
             } finally {
                this.isRefreshing = false

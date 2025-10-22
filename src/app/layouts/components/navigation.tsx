@@ -79,7 +79,7 @@ export const Navigation = () => {
          />
 
          {isLoginDialogOpen && (
-            <AuthModal isOpen={isLoginDialogOpen} handleClose={handleCloseLoginDialog} />
+            <AuthModal isOpen={isLoginDialogOpen} onClose={handleCloseLoginDialog} />
          )}
       </>
    )

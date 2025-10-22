@@ -15,6 +15,7 @@ interface JobRequestDesktopLayoutProps {
 
 export const JobRequestDesktopLayout = ({ job }: JobRequestDesktopLayoutProps) => {
    const { user } = useAuthStore()
+   console.log(user)
 
    const isOwner = user?.id === job.requester.id
 
@@ -45,16 +46,18 @@ export const JobRequestDesktopLayout = ({ job }: JobRequestDesktopLayoutProps) =
             />
          </div>
          <div className="col-span-3 space-y-4">
-            {!isOwner && <JobRequestRequester requester={job.requester} />}
-            {isOwner && (
-               <Card>
-                  <CardHeader>
-                     <h2 className="text-heading-lg">Akcje</h2>
-                  </CardHeader>
-                  <CardContent>
-                     <JobRequestDetailsActionList requestId={job.id} />
-                  </CardContent>
-               </Card>
+            {!isOwner && (
+               <>
+                  <JobRequestRequester requester={job.requester} />
+                  <Card>
+                     <CardHeader>
+                        <h2 className="text-heading-lg">Akcje</h2>
+                     </CardHeader>
+                     <CardContent>
+                        <JobRequestDetailsActionList requestId={job.id} />
+                     </CardContent>
+                  </Card>
+               </>
             )}
          </div>
       </div>

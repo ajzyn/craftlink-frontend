@@ -3,7 +3,7 @@ export const capitalizeFirstLetter = (str?: string) => {
    return str.charAt(0).toUpperCase() + str.slice(1)
 }
 
-export const getUserInitials = (fullName: string) => {
+export const getUserInitials = (fullName = "") => {
    if (!fullName) return "?"
    return fullName
       .split(" ")

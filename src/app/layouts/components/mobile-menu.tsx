@@ -4,6 +4,7 @@ import { LogIn, LogOut, Settings } from "lucide-react"
 import type { MenuElement } from "@/app/layouts/hooks/use-navigation-items"
 import { Separator } from "@/components/ui/separator"
 import { Footer } from "@/components/footer"
+import { getUserInitials } from "@/shared/utils/string-utils"
 
 interface MobileMenuProps {
    isOpen: boolean
@@ -20,10 +21,6 @@ export const MobileMenu = ({
    onClose,
    onLogout,
 }: MobileMenuProps) => {
-   const getUserInitials = (user: UserDto) => {
-      return user.email[0].toUpperCase()
-   }
-
    if (!isOpen) return null
 
    return (
@@ -63,7 +60,7 @@ export const MobileMenu = ({
                      <div className="space-y-4">
                         <div className="flex items-center space-x-4 p-4 bg-muted/50 rounded-xl">
                            <div className="h-12 w-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-medium text-lg">
-                              {getUserInitials(user)}
+                              {getUserInitials(user.username)}
                            </div>
                            <div className="flex-1 min-w-0">
                               <div className="font-medium text-lg truncate">{user.email}</div>

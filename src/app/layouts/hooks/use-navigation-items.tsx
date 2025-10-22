@@ -1,4 +1,5 @@
 import { UserType } from "@/features/auth/types/auth-types"
+import { useRouterState } from "@tanstack/react-router"
 import { BarChart, Briefcase, Hammer, ShoppingBag, User, Users } from "lucide-react"
 import { type ReactNode, useMemo } from "react"
 
@@ -26,21 +27,24 @@ export const useNavigationItems = (
    openLoginMobileView: VoidFunction,
    userType?: UserType,
 ) => {
+   const { location } = useRouterState()
    return useMemo(() => {
       if (userType && NAVIGATION_CONFIGS[userType]) {
          return NAVIGATION_CONFIGS[userType]
       }
 
-      return [
-         { label: "Usługi", href: "/services", icon: <Hammer /> },
-         {
+      const navItems: MenuElement[] = [{ label: "Usługi", href: "/services", icon: <Hammer /> }]
+
+      if (location.pathname !== "/login" && openLoginDialog) {
+         navItems.push({
             label: "Zaloguj",
             icon: <User />,
             onClick: {
                desktop: openLoginDialog,
                mobile: openLoginMobileView,
             },
-         },
-      ]
+         })
+      }
+      return navItems
    }, [userType, openLoginDialog, openLoginMobileView])
 }

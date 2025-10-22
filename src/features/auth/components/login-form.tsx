@@ -15,7 +15,8 @@ import { useLoginMutation } from "../api/auth-queries"
 import { loginSchema } from "@/features/auth/utils/login-schema"
 import { useAuthForm } from "@/features/auth/hooks/use-auth-form"
 
-export const LoginForm = ({ handleClose }: { handleClose?: VoidFunction }) => {
+//TODO: login using only email
+export const LoginForm = ({ onClose }: { onClose?: VoidFunction }) => {
    const loginMutation = useLoginMutation()
 
    const { form, onSubmit } = useAuthForm({
@@ -24,7 +25,7 @@ export const LoginForm = ({ handleClose }: { handleClose?: VoidFunction }) => {
       mutation: loginMutation.mutateAsync,
       successMessage: "Zostałeś pomyślnie zalogowany.",
       errorMessage: "Nieprawidłowy email lub hasło.",
-      onSuccess: handleClose,
+      onSuccess: onClose,
    })
 
    return (

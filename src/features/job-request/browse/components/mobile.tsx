@@ -15,7 +15,6 @@ interface JobRequestMobileLayoutProps {
 
 export const JobRequestMobileLayout = ({ job }: JobRequestMobileLayoutProps) => {
    const { user } = useAuthStore()
-
    const isOwner = user?.id === job.requester.id
 
    return (
@@ -50,7 +49,7 @@ export const JobRequestMobileLayout = ({ job }: JobRequestMobileLayoutProps) => 
             />
             {!isOwner && <JobRequestRequester requester={job.requester} />}
          </div>
-         {isOwner && (
+         {!isOwner && (
             <div className="fixed left-0 w-full bottom-0 py-3 bg-secondary">
                <JobRequestDetailsActionList requestId={job.id} />
             </div>
