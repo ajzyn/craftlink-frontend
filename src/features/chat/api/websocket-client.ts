@@ -1,29 +1,48 @@
 import { Client } from "@stomp/stompjs"
-import { useAuthStore } from "@/features/auth/stores/use-auth-store"
+import { BACKEND_BASE_URL } from "@/shared/api/http-client"
+import { toast } from "sonner"
 
 let client: Client | null = null
+let clientToken: string | null = null
 
-export const getChatClient = () => {
-   if (client) return client
+export const getChatClient = (token: string) => {
+   if (client && clientToken === token) {
+      return client
+   }
+   if (client) {
+      disconnectChatClient()
+   }
 
-   const token = useAuthStore.getState().accessToken
-
-   if (!token) throw new Error("Cannot create chat client without valid access token")
+   clientToken = token
+   //TODO: check it
+   const wsUrl = `${BACKEND_BASE_URL.replace(/^http/, "ws")}/ws-chat?token=${token}`
 
    client = new Client({
-      brokerURL: `ws://localhost:8080/ws-chat`,
-      connectHeaders: {
-         Authorization: `Bearer ${token}`,
-      },
-      debug: msg => console.log("[WS]", msg),
+      brokerURL: wsUrl,
+      connectHeaders: { Authorization: `Bearer ${token}` },
+
       reconnectDelay: 5000,
+      heartbeatIncoming: 10000,
+      heartbeatOutgoing: 10000,
+
+      debug: msg => console.log("STOMP", msg),
+
+      onConnect: () => console.log("WebSocket connected"),
+      onStompError: frame => {
+         console.error("❌ STOMP ERROR", frame)
+         toast.error("Błąd połączenia z czatem. Odśwież stronę lub zaloguj się ponownie.")
+      },
+      onWebSocketClose: evt => {
+         console.warn("⚠️ WS CLOSED", evt)
+      },
    })
 
    client.activate()
    return client
 }
 
-export const disconnectChatClient = () => {
-   client?.deactivate()
+const disconnectChatClient = () => {
+   client?.deactivate({ force: true })
    client = null
+   clientToken = null
 }

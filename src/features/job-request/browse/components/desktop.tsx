@@ -15,7 +15,6 @@ interface JobRequestDesktopLayoutProps {
 
 export const JobRequestDesktopLayout = ({ job }: JobRequestDesktopLayoutProps) => {
    const { user } = useAuthStore()
-   console.log(user)
 
    const isOwner = user?.id === job.requester.id
 

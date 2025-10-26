@@ -3,7 +3,9 @@ import { useAuthStore } from "@/features/auth/stores/use-auth-store"
 import type { AuthenticationResponse, JwtPayload, UserDto } from "@/features/auth/types/auth-types"
 import { jwtDecode } from "jwt-decode"
 
-const API_BASE_URL = "http://localhost:8080/api"
+//TODO: move to env vars
+export const BACKEND_BASE_URL = "http://localhost:8080"
+const API_BASE_URL = `${BACKEND_BASE_URL}/api`
 
 class ApiClient {
    private static instance: ApiClient
@@ -138,7 +140,9 @@ class ApiClient {
             } catch (refreshError) {
                this.processQueue(refreshError, null)
                useAuthStore.getState().logout()
-               window.location.href = "/dashboard"
+               if (window.location.pathname !== "/") {
+                  window.location.href = "/"
+               }
                return Promise.reject(refreshError)
             } finally {
                this.isRefreshing = false

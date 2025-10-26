@@ -1,4 +1,4 @@
-import { useChat } from "@/features/chat/hooks/use-chat"
+import { useChatSocket } from "@/features/chat/hooks/use-chat-socket"
 import { ChatMessageList } from "@/features/chat/components/chat-message-list"
 import { ChatInput } from "@/features/chat/components/chat-input"
 import { useChatMessages } from "@/features/chat/hooks/use-chat-messages"
@@ -9,7 +9,7 @@ interface ChatWindowInnerProps {
 
 export const ChatWindowInner = ({ conversationId }: ChatWindowInnerProps) => {
    const { messages, isError, isLoading } = useChatMessages(conversationId)
-   const { sendMessage } = useChat(conversationId)
+   const { sendMessage } = useChatSocket(conversationId)
 
    if (isLoading) return <div>Ładowanie czatu...</div>
 

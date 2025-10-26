@@ -3,12 +3,12 @@ import type { CategoryBasicDto, CategoryDetailsDto } from "@/features/categories
 
 export const categoryApi = {
    getAllCategoriesRequests: async () => {
-      const response = await apiClient.get<CategoryBasicDto[]>("/sec/categories")
+      const response = await apiClient.get<CategoryBasicDto[]>("/categories")
       return response.data
    },
 
    getCategoryDetailsRequest: async (slug: string) => {
-      const response = await apiClient.get<CategoryDetailsDto>(`/sec/categories/${slug}`)
+      const response = await apiClient.get<CategoryDetailsDto>(`/categories/${slug}`)
       return response.data
    },
 }
