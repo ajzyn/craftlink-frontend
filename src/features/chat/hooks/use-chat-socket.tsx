@@ -12,7 +12,6 @@ export const useChatSocket = (conversationId?: string) => {
    const subRef = useRef<StompSubscription | null>(null)
 
    useEffect(() => {
-      console.log(token)
       if (!token) return
       wsClientRef.current = getChatClient(token)
    }, [token])
