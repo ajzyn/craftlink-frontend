@@ -1,54 +1,78 @@
-# React + TypeScript + Vite
+** IN PROGRESS **
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# 🛠️ CraftLink Frontend
 
-Currently, two official plugins are available:
+**CraftLink** is a web platform that connects clients with specialists — similar to Fixly.  
+The frontend is built with **React**, **TypeScript**, **Tailwind CSS**, **shadcn/ui**, **Zustand**, and **TanStack Query & Router**, focusing on modern architecture, performance, and reusability.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🚀 Key Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- 🔑 **Authentication and user roles** (Client, Specialist, Admin)  
+- 📋 **Create and browse job requests** with categories and locations  
+- 💬 **Real-time chat** using WebSocket (STOMP)  
+- 📸 **File uploads** with pre-signed URLs (AWS S3 integration)  
+- 🧭 **Dynamic user dashboards** with role-based navigation  
+- 📱 **Fully responsive design** powered by Tailwind and shadcn/ui  
+- ⚙️ **Data fetching and caching** handled by TanStack Query
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+---
+
+## 🧩 Tech Stack
+
+| Layer | Technology |
+|--------|-------------|
+| Framework | React 18 |
+| Language | TypeScript |
+| UI | Tailwind CSS + shadcn/ui + MUI icons |
+| Forms | React Hook Form + Zod |
+| State Management | Zustand |
+| Data Fetching | TanStack Query |
+| Routing | TanStack Router |
+| Authentication | Auth.js (NextAuth v5) |
+| WebSocket | STOMP.js |
+
+---
+
+## 🧠 Architecture
+
+The project follows a **feature-first modular architecture** that promotes scalability and maintainability.  
+Each feature (e.g., `auth`, `chat`, `job-request`, `category`) contains its own components, hooks, stores, and API logic.
+
+Example structure:
+```
+src/
+ ├─ features/
+ │   ├─ auth/
+ │   ├─ chat/
+ │   ├─ job-request/
+ │   └─ category/
+ ├─ components/
+ ├─ hooks/
+ ├─ lib/
+ └─ styles/
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x"
-import reactDom from "eslint-plugin-react-dom"
+## 🧰 Getting Started
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    "react-x": reactX,
-    "react-dom": reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs["recommended-typescript"].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+git clone https://github.com/ajzyn/craftlink-frontend.git
+cd craftlink-frontend
+npm install
+npm run dev
 ```
+
+Then open:  
+👉 http://localhost:3000
+
+---
+
+## 🤝 Project Context
+
+This repository contains the frontend application of CraftLink.
+
+- **Frontend (React)** – this repository  
+- **Backend (Spring Boot + DDD + Hexagonal Architecture)** → [craftlink-backend](https://github.com/ajzyn/craftlink-backend)
