@@ -12,6 +12,7 @@ export enum Authority {
 export interface UserDto {
    id: string
    email: string
+   username: string
    authorities: Authority[]
    userType: UserType
 }
@@ -37,5 +38,6 @@ export interface JwtPayload {
    sub: string
    iat: number
    authorities: Authority[]
+   username: string
    userType: UserType
 }

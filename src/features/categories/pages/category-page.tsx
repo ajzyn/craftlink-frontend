@@ -1,18 +1,18 @@
-import { useParams, useRouter } from "@tanstack/react-router"
-import { useCategoryDetailsQuery } from "@/features/categories/api/category-queries"
+import { useNavigate, useParams } from "@tanstack/react-router"
+import { useCategoryDetailsQuery } from "@/features/categories/api/queries"
 import { Button } from "@/components/ui/button"
 import { ServiceItem } from "@/features/categories/components/service-item"
 import { ServiceItemSkeleton } from "@/features/categories/components/skeletons/service-item-skeleton"
-import { ErrorState } from "@/components/shared/error-state"
-import { CategoryBanner } from "@/components/shared/category-banner"
+import { ErrorState } from "@/components/error-state"
+import { CategoryBanner } from "@/components/category-banner"
 
 const CategoryPage = () => {
-   const router = useRouter()
+   const navigate = useNavigate()
    const { categorySlug } = useParams({ from: "/kategoria/$categorySlug" })
    const { data: category, isError, isLoading, refetch } = useCategoryDetailsQuery(categorySlug)
 
    const handleContactUs = () => {
-      router.navigate({ to: "/kontakt" })
+      navigate({ to: "/kontakt" })
    }
 
    if (isError) {

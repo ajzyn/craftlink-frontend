@@ -40,6 +40,7 @@ export const useAuthForm = <T extends ZodTypeAny>({
          const user: UserDto = {
             email: decoded.email,
             id: decoded.sub,
+            username: decoded.username,
             authorities: decoded.authorities,
             userType: decoded.userType,
          }

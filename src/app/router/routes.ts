@@ -9,6 +9,7 @@ export interface AppRouteConfig {
    requiredAuthorities?: Authority[]
 }
 
+//TODO: nested routes
 export const appRoutes: AppRouteConfig[] = [
    {
       path: "/",
@@ -16,7 +17,11 @@ export const appRoutes: AppRouteConfig[] = [
    },
    {
       path: "/login",
-      element: lazyRouteComponent(() => import("@/features/auth/pages/auth-page")),
+      element: lazyRouteComponent(() => import("@/features/auth/pages/login-page")),
+   },
+   {
+      path: `/register/$userType`,
+      element: lazyRouteComponent(() => import("@/features/auth/pages/register-page")),
    },
    {
       path: "/kategoria/$categorySlug",
@@ -24,10 +29,16 @@ export const appRoutes: AppRouteConfig[] = [
    },
    {
       path: "/zamowienie-uslugi/$serviceSlug",
-      element: lazyRouteComponent(() => import("@/features/job-request/pages/job-request-page")),
+      element: lazyRouteComponent(
+         () => import("@/features/job-request/create/pages/job-request-page"),
+      ),
+   },
+   {
+      path: "/zlecenia/$id",
+      element: lazyRouteComponent(() => import("@/features/job-request/browse/pages/details")),
    },
    {
       path: "/kontakt",
-      element: lazyRouteComponent(() => import("@/features/categories/pages/category-page")), //TODO: create this page
+      element: lazyRouteComponent(() => import("@/features/categories/pages/category-page")), //TODO: create this pages
    },
 ]

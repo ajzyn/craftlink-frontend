@@ -6,7 +6,7 @@ import { useNavigationItems } from "../hooks/use-navigation-items"
 import { MobileMenu } from "@/app/layouts/components/mobile-menu"
 import { DesktopNavigation } from "@/app/layouts/components/desktop-navigation"
 import { AuthModal } from "@/features/auth/components/auth-modal"
-import { Logo } from "@/components/shared/logo"
+import { Logo } from "@/components/logo"
 import { useAuthSession } from "@/features/auth/hooks/use-auth-session"
 
 export const Navigation = () => {
@@ -79,7 +79,7 @@ export const Navigation = () => {
          />
 
          {isLoginDialogOpen && (
-            <AuthModal isOpen={isLoginDialogOpen} handleClose={handleCloseLoginDialog} />
+            <AuthModal isOpen={isLoginDialogOpen} onClose={handleCloseLoginDialog} />
          )}
       </>
    )

@@ -9,8 +9,10 @@ import {
    DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Separator } from "@/components/ui/separator"
-import { type UserDto } from "@/features/auth/types/auth-types"
-import { ChevronDown, LogOut, Settings } from "lucide-react"
+import { type UserDto, UserType } from "@/features/auth/types/auth-types"
+import { ChevronDown, LogOut, User } from "lucide-react"
+import { useNavigate } from "@tanstack/react-router"
+import { getUserInitials } from "@/shared/utils/string-utils"
 
 interface DesktopNavigationProps {
    navigationItems: MenuElement[]
@@ -19,8 +21,14 @@ interface DesktopNavigationProps {
 }
 
 export const DesktopNavigation = ({ navigationItems, user, onLogout }: DesktopNavigationProps) => {
-   const getUserInitials = (user: UserDto) => {
-      return user.email[0].toUpperCase()
+   const navigate = useNavigate()
+
+   const navigateToProfilePage = async () => {
+      await navigate({ to: "/profile" })
+   }
+
+   const navigateToRegisterSpecialist = async () => {
+      await navigate({ to: `/register/${UserType.SPECIALIST}` })
    }
 
    return (
@@ -44,12 +52,12 @@ export const DesktopNavigation = ({ navigationItems, user, onLogout }: DesktopNa
          <Separator orientation="vertical" className="!h-6" />
 
          {user ? (
-            <DropdownMenu>
+            <DropdownMenu modal={false}>
                <DropdownMenuTrigger>
                   <Button asChild variant="ghost">
                      <div className="flex items-center space-x-3 h-12 px-4 bg-muted/50 hover:bg-muted">
                         <div className="h-8 w-8 bg-gradient-to-r from-primary to-accent rounded-full flex items-center justify-center text-white text-sm font-medium">
-                           {getUserInitials(user)}
+                           {getUserInitials(user.username)}
                         </div>
                         <ChevronDown size={16} className="text-muted-foreground" />
                      </div>
@@ -58,27 +66,20 @@ export const DesktopNavigation = ({ navigationItems, user, onLogout }: DesktopNa
 
                <DropdownMenuContent className="w-56" align="end">
                   <DropdownMenuLabel>
-                     <div className="flex flex-col space-y-1">
-                        <p className="text-sm font-medium">{user.email}</p>
-                     </div>
+                     <p className="text-sm font-medium">{user.email}</p>
                   </DropdownMenuLabel>
 
                   <DropdownMenuSeparator />
 
-                  <DropdownMenuItem>
-                     <a href="/settings" className="flex items-center space-x-2 cursor-pointer">
-                        <Settings size={16} />
-                        <span>Ustawienia</span>
-                     </a>
-                  </DropdownMenuItem>
-
-                  <DropdownMenuSeparator />
-
                   <DropdownMenuItem
-                     className="text-red-600 focus:text-red-600 focus:bg-red-50 cursor-pointer"
-                     onClick={onLogout}
+                     onClick={navigateToProfilePage}
+                     className="space-x-2 cursor-pointer"
                   >
-                     <LogOut size={16} className="mr-2" />
+                     <User size={16} />
+                     <span>Profil</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="space-x-2 cursor-pointer" onClick={onLogout}>
+                     <LogOut size={16} />
                      <span>Wyloguj się</span>
                   </DropdownMenuItem>
                </DropdownMenuContent>
@@ -86,6 +87,7 @@ export const DesktopNavigation = ({ navigationItems, user, onLogout }: DesktopNa
          ) : (
             <Button
                variant="ghost"
+               onClick={navigateToRegisterSpecialist}
                className="cursor-pointer hover:bg-transparent text-muted-foreground text-md"
             >
                Craftlink dla wykonawców

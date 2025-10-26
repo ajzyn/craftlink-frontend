@@ -1,7 +1,7 @@
 import { Search } from "lucide-react"
 import { FormAutocomplete } from "@/components/autocomplete/autocomplete"
-import { serviceApi } from "@/features/services/api/service-api"
-import type { ServiceBasicDto } from "@/features/services/types/service-types"
+import { api } from "@/features/services/api/api"
+import type { ServiceBasicDto } from "@/features/services/types/data"
 import { useRouter } from "@tanstack/react-router"
 
 export const SelectService = () => {
@@ -18,7 +18,7 @@ export const SelectService = () => {
          <FormAutocomplete
             placeholder="Wyszukaj usługę którą potrzebujesz..."
             onChange={handleServiceChange}
-            queryFn={serviceApi.getSearchServicesRequest}
+            queryFn={api.getSearchServicesRequest}
          />
       </div>
    )
