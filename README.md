@@ -28,9 +28,9 @@ The frontend is built with **React**, **TypeScript**, **Tailwind CSS**, **shadcn
 | UI | Tailwind CSS + shadcn/ui + MUI icons |
 | Forms | React Hook Form + Zod |
 | State Management | Zustand |
-| Data Fetching | TanStack Query |
+| Data Fetching | React Query |
 | Routing | TanStack Router |
-| Authentication | Auth.js (NextAuth v5) |
+| Authentication | Custom |
 | WebSocket | STOMP.js |
 
 ---
@@ -66,7 +66,7 @@ npm run dev
 ```
 
 Then open:  
-👉 http://localhost:3000
+👉 http://localhost:5173
 
 ---
 
