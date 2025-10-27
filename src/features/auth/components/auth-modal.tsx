@@ -1,12 +1,9 @@
-import { DeviceType } from "@/shared/types/device-types"
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog"
 import { useAuthStore } from "@/features/auth/stores/use-auth-store"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden"
 import { AuthLayout } from "@/features/auth/layouts/auth-layout"
 import { LoginForm } from "@/features/auth/components/login-form"
-import { RegisterForm } from "@/features/auth/components/register-form"
-import { UserType } from "@/features/auth/types/auth-types"
 
 interface AuthModalProps {
    isOpen: boolean
@@ -15,15 +12,10 @@ interface AuthModalProps {
 
 export const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
    const { user } = useAuthStore()
-   const [isLogin, setIsLogin] = useState(true)
 
    useEffect(() => {
       if (user) onClose()
    }, [onClose, user])
-
-   const toggleMode = () => {
-      setIsLogin(!isLogin)
-   }
 
    return (
       <Dialog open={isOpen} onOpenChange={onClose}>
@@ -33,23 +25,11 @@ export const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
                <DialogDescription></DialogDescription>
             </VisuallyHidden>
             <AuthLayout
-               title={isLogin ? "Zaloguj się" : "Zarejestruj się"}
-               description={
-                  isLogin
-                     ? "Wprowadź swoje dane logowania aby kontynuować"
-                     : "Wypełnij poniższe pola aby założyć konto"
-               }
-               toggleLabel={
-                  isLogin ? "Nie masz konta? Zarejestruj się" : "Masz już konto? Zaloguj się"
-               }
-               variant={DeviceType.DESKTOP}
-               onToggleMode={toggleMode}
+               title="Zaloguj się"
+               description="Wprowadź swoje dane logowania aby kontynuować"
+               variant="modal"
             >
-               {isLogin ? (
-                  <LoginForm onClose={onClose} />
-               ) : (
-                  <RegisterForm userType={UserType.CLIENT} onClose={onClose} />
-               )}
+               <LoginForm onSuccess={onClose} />
             </AuthLayout>
          </DialogContent>
       </Dialog>

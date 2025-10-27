@@ -1,25 +1,13 @@
-import { Separator } from "@/components/ui/separator"
-import { Button } from "@/components/ui/button"
 import type { ReactNode } from "react"
-import { DeviceType } from "@/shared/types/device-types"
 
 interface AuthLayoutProps {
    title: string
-   variant: DeviceType
+   variant: "modal" | "page"
    description: string
-   toggleLabel: string
-   onToggleMode: VoidFunction
    children: ReactNode
 }
 
-export const AuthLayout = ({
-   title,
-   variant,
-   description,
-   toggleLabel,
-   onToggleMode,
-   children,
-}: AuthLayoutProps) => {
+export const AuthLayout = ({ title, variant, description, children }: AuthLayoutProps) => {
    const content = (
       <div className="space-y-6 p-6">
          <div className="text-center space-y-2">
@@ -27,22 +15,10 @@ export const AuthLayout = ({
             <p className="text-sm text-muted-foreground">{description}</p>
          </div>
          <div>{children}</div>
-         <div className="space-y-4">
-            <Separator />
-            <div className="text-center">
-               <Button
-                  variant="ghost"
-                  onClick={onToggleMode}
-                  className="text-sm text-muted-foreground hover:text-primary"
-               >
-                  {toggleLabel}
-               </Button>
-            </div>
-         </div>
       </div>
    )
 
-   return variant === DeviceType.DESKTOP ? (
+   return variant === "modal" ? (
       content
    ) : (
       <div className="max-w-xl m-auto mt-10 rounded-lg bg-background shadow-md">{content}</div>

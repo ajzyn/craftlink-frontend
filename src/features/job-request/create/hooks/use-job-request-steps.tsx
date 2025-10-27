@@ -14,14 +14,14 @@ export const useJobRequestSteps = (city: CityDto, service: ServiceDetailsDto): J
          {
             id: 1,
             component: <JobDateStep />,
-            validate: "serviceTime",
+            name: "serviceTime",
             title: "Termin usługi",
             icon: Clock,
          },
          {
             id: 2,
             component: <Description />,
-            validate: "description",
+            name: "description",
             title: "Opisz usługę",
             icon: FileText,
          },
@@ -37,7 +37,7 @@ export const useJobRequestSteps = (city: CityDto, service: ServiceDetailsDto): J
               {
                  id: 0,
                  component: <DistrictStep cityName={city.name} />,
-                 validate: "district",
+                 name: "district",
                  title: "Wybierz dzielnice",
                  icon: MapPin,
               },

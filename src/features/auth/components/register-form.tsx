@@ -16,11 +16,11 @@ import { type RegisterFormData, registerSchema } from "../utils/register-schema"
 import type { UserType } from "@/features/auth/types/auth-types"
 
 interface RegisterFormProps {
-   onClose?: VoidFunction
+   onSuccess?: VoidFunction
    userType: UserType
 }
 
-export const RegisterForm = ({ onClose, userType }: RegisterFormProps) => {
+export const RegisterForm = ({ onSuccess, userType }: RegisterFormProps) => {
    const registerMutation = useRegisterMutation()
 
    const registerWithUserType = async (data: RegisterFormData) => {
@@ -42,7 +42,7 @@ export const RegisterForm = ({ onClose, userType }: RegisterFormProps) => {
       mutation: registerWithUserType,
       successMessage: "Konto zostało utworzone pomyślnie.",
       errorMessage: "Nie udało się utworzyć konta.",
-      onSuccess: onClose,
+      onSuccess,
    })
 
    return (

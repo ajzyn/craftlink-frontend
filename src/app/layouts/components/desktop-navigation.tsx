@@ -9,7 +9,7 @@ import {
    DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Separator } from "@/components/ui/separator"
-import { type UserDto, UserType } from "@/features/auth/types/auth-types"
+import { type UserDto } from "@/features/auth/types/auth-types"
 import { ChevronDown, LogOut, User } from "lucide-react"
 import { useNavigate } from "@tanstack/react-router"
 import { getUserInitials } from "@/shared/utils/string-utils"
@@ -28,7 +28,7 @@ export const DesktopNavigation = ({ navigationItems, user, onLogout }: DesktopNa
    }
 
    const navigateToRegisterSpecialist = async () => {
-      await navigate({ to: `/register/${UserType.SPECIALIST}` })
+      await navigate({ to: `/register` })
    }
 
    return (
