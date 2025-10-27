@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 
-import { useLoginMutation } from "../api/auth-queries"
+import { useLoginMutation } from "../api/mutations"
 import { loginSchema } from "@/features/auth/utils/login-schema"
 import { useAuthForm } from "@/features/auth/hooks/use-auth-form"
 

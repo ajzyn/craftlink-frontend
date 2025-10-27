@@ -8,11 +8,9 @@ export const createQueryKeys = <
    return Object.fromEntries(
       Object.entries(keys).map(([key, value]) => {
          if (value === null) {
-            // np. jobRequestKeys.all
             return [key, [namespace, key] as const]
          }
 
-         // np. jobRequestKeys.detail(id)
          return [key, (...args: any[]) => [namespace, key, ...value(...args)] as const]
       }),
    ) as {

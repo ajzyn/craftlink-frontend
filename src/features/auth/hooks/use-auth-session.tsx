@@ -1,7 +1,7 @@
 import { useAuthStore } from "@/features/auth/stores/use-auth-store"
 import { useRouter } from "@tanstack/react-router"
 import { toast } from "sonner"
-import { useLogoutMutation } from "../api/auth-queries"
+import { useLogoutMutation } from "../api/mutations"
 
 export const useAuthSession = () => {
    const { user, logout, isLoading } = useAuthStore()

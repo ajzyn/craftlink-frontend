@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { useAuthForm } from "@/features/auth/hooks/use-auth-form"
-import { useRegisterMutation } from "@/features/auth/api/auth-queries"
+import { useRegisterMutation } from "@/features/auth/api/mutations"
 import { type RegisterFormData, registerSchema } from "../utils/register-schema"
 import type { UserType } from "@/features/auth/types/auth-types"
 
