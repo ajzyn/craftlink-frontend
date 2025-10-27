@@ -1,7 +1,6 @@
 import axios, { type AxiosInstance, type AxiosResponse } from "axios"
 import { useAuthStore } from "@/features/auth/stores/use-auth-store"
-import type { AuthenticationResponse, JwtPayload, UserDto } from "@/features/auth/types/auth-types"
-import { jwtDecode } from "jwt-decode"
+import type { AuthenticationResponse } from "@/features/auth/types/auth-types"
 
 //TODO: move to env vars
 export const BACKEND_BASE_URL = "http://localhost:8080"
@@ -121,17 +120,7 @@ class ApiClient {
 
             try {
                const { data } = await this.refreshToken()
-               const decoded = jwtDecode<JwtPayload>(data.token)
-               const user: UserDto = {
-                  email: decoded.email,
-                  id: decoded.sub,
-                  username: decoded.username,
-                  authorities: decoded.authorities,
-                  userType: decoded.userType,
-               }
-
                useAuthStore.getState().setAccessToken(data.token)
-               useAuthStore.getState().setUser(user)
 
                this.processQueue(null, data.token)
 

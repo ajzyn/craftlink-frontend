@@ -3,7 +3,11 @@ import { LoginForm } from "@/features/auth/components/login-form"
 
 const LoginPage = () => {
    return (
-      <AuthLayout title="Zaloguj sie" description="Wprowadź swoje dane logowania aby kontynuować">
+      <AuthLayout
+         variant="page"
+         title="Zaloguj sie"
+         description="Wprowadź swoje dane logowania aby kontynuować"
+      >
          <LoginForm />
       </AuthLayout>
    )

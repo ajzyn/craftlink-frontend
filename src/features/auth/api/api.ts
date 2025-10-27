@@ -28,6 +28,7 @@ export const authApi = {
    },
 
    getCurrentUser: async () => {
-      return await apiClient.post<UserDto>("/sec/auth/me", data)
+      const res = await apiClient.get<UserDto>("/sec/auth/me")
+      return res.data
    },
 }
