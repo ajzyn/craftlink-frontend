@@ -3,7 +3,8 @@ import { ChatWindowInner } from "@/features/chat/components/chat-window-inner"
 import { isNil } from "lodash"
 
 export const ChatWindow = () => {
-   const { activeConversationId, isOpen } = useChatWindowStore()
+   const activeConversationId = useChatWindowStore(state => state.activeConversationId)
+   const isOpen = useChatWindowStore(state => state.isOpen)
 
    if (!isOpen || isNil(activeConversationId)) return null
 

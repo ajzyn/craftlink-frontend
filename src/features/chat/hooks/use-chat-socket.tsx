@@ -6,8 +6,9 @@ import type { Client, StompSubscription } from "@stomp/stompjs"
 import type { ChatMessage } from "@/features/chat/types/chat"
 
 export const useChatSocket = (conversationId?: string) => {
-   const { accessToken: token } = useAuthStore()
-   const { addMessage, activeConversationId } = useChatWindowStore()
+   const token = useAuthStore(state => state.accessToken)
+   const addMessage = useChatWindowStore(state => state.addMessage)
+   const activeConversationId = useChatWindowStore(state => state.activeConversationId)
    const wsClientRef = useRef<Client | null>(null)
    const subRef = useRef<StompSubscription | null>(null)
 

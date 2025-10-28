@@ -14,7 +14,7 @@ interface JobRequestMobileLayoutProps {
 }
 
 export const JobRequestMobileLayout = ({ job }: JobRequestMobileLayoutProps) => {
-   const { user } = useAuthStore()
+   const user = useAuthStore(state => state.user)
    const isOwner = user?.id === job.requester.id
 
    return (

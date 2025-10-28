@@ -17,7 +17,7 @@ const buildRoutes = (configs: AppRouteConfig[]) => {
          path,
          component: () => {
             const page = <Comp />
-            return authRequired ? (
+            return !authRequired ? (
                <ProtectedRoute requiredAuthorities={requiredAuthorities}>{page}</ProtectedRoute>
             ) : (
                page

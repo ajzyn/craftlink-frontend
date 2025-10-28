@@ -4,7 +4,9 @@ import { toast } from "sonner"
 import { useLogoutMutation } from "../api/mutations"
 
 export const useAuthSession = () => {
-   const { user, logout, isLoading } = useAuthStore()
+   const user = useAuthStore(state => state.user)
+   const logout = useAuthStore(state => state.logout)
+   const isLoading = useAuthStore(state => state.isLoading)
    const router = useRouter()
    const { mutateAsync: logoutMutation } = useLogoutMutation()
 

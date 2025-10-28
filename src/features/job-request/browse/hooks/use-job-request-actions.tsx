@@ -3,8 +3,9 @@ import { useChatWindowStore } from "@/features/chat/stores/use-chat-window-store
 
 export const useJobRequestActions = (requestId: string) => {
    const applyMutation = useApplyJobRequestMutation()
-   const { setActiveConversation } = useChatWindowStore()
+   const setActiveConversation = useChatWindowStore(state => state.setActiveConversation)
 
+   //TODO: handle the actions
    const onShare = () => {
       console.log("share" + requestId)
    }

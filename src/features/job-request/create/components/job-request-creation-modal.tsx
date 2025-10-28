@@ -33,7 +33,7 @@ export const JobRequestCreationModal = ({
    selectedCity,
    service,
 }: ServiceRequestCreationModalProps) => {
-   const { isAuthenticated } = useAuthStore()
+   const isAuthenticated = useAuthStore(state => state.isAuthenticated)
    const [stage, setStage] = useState<CreationStage>("form")
 
    const stepsConfig = useJobRequestSteps(selectedCity, service)

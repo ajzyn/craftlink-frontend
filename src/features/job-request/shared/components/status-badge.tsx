@@ -8,7 +8,7 @@ interface JobRequestStatusProps {
 }
 
 export const JobRequestStatusBadge = ({ status, requesterId }: JobRequestStatusProps) => {
-   const { user } = useAuthStore()
+   const user = useAuthStore(state => state.user)
    const isOwner = user?.id === requesterId
 
    const getBadgeVariant = () => {

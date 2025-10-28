@@ -3,7 +3,8 @@ import { useChatWindowStore } from "@/features/chat/stores/use-chat-window-store
 import { useEffect } from "react"
 
 export const useChatMessages = (conversationId?: string) => {
-   const { messages: runtimeMessages, setMessages } = useChatWindowStore()
+   const setMessages = useChatWindowStore(state => state.setMessages)
+   const runtimeMessages = useChatWindowStore(state => state.messages)
 
    const { data: history, isSuccess, isError, isLoading } = useChatHistoryQuery(conversationId)
 

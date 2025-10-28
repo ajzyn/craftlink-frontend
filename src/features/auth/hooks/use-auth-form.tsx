@@ -23,7 +23,8 @@ export const useAuthForm = <T extends ZodTypeAny>({
    errorMessage,
    onSuccess,
 }: UseAuthFormProps<T>) => {
-   const { setUser, setAccessToken } = useAuthStore()
+   const setUser = useAuthStore(state => state.setUser)
+   const setAccessToken = useAuthStore(state => state.setAccessToken)
 
    const form = useForm<TypeOf<T>>({
       resolver: zodResolver(schema),
