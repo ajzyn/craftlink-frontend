@@ -1,30 +1,56 @@
 import { useApplyJobRequestMutation } from "@/features/job-request/browse/api/mutations"
 import { useChatWindowStore } from "@/features/chat/stores/use-chat-window-store"
+import { StorageKeys, useLocalStorage } from "@/shared/hooks/use-local-storage"
+import { toast } from "sonner"
 
 export const useJobRequestActions = (requestId: string) => {
+   const { value, write } = useLocalStorage<string[]>(StorageKeys.FAVORITE_JOBS)
    const applyMutation = useApplyJobRequestMutation()
    const setActiveConversation = useChatWindowStore(state => state.setActiveConversation)
 
-   //TODO: handle the actions
-   const onShare = () => {
-      console.log("share" + requestId)
+   const handleShare = async () => {
+      try {
+         if (navigator.share) {
+            const shareData = {
+               title: "Sprawdź tę ofertę!",
+               text: "Znalazłem świetną ofertę na CraftLink:",
+               url: window.location.href,
+            }
+
+            await navigator.share(shareData)
+         } else {
+            toast.error("Udostępnianie nie jest obsługiwane w tej przeglądarce")
+         }
+      } catch (err) {
+         toast.error("Nie można udostępnić tego zlecenia")
+         console.error("Error during sharing job request:", err)
+      }
    }
 
-   const onSave = () => {
-      console.log("save" + requestId)
+   const handleToggleSave = () => {
+      const current = value ?? []
+      const exists = current.includes(requestId)
+      const updated = exists ? current.filter(id => id !== requestId) : [...current, requestId]
+
+      write(updated)
    }
 
-   const onApply = async () => {
+   const handleApply = async () => {
       const response = await applyMutation.mutateAsync(requestId)
 
-      console.log("apply" + requestId)
       setActiveConversation(response.conversationId)
    }
 
+   const handleDelete = () => {}
+
+   const handleComplete = () => {}
+
    return {
-      onShare,
-      onSave,
-      onApply,
+      handleShare,
+      handleApply,
+      handleToggleSave,
+      handleComplete,
+      handleDelete,
       isApplying: applyMutation.isPending,
    }
 }

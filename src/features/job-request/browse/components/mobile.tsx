@@ -49,11 +49,9 @@ export const JobRequestMobileLayout = ({ job }: JobRequestMobileLayoutProps) => 
             />
             {!isOwner && <JobRequestRequester requester={job.requester} />}
          </div>
-         {!isOwner && (
-            <div className="fixed left-0 w-full bottom-0 py-3 bg-secondary">
-               <JobRequestDetailsActionList requestId={job.id} />
-            </div>
-         )}
+         <div className="fixed left-0 w-full bottom-0 py-3 bg-secondary">
+            <JobRequestDetailsActionList requestId={job.id} isOwner={isOwner} />
+         </div>
       </>
    )
 }

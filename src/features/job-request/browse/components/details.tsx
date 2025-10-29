@@ -1,5 +1,4 @@
 import type { JobRequestDetailsDto } from "@/features/job-request/browse/types/data"
-import { JobRequestNavigation } from "@/features/job-request/browse/components/navigation/navigation"
 import { useBreakpoint } from "@/shared/hooks/use-breakpoint"
 import { Container } from "@/components/container"
 import { JobRequestMobileLayout } from "@/features/job-request/browse/components/mobile"
@@ -14,8 +13,6 @@ export const JobRequestDetails = ({ job }: JobRequestDetailsProps) => {
 
    return (
       <Container className="space-y-4">
-         <JobRequestNavigation />
-
          {isMobile ? <JobRequestMobileLayout job={job} /> : <JobRequestDesktopLayout job={job} />}
       </Container>
    )

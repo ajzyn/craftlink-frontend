@@ -3,7 +3,7 @@ import { useCategoryDetailsQuery } from "@/features/categories/api/queries"
 import { Button } from "@/components/ui/button"
 import { ServiceItem } from "@/features/categories/components/service-item"
 import { ServiceItemSkeleton } from "@/features/categories/components/skeletons/service-item-skeleton"
-import { ErrorState } from "@/components/error-state"
+import { ErrorFallback } from "@/components/error-fallback"
 import { CategoryBanner } from "@/components/category-banner"
 
 const CategoryPage = () => {
@@ -16,7 +16,7 @@ const CategoryPage = () => {
    }
 
    if (isError) {
-      return <ErrorState onRetry={refetch} isRetrying={isLoading} />
+      return <ErrorFallback onRetry={refetch} isRetrying={isLoading} />
    }
 
    return (

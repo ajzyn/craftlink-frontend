@@ -8,6 +8,7 @@ import { DeadlineInfo } from "@/features/job-request/browse/components/deadline-
 import { JobRequestRequester } from "@/features/job-request/browse/components/requester"
 import { JobRequestDetailsActionList } from "@/features/job-request/browse/components/actions"
 import { useAuthStore } from "@/features/auth/stores/use-auth-store"
+import { Section } from "@/components/section/section"
 
 interface JobRequestDesktopLayoutProps {
    job: JobRequestDetailsDto
@@ -45,19 +46,10 @@ export const JobRequestDesktopLayout = ({ job }: JobRequestDesktopLayoutProps) =
             />
          </div>
          <div className="col-span-3 space-y-4">
-            {!isOwner && (
-               <>
-                  <JobRequestRequester requester={job.requester} />
-                  <Card>
-                     <CardHeader>
-                        <h2 className="text-heading-lg">Akcje</h2>
-                     </CardHeader>
-                     <CardContent>
-                        <JobRequestDetailsActionList requestId={job.id} />
-                     </CardContent>
-                  </Card>
-               </>
-            )}
+            {!isOwner && <JobRequestRequester requester={job.requester} />}
+            <Section label="Akcje">
+               <JobRequestDetailsActionList isOwner={isOwner} requestId={job.id} />
+            </Section>
          </div>
       </div>
    )
