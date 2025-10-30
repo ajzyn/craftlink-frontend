@@ -38,6 +38,14 @@ export const appRoutes: AppRouteConfig[] = [
       element: lazyRouteComponent(() => import("@/features/job-request/browse/pages/details")),
    },
    {
+      path: "/zlecenia/moje",
+      element: lazyRouteComponent(() => import("@/features/job-request/browse/pages/my")),
+   },
+   {
+      path: "/zlecenia",
+      element: lazyRouteComponent(() => import("@/features/job-request/browse/pages/all")),
+   },
+   {
       path: "/kontakt",
       element: lazyRouteComponent(() => import("@/features/categories/pages/category-page")), //TODO: create this pages
    },

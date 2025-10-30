@@ -10,6 +10,7 @@ export const Logo = () => {
          onClick={() => router.navigate({ to: "/" })}
       >
          <LogoSvg className="h-12 w-auto text-primary" />
+         <h1 className="text-muted-foreground font-bold tracking-wider">Craftlink</h1>
       </div>
    )
 }

@@ -1,6 +1,6 @@
 import { useParams } from "@tanstack/react-router"
 import { useGetJobRequestDetailsQuery } from "@/features/job-request/browse/api/queries"
-import { JobRequestDetails } from "@/features/job-request/browse/components/details"
+import { JobRequestDetails } from "@/features/job-request/browse/components/details/details"
 import { ErrorFallback } from "@/components/error-fallback"
 
 const JobRequestDetailsPage = () => {

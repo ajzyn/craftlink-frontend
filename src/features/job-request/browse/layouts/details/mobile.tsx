@@ -1,12 +1,12 @@
 import type { JobRequestDetailsDto } from "@/features/job-request/browse/types/data"
 import { JobRequestStatusBadge } from "@/features/job-request/shared/components/status-badge"
-import { CreationDate } from "@/features/job-request/browse/components/creation-date"
+import { CreationDate } from "@/features/job-request/browse/components/details/creation-date"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
-import { JobRequestCategory } from "@/features/job-request/browse/components/category"
-import { JobRequestDetailsActionList } from "@/features/job-request/browse/components/actions"
-import { JobRequestLocation } from "@/features/job-request/browse/components/location"
-import { DeadlineInfo } from "@/features/job-request/browse/components/deadline-info"
-import { JobRequestRequester } from "@/features/job-request/browse/components/requester"
+import { JobRequestCategory } from "@/features/job-request/browse/components/details/category"
+import { JobRequestDetailsActionList } from "@/features/job-request/browse/components/details/actions"
+import { JobRequestLocation } from "@/features/job-request/browse/components/details/location"
+import { DeadlineInfo } from "@/features/job-request/browse/components/details/deadline-info"
+import { JobRequestRequester } from "@/features/job-request/browse/components/details/requester"
 import { useAuthStore } from "@/features/auth/stores/use-auth-store"
 
 interface JobRequestMobileLayoutProps {

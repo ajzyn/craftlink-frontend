@@ -1,8 +1,8 @@
 import type { JobRequestDetailsDto } from "@/features/job-request/browse/types/data"
 import { useBreakpoint } from "@/shared/hooks/use-breakpoint"
 import { Container } from "@/components/container"
-import { JobRequestMobileLayout } from "@/features/job-request/browse/components/mobile"
-import { JobRequestDesktopLayout } from "@/features/job-request/browse/components/desktop"
+import { JobRequestMobileLayout } from "@/features/job-request/browse/layouts/details/mobile"
+import { JobRequestDesktopLayout } from "@/features/job-request/browse/layouts/details/desktop"
 
 interface JobRequestDetailsProps {
    job: JobRequestDetailsDto

@@ -1,4 +1,4 @@
-import axios, { type AxiosInstance, type AxiosResponse } from "axios"
+import axios, { type AxiosInstance, type AxiosRequestConfig, type AxiosResponse } from "axios"
 import { useAuthStore } from "@/features/auth/stores/use-auth-store"
 import type { AuthenticationResponse } from "@/features/auth/types/auth-types"
 
@@ -33,26 +33,36 @@ class ApiClient {
       return ApiClient.instance
    }
 
-   async get<T>(url: string): Promise<AxiosResponse<T>> {
-      return this.client.get(url)
+   async get<T>(url: string, params: AxiosRequestConfig = {}): Promise<AxiosResponse<T>> {
+      return this.client.get(url, params)
    }
 
    async post<TResponse, TRequest = unknown>(
       url: string,
       data?: TRequest,
+      params: AxiosRequestConfig = {},
    ): Promise<AxiosResponse<TResponse, TRequest>> {
-      return this.client.post<TResponse, AxiosResponse<TResponse, TRequest>, TRequest>(url, data)
+      return this.client.post<TResponse, AxiosResponse<TResponse, TRequest>, TRequest>(
+         url,
+         data,
+         params,
+      )
    }
 
    async put<TResponse, TRequest = unknown>(
       url: string,
       data?: TRequest,
+      params: AxiosRequestConfig = {},
    ): Promise<AxiosResponse<TResponse, TRequest>> {
-      return this.client.put<TResponse, AxiosResponse<TResponse, TRequest>, TRequest>(url, data)
+      return this.client.put<TResponse, AxiosResponse<TResponse, TRequest>, TRequest>(
+         url,
+         data,
+         params,
+      )
    }
 
-   async delete<T>(url: string): Promise<AxiosResponse<T>> {
-      return this.client.delete(url)
+   async delete<T>(url: string, params: AxiosRequestConfig = {}): Promise<AxiosResponse<T>> {
+      return this.client.delete(url, params)
    }
 
    private processQueue(error: any, token: string | null = null) {

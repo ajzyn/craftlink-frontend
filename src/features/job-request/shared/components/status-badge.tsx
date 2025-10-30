@@ -4,7 +4,7 @@ import { useAuthStore } from "@/features/auth/stores/use-auth-store"
 
 interface JobRequestStatusProps {
    status: JobRequestStatus
-   requesterId: string
+   requesterId?: string
 }
 
 export const JobRequestStatusBadge = ({ status, requesterId }: JobRequestStatusProps) => {

@@ -8,3 +8,9 @@ export const getDateTime = (date?: string | null) => {
    const parsed = dayjs(date)
    return parsed.isValid() ? parsed.format("D.MM.YYYY, HH:mm") : "-"
 }
+
+export const getDate = (date?: string | null) => {
+   if (!date) return "-"
+   const parsed = dayjs(date)
+   return parsed.isValid() ? parsed.format("DD MMM YYYY") : "-"
+}

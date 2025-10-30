@@ -28,25 +28,38 @@ export const DesktopNavigation = ({ navigationItems, user, onLogout }: DesktopNa
    }
 
    const navigateToRegisterSpecialist = async () => {
-      await navigate({ to: `/register` })
+      await navigate({ to: " /register" })
+   }
+
+   const handleNavigate = async (href: string) => {
+      await navigate({ to: href })
    }
 
    return (
       <nav className="hidden lg:flex items-center space-x-1">
-         {navigationItems.map((item, index) => (
-            <Button key={index} variant="ghost" className="h-10" asChild>
+         {navigationItems.map(item => (
+            <div key={item.label}>
                {item.href ? (
-                  <a href={item.href} className="flex items-center space-x-2">
-                     <span className="text-muted-foreground">{item.icon}</span>
-                     <span className="text-md">{item.label}</span>
-                  </a>
+                  <Button
+                     onClick={() => handleNavigate(item.href!)}
+                     variant="ghost"
+                     className="h-10"
+                     asChild
+                  >
+                     <div className="flex items-center space-x-2">
+                        <span className="text-muted-foreground">{item.icon}</span>
+                        <span className="text-md">{item.label}</span>
+                     </div>
+                  </Button>
                ) : (
-                  <div onClick={item.onClick?.desktop} className="flex items-center space-x-2">
-                     <span className="text-muted-foreground">{item.icon}</span>
-                     <span className="text-md">{item.label}</span>
-                  </div>
+                  <Button onClick={item.onClick?.desktop} variant="ghost" className="h-10" asChild>
+                     <div className="flex items-center space-x-2">
+                        <span className="text-muted-foreground">{item.icon}</span>
+                        <span className="text-md">{item.label}</span>
+                     </div>
+                  </Button>
                )}
-            </Button>
+            </div>
          ))}
 
          <Separator orientation="vertical" className="!h-6" />
