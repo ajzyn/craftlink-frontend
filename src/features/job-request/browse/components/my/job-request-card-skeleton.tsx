@@ -3,7 +3,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 
 export const JobRequestCardSkeleton = () => {
    return (
-      <Card className="h-64 border border-gray-200 rounded-xl py-8 px-5 flex flex-col justify-between bg-white">
+      <Card className="h-64 border border-gray-200 rounded-xl py-8 px-5 flex flex-col justify-between bg-white animate-in fade-in duration-300">
          <div className="flex justify-between items-start w-full">
             <div className="space-y-2">
                <Skeleton className="h-5 w-40" />

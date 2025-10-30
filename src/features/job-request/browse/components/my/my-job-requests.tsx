@@ -13,9 +13,15 @@ interface MyJobRequestsProps {
    jobs?: JobRequestSummaryDto[]
    selectedStatus?: JobRequestStatus
    isLoading: boolean
+   isFetchingNextPage: boolean
 }
 
-export const MyJobRequests = ({ jobs, selectedStatus, isLoading }: MyJobRequestsProps) => {
+export const MyJobRequests = ({
+   jobs,
+   selectedStatus,
+   isLoading,
+   isFetchingNextPage,
+}: MyJobRequestsProps) => {
    const navigate = useNavigate({ from: "/zlecenia/moje" })
    const tabValue = selectedStatus ?? "all"
 
@@ -58,7 +64,11 @@ export const MyJobRequests = ({ jobs, selectedStatus, isLoading }: MyJobRequests
                      </Button>
                   </EmptyState>
                ) : (
-                  <JobRequestGrid isLoading={isLoading} jobs={jobs} />
+                  <JobRequestGrid
+                     isFetchingNextPage={isFetchingNextPage}
+                     isLoading={isLoading}
+                     jobs={jobs}
+                  />
                )}
             </div>
          </Tabs>

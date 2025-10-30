@@ -21,12 +21,16 @@ const MyJobRequestPage = () => {
 
    return (
       <section>
-         <MyJobRequests jobs={allJobs} selectedStatus={status} isLoading={isLoading} />
+         <MyJobRequests
+            isFetchingNextPage={isFetchingNextPage}
+            jobs={allJobs}
+            selectedStatus={status}
+            isLoading={isLoading}
+         />
          <LazyLoadingTrigger
             isInitialLoading={isLoading}
             loaderRef={loaderRef}
             hasNextPage={hasNextPage}
-            isFetchingNextPage={isFetchingNextPage}
          />
       </section>
    )
