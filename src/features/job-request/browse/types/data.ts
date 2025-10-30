@@ -1,6 +1,7 @@
 import type { LifecycleStatus } from "@/shared/types/lifecycle-status-enum"
 import type { JobRequestStatus } from "@/features/job-request/shared/types/job-request-status-enum"
 import { DeadlineType } from "@/features/job-request/shared/types/deadline-types"
+import type { SliceParams } from "@/shared/types/data"
 
 export interface JobRequestDetailsDto {
    id: string
@@ -35,4 +36,29 @@ export interface JobRequestServiceDto {
 
 export interface ApplyJobRequestResponse {
    conversationId: string
+}
+
+export interface JobRequestSummaryDto {
+   id: string
+   status: JobRequestStatus
+   createdAt: string
+   serviceName: string
+   city: string
+   district: string
+   deadline: string
+   deadlineType: DeadlineType
+   exactDate: string
+}
+
+export interface MyJobRequestsParams extends SliceParams {
+   status?: JobRequestStatus
+}
+
+interface JobRequestFeedParams {
+   matching?: boolean
+   city?: string
+   district?: string
+   deadlineFrom?: string
+   deadlineTo?: string
+   page?: number
 }

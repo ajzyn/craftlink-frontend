@@ -5,7 +5,8 @@ interface ServiceRequestNavigationProps {
    isLast: boolean
    onBack: VoidFunction
    onNext: (e: React.MouseEvent) => void
-   formId: string
+   onRequestSubmitStart: VoidFunction
+   isCreatingJobRequest: boolean
 }
 
 export const JobRequestNavigation = ({
@@ -13,12 +14,13 @@ export const JobRequestNavigation = ({
    isLast,
    onBack,
    onNext,
-   formId,
+   onRequestSubmitStart,
+   isCreatingJobRequest,
 }: ServiceRequestNavigationProps) => (
    <>
       {!isFirst && (
          <Button
-            key="back"
+            disabled={isCreatingJobRequest}
             type="button"
             onClick={onBack}
             variant="secondary"
@@ -28,11 +30,16 @@ export const JobRequestNavigation = ({
          </Button>
       )}
       {isLast ? (
-         <Button key="submit" type="submit" form={formId} className="cursor-pointer">
+         <Button
+            disabled={isCreatingJobRequest}
+            onClick={onRequestSubmitStart}
+            type="button"
+            className="cursor-pointer"
+         >
             Dodaj ogłoszenie
          </Button>
       ) : (
-         <Button key="next" type="button" onClick={onNext} className="cursor-pointer">
+         <Button type="button" onClick={onNext} className="cursor-pointer">
             Dalej
          </Button>
       )}

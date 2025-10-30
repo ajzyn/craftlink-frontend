@@ -14,7 +14,7 @@ export interface MenuElement {
 }
 
 const NAVIGATION_CONFIGS: Record<UserType, MenuElement[]> = {
-   [UserType.CLIENT]: [{ label: "Moje zamówienia", href: "/orders", icon: <ShoppingBag /> }],
+   [UserType.CLIENT]: [{ label: "Moje zlecenia", href: "/zlecenia/moje", icon: <ShoppingBag /> }],
    [UserType.SPECIALIST]: [{ label: "Dostępne zlecenia", href: "/jobs", icon: <Briefcase /> }],
    [UserType.ADMIN]: [
       { label: "Użytkownicy", href: "/users", icon: <Users /> },
@@ -46,5 +46,5 @@ export const useNavigationItems = (
          })
       }
       return navItems
-   }, [userType, openLoginDialog, openLoginMobileView])
+   }, [userType, openLoginDialog, openLoginMobileView, location.pathname])
 }

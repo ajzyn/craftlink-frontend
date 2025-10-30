@@ -2,6 +2,8 @@ import { useAuthStore } from "@/features/auth/stores/use-auth-store"
 import type { ReactNode } from "react"
 import type { Authority } from "@/features/auth/types/auth-types"
 import { Navigate } from "@tanstack/react-router"
+import { useBreakpoint } from "@/shared/hooks/use-breakpoint"
+import { toast } from "sonner"
 
 interface ProtectedRouteProps {
    children: ReactNode
@@ -9,14 +11,21 @@ interface ProtectedRouteProps {
 }
 
 export const ProtectedRoute = ({ children, requiredAuthorities = [] }: ProtectedRouteProps) => {
-   const { user } = useAuthStore()
+   const user = useAuthStore(state => state.user)
+   const { isMobile } = useBreakpoint()
 
-   if (!user) return <Navigate to="/login" />
+   const navigateDefaultPage = () => <Navigate to={isMobile ? "/login" : "/"} />
+
+   if (!user) {
+      return navigateDefaultPage()
+   }
+
    if (
       requiredAuthorities.length > 0 &&
       !requiredAuthorities.some(auth => user.authorities.includes(auth))
    ) {
-      return <div>Brak dostępu</div>
+      toast.error("Nie masz dostępu do tej strony.")
+      return navigateDefaultPage()
    }
 
    return <>{children}</>

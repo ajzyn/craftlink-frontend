@@ -11,12 +11,11 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 
-import { useLoginMutation } from "../api/auth-queries"
+import { useLoginMutation } from "../api/mutations"
 import { loginSchema } from "@/features/auth/utils/login-schema"
 import { useAuthForm } from "@/features/auth/hooks/use-auth-form"
 
-//TODO: login using only email
-export const LoginForm = ({ onClose }: { onClose?: VoidFunction }) => {
+export const LoginForm = ({ onSuccess }: { onSuccess?: VoidFunction }) => {
    const loginMutation = useLoginMutation()
 
    const { form, onSubmit } = useAuthForm({
@@ -25,7 +24,7 @@ export const LoginForm = ({ onClose }: { onClose?: VoidFunction }) => {
       mutation: loginMutation.mutateAsync,
       successMessage: "Zostałeś pomyślnie zalogowany.",
       errorMessage: "Nieprawidłowy email lub hasło.",
-      onSuccess: onClose,
+      onSuccess,
    })
 
    return (

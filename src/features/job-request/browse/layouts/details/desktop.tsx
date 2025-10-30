@@ -1,20 +1,21 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
-import { JobRequestCategory } from "@/features/job-request/browse/components/category"
-import { CreationDate } from "@/features/job-request/browse/components/creation-date"
+import { JobRequestCategory } from "@/features/job-request/browse/components/details/category"
+import { CreationDate } from "@/features/job-request/browse/components/details/creation-date"
 import { JobRequestStatusBadge } from "@/features/job-request/shared/components/status-badge"
 import type { JobRequestDetailsDto } from "@/features/job-request/browse/types/data"
-import { JobRequestLocation } from "@/features/job-request/browse/components/location"
-import { DeadlineInfo } from "@/features/job-request/browse/components/deadline-info"
-import { JobRequestRequester } from "@/features/job-request/browse/components/requester"
-import { JobRequestDetailsActionList } from "@/features/job-request/browse/components/actions"
+import { JobRequestLocation } from "@/features/job-request/browse/components/details/location"
+import { DeadlineInfo } from "@/features/job-request/browse/components/details/deadline-info"
+import { JobRequestRequester } from "@/features/job-request/browse/components/details/requester"
+import { JobRequestDetailsActionList } from "@/features/job-request/browse/components/details/actions"
 import { useAuthStore } from "@/features/auth/stores/use-auth-store"
+import { Section } from "@/components/section/section"
 
 interface JobRequestDesktopLayoutProps {
    job: JobRequestDetailsDto
 }
 
 export const JobRequestDesktopLayout = ({ job }: JobRequestDesktopLayoutProps) => {
-   const { user } = useAuthStore()
+   const user = useAuthStore(state => state.user)
 
    const isOwner = user?.id === job.requester.id
 
@@ -45,19 +46,10 @@ export const JobRequestDesktopLayout = ({ job }: JobRequestDesktopLayoutProps) =
             />
          </div>
          <div className="col-span-3 space-y-4">
-            {!isOwner && (
-               <>
-                  <JobRequestRequester requester={job.requester} />
-                  <Card>
-                     <CardHeader>
-                        <h2 className="text-heading-lg">Akcje</h2>
-                     </CardHeader>
-                     <CardContent>
-                        <JobRequestDetailsActionList requestId={job.id} />
-                     </CardContent>
-                  </Card>
-               </>
-            )}
+            {!isOwner && <JobRequestRequester requester={job.requester} />}
+            <Section label="Akcje">
+               <JobRequestDetailsActionList isOwner={isOwner} requestId={job.id} />
+            </Section>
          </div>
       </div>
    )

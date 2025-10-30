@@ -1,5 +1,10 @@
 import { apiClient } from "@/shared/api/http-client"
-import type { AuthenticationResponse, LoginRequest, RegisterRequest } from "../types/auth-types"
+import type {
+   AuthenticationResponse,
+   LoginRequest,
+   RegisterRequest,
+   UserDto,
+} from "../types/auth-types"
 
 export const authApi = {
    login: async (data: LoginRequest) => {
@@ -20,5 +25,10 @@ export const authApi = {
 
    logout: async () => {
       await apiClient.post("/sec/auth/logout")
+   },
+
+   getCurrentUser: async () => {
+      const res = await apiClient.get<UserDto>("/sec/auth/me")
+      return res.data
    },
 }

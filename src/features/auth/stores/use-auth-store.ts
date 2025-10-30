@@ -5,8 +5,9 @@ interface AuthActions {
    setUser: (user: UserDto) => void
    setAccessToken: (token: string) => void
    login: (user: UserDto, token: string) => void
-   logout: () => void
+   logout: VoidFunction
    setIsLoading: (value: boolean) => void
+   clearUser: VoidFunction
 }
 
 interface AuthState {
@@ -20,7 +21,7 @@ export const useAuthStore = create<AuthState & AuthActions>(set => ({
    user: null,
    accessToken: null,
    isAuthenticated: false,
-   isLoading: false,
+   isLoading: true,
 
    setUser: user => set({ user, isAuthenticated: true }),
 
@@ -39,6 +40,9 @@ export const useAuthStore = create<AuthState & AuthActions>(set => ({
          accessToken: null,
          isAuthenticated: false,
       }),
+
+   clearUser: () =>
+      set({ user: null, isAuthenticated: false, isLoading: false, accessToken: null }),
 
    setIsLoading: value => set({ isLoading: value }),
 }))

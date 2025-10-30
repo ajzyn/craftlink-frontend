@@ -9,7 +9,7 @@ import {
    DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Separator } from "@/components/ui/separator"
-import { type UserDto, UserType } from "@/features/auth/types/auth-types"
+import { type UserDto } from "@/features/auth/types/auth-types"
 import { ChevronDown, LogOut, User } from "lucide-react"
 import { useNavigate } from "@tanstack/react-router"
 import { getUserInitials } from "@/shared/utils/string-utils"
@@ -28,25 +28,38 @@ export const DesktopNavigation = ({ navigationItems, user, onLogout }: DesktopNa
    }
 
    const navigateToRegisterSpecialist = async () => {
-      await navigate({ to: `/register/${UserType.SPECIALIST}` })
+      await navigate({ to: " /register" })
+   }
+
+   const handleNavigate = async (href: string) => {
+      await navigate({ to: href })
    }
 
    return (
       <nav className="hidden lg:flex items-center space-x-1">
-         {navigationItems.map((item, index) => (
-            <Button key={index} variant="ghost" className="h-10" asChild>
+         {navigationItems.map(item => (
+            <div key={item.label}>
                {item.href ? (
-                  <a href={item.href} className="flex items-center space-x-2">
-                     <span className="text-muted-foreground">{item.icon}</span>
-                     <span className="text-md">{item.label}</span>
-                  </a>
+                  <Button
+                     onClick={() => handleNavigate(item.href!)}
+                     variant="ghost"
+                     className="h-10"
+                     asChild
+                  >
+                     <div className="flex items-center space-x-2">
+                        <span className="text-muted-foreground">{item.icon}</span>
+                        <span className="text-md">{item.label}</span>
+                     </div>
+                  </Button>
                ) : (
-                  <div onClick={item.onClick?.desktop} className="flex items-center space-x-2">
-                     <span className="text-muted-foreground">{item.icon}</span>
-                     <span className="text-md">{item.label}</span>
-                  </div>
+                  <Button onClick={item.onClick?.desktop} variant="ghost" className="h-10" asChild>
+                     <div className="flex items-center space-x-2">
+                        <span className="text-muted-foreground">{item.icon}</span>
+                        <span className="text-md">{item.label}</span>
+                     </div>
+                  </Button>
                )}
-            </Button>
+            </div>
          ))}
 
          <Separator orientation="vertical" className="!h-6" />

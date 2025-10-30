@@ -1,6 +1,6 @@
 import type { JobRequestRequesterDto } from "@/features/job-request/browse/types/data"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { capitalizeFirstLetter, getUserInitials } from "@/shared/utils/string-utils"
+import { getUserInitials } from "@/shared/utils/string-utils"
 import { Mail, Phone } from "lucide-react"
 import { Section } from "@/components/section/section"
 
@@ -18,8 +18,8 @@ export const JobRequestRequester = ({ requester }: JobRequestRequesterProps) => 
                <AvatarFallback>{getUserInitials(requester.name)}</AvatarFallback>
             </Avatar>
             <div>
-               <p className="font-medium text-sm text-foreground">
-                  {capitalizeFirstLetter(requester.name)}
+               <p className="font-medium text-sm text-foreground first-letter:uppercase">
+                  {requester.name}
                </p>
             </div>
          </div>

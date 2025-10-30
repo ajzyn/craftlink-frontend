@@ -1,7 +1,7 @@
 import { JobRequestHero } from "@/features/job-request/create/components/job-request-hero"
 import { useParams } from "@tanstack/react-router"
 import { JobRequestCreationModal } from "@/features/job-request/create/components/job-request-creation-modal"
-import { ErrorState } from "@/components/error-state"
+import { ErrorFallback } from "@/components/error-fallback"
 import { useJobRequestUI } from "../hooks/use-job-request-ui"
 import { useServiceDetailsQuery } from "@/features/services/api/queries"
 import { useCitiesQuery } from "@/features/location/api/location-queries"
@@ -34,7 +34,7 @@ const JobRequestPage = () => {
 
    if (isErrorFetchingCities || isErrorFetchingService) {
       return (
-         <ErrorState
+         <ErrorFallback
             onRetry={() => {
                refetchService()
                refetchCities()

@@ -3,7 +3,7 @@ import { FormControl, FormField, FormItem, FormMessage } from "@/components/ui/f
 import { useFormContext } from "react-hook-form"
 import type { JobRequestData } from "@/features/job-request/create/utils/form-schema"
 import { FormAutocomplete } from "@/components/autocomplete/autocomplete"
-import { ErrorState } from "@/components/error-state"
+import { ErrorFallback } from "@/components/error-fallback"
 import { useCityDistrictsQuery } from "@/features/location/api/location-queries"
 import { useMemo } from "react"
 import { capitalizeFirstLetter } from "@/shared/utils/string-utils"
@@ -24,7 +24,7 @@ export const DistrictStep = ({ cityName }: DistrictStepProps) => {
    }, [data])
 
    if (isError) {
-      return <ErrorState onRetry={refetch} isRetrying={isLoading} />
+      return <ErrorFallback onRetry={refetch} isRetrying={isLoading} />
    }
 
    return (

@@ -20,8 +20,8 @@ export const appRoutes: AppRouteConfig[] = [
       element: lazyRouteComponent(() => import("@/features/auth/pages/login-page")),
    },
    {
-      path: `/register/$userType`,
-      element: lazyRouteComponent(() => import("@/features/auth/pages/register-page")),
+      path: `/register`,
+      element: lazyRouteComponent(() => import("@/features/auth/pages/register-specialist-page")),
    },
    {
       path: "/kategoria/$categorySlug",
@@ -36,6 +36,14 @@ export const appRoutes: AppRouteConfig[] = [
    {
       path: "/zlecenia/$id",
       element: lazyRouteComponent(() => import("@/features/job-request/browse/pages/details")),
+   },
+   {
+      path: "/zlecenia/moje",
+      element: lazyRouteComponent(() => import("@/features/job-request/browse/pages/my")),
+   },
+   {
+      path: "/zlecenia",
+      element: lazyRouteComponent(() => import("@/features/job-request/browse/pages/all")),
    },
    {
       path: "/kontakt",

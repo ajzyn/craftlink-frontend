@@ -4,11 +4,11 @@ import { useAuthStore } from "@/features/auth/stores/use-auth-store"
 
 interface JobRequestStatusProps {
    status: JobRequestStatus
-   requesterId: string
+   requesterId?: string
 }
 
 export const JobRequestStatusBadge = ({ status, requesterId }: JobRequestStatusProps) => {
-   const { user } = useAuthStore()
+   const user = useAuthStore(state => state.user)
    const isOwner = user?.id === requesterId
 
    const getBadgeVariant = () => {

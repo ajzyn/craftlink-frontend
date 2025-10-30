@@ -11,7 +11,7 @@ interface ErrorStateProps {
    className?: string
 }
 
-export const ErrorState = ({
+export const ErrorFallback = ({
    title = "Nie można załadować danych",
    description = "Sprawdź połączenie internetowe i spróbuj ponownie",
    onRetry,

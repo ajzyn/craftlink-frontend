@@ -1,7 +1,7 @@
 import { Skeleton } from "@/components/ui/skeleton"
 import { useAllCategoriesQuery } from "@/features/categories/api/queries"
 import { useRouter } from "@tanstack/react-router"
-import { ErrorState } from "@/components/error-state"
+import { ErrorFallback } from "@/components/error-fallback"
 import { DynamicIcon } from "@/components/dynamic-icon"
 
 export const CategoriesList = () => {
@@ -13,7 +13,7 @@ export const CategoriesList = () => {
    }
 
    if (isError) {
-      return <ErrorState onRetry={refetch} isRetrying={isLoading} />
+      return <ErrorFallback onRetry={refetch} isRetrying={isLoading} />
    }
 
    if (isLoading) {

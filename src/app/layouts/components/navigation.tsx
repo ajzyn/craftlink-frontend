@@ -40,7 +40,7 @@ export const Navigation = () => {
                   : "bg-background/90 backdrop-blur-sm supports-[backdrop-filter]:bg-background/60",
             )}
          >
-            <div className="h-16 lg:h-18 w-full flex items-center justify-between">
+            <div className="mx-auto max-w-7xl h-16 lg:h-18 w-full flex items-center justify-between">
                <Logo />
 
                {!isLoading && (
