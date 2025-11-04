@@ -1,15 +1,8 @@
 import { Loader2, Lock, Mail, User } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
-import {
-   Form,
-   FormControl,
-   FormField,
-   FormItem,
-   FormLabel,
-   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
+import { Button } from "@/shared/ui/button"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form"
+import { Input } from "@/shared/ui/input"
 import { useAuthForm } from "@/features/auth/hooks/use-auth-form"
 import { useRegisterMutation } from "@/features/auth/api/mutations"
 import { type RegisterFormData, registerFormSchema } from "../utils/register-form-schema"

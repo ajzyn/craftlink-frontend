@@ -1,8 +1,8 @@
 import type { JobRequestRequesterDto } from "@/features/job-request/api/types"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Section } from "@/shared/components/section"
+import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar"
 import { getUserInitials } from "@/shared/utils/string-utils"
 import { Mail, Phone } from "lucide-react"
-import { Section } from "@/components/section/section"
 
 interface JobRequestRequesterProps {
    requester: JobRequestRequesterDto

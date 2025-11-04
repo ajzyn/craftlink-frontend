@@ -1,4 +1,4 @@
-import { getFormattedDateTime } from "@/shared/utils/date"
+import { getFormattedDateTime } from "@/shared/utils/date-utils"
 
 interface CreationDateProps {
    createdAt: string

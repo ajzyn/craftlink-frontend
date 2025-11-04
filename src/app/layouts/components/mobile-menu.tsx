@@ -1,9 +1,9 @@
 import type { UserDto } from "@/features/auth/api/types"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/shared/ui/button"
 import { LogIn, LogOut, Settings } from "lucide-react"
 import type { MenuElement } from "@/app/layouts/hooks/use-navigation-items"
-import { Separator } from "@/components/ui/separator"
-import { Footer } from "@/components/footer"
+import { Separator } from "@/shared/ui/separator"
+import { Footer } from "@/shared/components/footer"
 import { getUserInitials } from "@/shared/utils/string-utils"
 
 interface MobileMenuProps {

@@ -1,5 +1,5 @@
 import type { JobRequestStep } from "@/features/job-request/create/types/stepper"
-import { useStepper } from "@/shared/hooks/use-stepper"
+import { useStepper } from "@/shared/hooks"
 import type { UseFormTrigger } from "react-hook-form"
 import type { JobRequestData } from "@/features/job-request/create/utils/form-schema"
 

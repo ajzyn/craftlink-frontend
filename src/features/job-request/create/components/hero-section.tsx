@@ -1,6 +1,6 @@
-import { CategoryBanner } from "@/components/category-banner"
+import { CategoryBanner } from "@/shared/components/category-banner/category-banner"
 import { Search } from "lucide-react"
-import { FormAutocomplete } from "@/components/autocomplete/autocomplete"
+import { FormAutocomplete } from "@/shared/components/autocomplete/autocomplete"
 import type { CityDto } from "@/entities/location"
 import type { ServiceDetailsDto } from "@/entities/service"
 

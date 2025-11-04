@@ -8,7 +8,7 @@ const AllJobRequestPage = () => {
    //    return <JobRequestDetails job={data} />
    // }
    //
-   // return <ErrorFallback onRetry={refetch} isRetrying={isLoading} />
+   // return <BackendErrorFallback onRetry={refetch} isRetrying={isLoading} />
 }
 
 export default AllJobRequestPage

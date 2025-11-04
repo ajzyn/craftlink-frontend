@@ -1,4 +1,4 @@
-import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/shared/ui/dialog"
 import { useAuthStore } from "@/features/auth/stores/use-auth-store"
 import { useEffect } from "react"
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden"

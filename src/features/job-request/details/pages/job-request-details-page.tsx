@@ -1,7 +1,7 @@
 import { useParams } from "@tanstack/react-router"
 import { useGetJobRequestDetailsQuery } from "@/features/job-request/api/queries"
 import { DetailsView } from "@/features/job-request/details/components/details-view"
-import { ErrorFallback } from "@/components/error-fallback"
+import { BackendErrorFallback } from "@/shared/components/backend-error-fallback"
 
 const JobRequestDetailsPage = () => {
    const { id } = useParams({ from: "/zlecenia/$id" })
@@ -15,7 +15,7 @@ const JobRequestDetailsPage = () => {
       return <DetailsView job={data} />
    }
 
-   return <ErrorFallback onRetry={refetch} isRetrying={isLoading} />
+   return <BackendErrorFallback onRetry={refetch} isRetrying={isLoading} />
 }
 
 export default JobRequestDetailsPage

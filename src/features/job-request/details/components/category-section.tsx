@@ -1,4 +1,4 @@
-import { DynamicIcon } from "@/components/dynamic-icon"
+import { DynamicIcon } from "@/shared/components/dynamic-icon"
 import type { JobRequestServiceDto } from "@/features/job-request/api/types"
 
 interface JobRequestCategoryProps {

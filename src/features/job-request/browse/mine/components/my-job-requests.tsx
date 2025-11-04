@@ -1,13 +1,13 @@
 import type { JobRequestSummaryDto } from "@/features/job-request/api/types"
-import { Container } from "@/components/container"
+import { Container } from "@/shared/components/container"
 import { JobRequestListHero } from "@/features/job-request/browse/shared/components/job-request-list-hero"
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Tabs, TabsList, TabsTrigger } from "@/shared/ui/tabs"
 import { JobRequestStatus } from "@/features/job-request/shared/types/status-enum"
 import { useNavigate } from "@tanstack/react-router"
-import { EmptyState } from "@/components/empty-state"
+import { EmptyState } from "@/shared/components/empty-state"
 import { JobRequestGrid } from "@/features/job-request/browse/shared/components/job-request-grid"
 import { Plus } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/shared/ui/button"
 
 interface MyJobRequestsProps {
    jobs?: JobRequestSummaryDto[]

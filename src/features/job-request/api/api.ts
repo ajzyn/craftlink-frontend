@@ -6,7 +6,7 @@ import type {
    JobRequestSummaryDto,
    MyJobRequestsParamsDto,
 } from "@/features/job-request/api/types"
-import type { CreationResponseDto, SliceResponseDto } from "@/shared/types/data"
+import type { CreationResponseDto, SliceResponseDto } from "@/shared/api/types"
 
 //TODO:
 // aktualizuj cache danego elementu jezeli jest deleted albo completed

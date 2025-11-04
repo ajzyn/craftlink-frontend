@@ -1,12 +1,12 @@
 import { Menu, X } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/shared/ui/button"
 import { cn } from "@/lib/utils"
 import { useMenuState } from "../hooks/use-menu-state"
 import { useNavigationItems } from "../hooks/use-navigation-items"
 import { MobileMenu } from "@/app/layouts/components/mobile-menu"
 import { DesktopNavigation } from "@/app/layouts/components/desktop-navigation"
 import { AuthModal } from "@/features/auth/components/auth-modal"
-import { Logo } from "@/components/logo"
+import { Logo } from "@/shared/components/logo"
 import { useAuthSession } from "@/features/auth/hooks/use-auth-session"
 
 export const Navigation = () => {

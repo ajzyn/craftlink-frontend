@@ -1,5 +1,5 @@
 import { Navigate, useParams } from "@tanstack/react-router"
-import { ErrorFallback } from "@/components/error-fallback"
+import { BackendErrorFallback } from "@/shared/components/backend-error-fallback"
 import { useServiceDetailsQuery } from "@/entities/service/queries"
 import { useCitiesQuery } from "@/entities/location/queries"
 import { CreateView } from "@/features/job-request/create/components/create-view"
@@ -26,7 +26,7 @@ const CreateJobRequestPage = () => {
 
    if (isErrorFetchingCities || isErrorFetchingService) {
       return (
-         <ErrorFallback
+         <BackendErrorFallback
             onRetry={() => {
                refetchService()
                refetchCities()

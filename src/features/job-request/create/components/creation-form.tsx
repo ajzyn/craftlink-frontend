@@ -1,4 +1,4 @@
-import { Form } from "@/components/ui/form"
+import { Form } from "@/shared/ui/form"
 import type { JobRequestData } from "@/features/job-request/create/utils/form-schema"
 import type { UseFormReturn } from "react-hook-form"
 

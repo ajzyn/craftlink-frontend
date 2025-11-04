@@ -1,5 +1,5 @@
 import { useGetMyJobRequestQuery } from "@/features/job-request/api/queries"
-import { useLazyLoader } from "@/shared/hooks/use-lazy-loader"
+import { useLazyLoader } from "@/shared/hooks"
 import { useSearch } from "@tanstack/react-router"
 import { useMemo } from "react"
 import type { JobRequestStatus } from "@/features/job-request/shared/types/status-enum"

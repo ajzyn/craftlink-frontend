@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button"
+import { Button } from "@/shared/ui/button"
 import { Heart, Send, Share2 } from "lucide-react"
 import { useJobRequestActions } from "@/features/job-request/details/hooks/use-job-request-actions"
 import { useAuthStore } from "@/features/auth/stores/use-auth-store"

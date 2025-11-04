@@ -1,7 +1,7 @@
-import type { LifecycleStatus } from "@/shared/types/lifecycle-status-enum"
+import type { LifecycleStatus } from "@/shared/types"
 import type { JobRequestStatus } from "@/features/job-request/shared/types/status-enum"
 import { DeadlineType } from "@/features/job-request/shared/types/deadline-types"
-import type { SliceRequestParamsDto } from "@/shared/types/data"
+import type { SliceRequestParamsDto } from "@/shared/api/types"
 
 export interface CreateJobRequestRequestDto {
    city: string

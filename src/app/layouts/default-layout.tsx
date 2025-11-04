@@ -1,9 +1,9 @@
 import { Toaster } from "sonner"
 import type { ReactNode } from "react"
 import { Navigation } from "@/app/layouts/components/navigation"
-import { Footer } from "@/components/footer"
+import { Footer } from "@/shared/components/footer"
 import { ChatWindow } from "@/features/chat/components/chat-window"
-import { Separator } from "@/components/ui/separator"
+import { Separator } from "@/shared/ui/separator"
 
 interface DefaultLayoutProps {
    children: ReactNode

@@ -1,5 +1,5 @@
 import type { MenuElement } from "@/app/layouts/hooks/use-navigation-items"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/shared/ui/button"
 import {
    DropdownMenu,
    DropdownMenuContent,
@@ -7,8 +7,8 @@ import {
    DropdownMenuLabel,
    DropdownMenuSeparator,
    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Separator } from "@/components/ui/separator"
+} from "@/shared/ui/dropdown-menu"
+import { Separator } from "@/shared/ui/separator"
 import { type UserDto } from "@/features/auth/api/types"
 import { ChevronDown, LogOut, User } from "lucide-react"
 import { useNavigate } from "@tanstack/react-router"

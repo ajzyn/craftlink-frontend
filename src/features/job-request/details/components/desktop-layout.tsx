@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { Card, CardContent, CardHeader } from "@/shared/ui/card"
 import { CategorySection } from "@/features/job-request/details/components/category-section"
 import { CreationDateValue } from "@/features/job-request/details/components/creation-date-value"
 import { JobRequestStatusBadge } from "@/features/job-request/shared/components/status-badge"
@@ -8,7 +8,7 @@ import { DeadlineInfoSection } from "@/features/job-request/details/components/d
 import { RequesterSection } from "@/features/job-request/details/components/requester-section"
 import { ActionsSection } from "@/features/job-request/details/components/actions-section"
 import { useAuthStore } from "@/features/auth/stores/use-auth-store"
-import { Section } from "@/components/section/section"
+import { Section } from "@/shared/components/section"
 
 interface JobRequestDesktopLayoutProps {
    job: JobRequestDetailsDto

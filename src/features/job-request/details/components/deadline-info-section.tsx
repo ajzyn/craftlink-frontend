@@ -1,10 +1,9 @@
 import { deadlineLabels, DeadlineType } from "@/features/job-request/shared/types/deadline-types"
-import { useBreakpoint } from "@/shared/hooks/use-breakpoint"
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { useBreakpoint } from "@/shared/hooks"
+import { Card, CardContent, CardHeader } from "@/shared/ui/card"
 import { Clock, Zap } from "lucide-react"
-import { getFormattedDateTime } from "@/shared/utils/date"
-import { SectionColoredItem } from "@/components/section/section-colored-item"
-import { SectionContentWithIcon } from "@/components/section/section-content-with-icon"
+import { getFormattedDateTime } from "@/shared/utils/date-utils"
+import { SectionContent, SectionIconContent } from "@/shared/components/section"
 
 interface DeadlineInfoProps {
    deadlineType: DeadlineType
@@ -44,10 +43,10 @@ export const DeadlineInfoSection = ({
                   <h2 className="text-heading-lg">Termin realizacji</h2>
                </CardHeader>
                <CardContent className="flex items-center gap-4">
-                  <SectionContentWithIcon icon={Clock} tone="violet">
+                  <SectionIconContent icon={Clock} tone="violet">
                      <h3 className="text-lg text-foreground">{deadlineLabels[deadlineType]}</h3>
                      <h3 className="text-sm text-foreground-muted">{getDeadlineText()}</h3>
-                  </SectionContentWithIcon>
+                  </SectionIconContent>
                </CardContent>
             </>
          ) : (
@@ -56,18 +55,12 @@ export const DeadlineInfoSection = ({
                   <h2 className="text-heading-lg">Harmonogram</h2>
                </CardHeader>
                <CardContent className="grid grid-cols-2 gap-4">
-                  <SectionColoredItem
-                     icon={Zap}
-                     label="Priorytet"
-                     value={deadlineLabels[deadlineType]}
-                     tone="red"
-                  />
-                  <SectionColoredItem
-                     icon={Clock}
-                     label="Termin realizacji"
-                     value={getDeadlineText()}
-                     tone="orange"
-                  />
+                  <SectionContent icon={Zap} label="Priorytet" tone="red">
+                     {deadlineLabels[deadlineType]}
+                  </SectionContent>
+                  <SectionContent icon={Clock} label="Termin realizacji" tone="orange">
+                     {getDeadlineText()}
+                  </SectionContent>
                </CardContent>
             </>
          )}

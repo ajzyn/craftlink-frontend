@@ -1,6 +1,6 @@
 import { useFormContext } from "react-hook-form"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Separator } from "@/components/ui/separator"
+import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui/card"
+import { Separator } from "@/shared/ui/separator"
 import { Clock, FileText, MapPin } from "lucide-react"
 import type { JobRequestData } from "@/features/job-request/create/utils/form-schema"
 import { format } from "date-fns"

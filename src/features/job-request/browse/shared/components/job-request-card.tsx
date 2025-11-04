@@ -1,11 +1,11 @@
-import { Card } from "@/components/ui/card"
+import { Card } from "@/shared/ui/card"
 import { CalendarClock, MapPin } from "lucide-react"
 import { useNavigate } from "@tanstack/react-router"
 import type { JobRequestSummaryDto } from "@/features/job-request/api/types"
 import { JobRequestStatusBadge } from "@/features/job-request/shared/components/status-badge"
-import { getFormattedDate } from "@/shared/utils/date"
-import { SectionColoredItem } from "@/components/section/section-colored-item"
+import { getFormattedDate } from "@/shared/utils/date-utils"
 import { deadlineLabels, DeadlineType } from "@/features/job-request/shared/types/deadline-types"
+import { SectionContent } from "@/shared/components/section"
 
 export const JobRequestCard = ({ job }: { job: JobRequestSummaryDto }) => {
    const navigate = useNavigate()
@@ -27,33 +27,23 @@ export const JobRequestCard = ({ job }: { job: JobRequestSummaryDto }) => {
          </div>
 
          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <SectionColoredItem
-               icon={MapPin}
-               label="Lokalizacja"
-               value={
-                  <p className="text-sm font-medium">
-                     {job.city}, <span>{job.district}</span>
-                  </p>
-               }
-               tone="blue"
-            />
+            <SectionContent icon={MapPin} label="Lokalizacja" tone="blue">
+               <p className="text-sm font-medium">
+                  {job.city}, <span>{job.district}</span>
+               </p>
+            </SectionContent>
 
-            <SectionColoredItem
-               icon={CalendarClock}
-               label="Termin realizacji"
-               tone="violet"
-               value={
-                  <div className="text-sm font-medium flex flex-col">
-                     <span>{deadlineLabels[job.deadlineType]}</span>
+            <SectionContent icon={CalendarClock} label="Termin realizacji" tone="violet">
+               <div className="text-sm font-medium flex flex-col">
+                  <span>{deadlineLabels[job.deadlineType]}</span>
 
-                     {job.deadlineType === DeadlineType.EXACT_DATE && job.exactDate && (
-                        <span className="text-xs text-muted-foreground">
-                           {getFormattedDate(job.exactDate)}
-                        </span>
-                     )}
-                  </div>
-               }
-            />
+                  {job.deadlineType === DeadlineType.EXACT_DATE && job.exactDate && (
+                     <span className="text-xs text-muted-foreground">
+                        {getFormattedDate(job.exactDate)}
+                     </span>
+                  )}
+               </div>
+            </SectionContent>
          </div>
       </Card>
    )

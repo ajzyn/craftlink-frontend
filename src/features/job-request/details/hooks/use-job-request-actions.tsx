@@ -1,5 +1,5 @@
 import { useChatWindowStore } from "@/features/chat/stores/use-chat-window-store"
-import { StorageKeys, useLocalStorage } from "@/shared/hooks/use-local-storage"
+import { StorageKeys, useLocalStorage } from "@/shared/hooks"
 import { toast } from "sonner"
 import { useApplyJobRequestMutation } from "../../api/mutations"
 

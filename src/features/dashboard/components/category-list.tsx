@@ -1,6 +1,6 @@
 import { useRouter } from "@tanstack/react-router"
-import { ErrorFallback } from "@/components/error-fallback"
-import { DynamicIcon } from "@/components/dynamic-icon"
+import { BackendErrorFallback } from "@/shared/components/backend-error-fallback"
+import { DynamicIcon } from "@/shared/components/dynamic-icon"
 import { ListSkeleton } from "@/features/dashboard/components/list-skeleton"
 import { useAllCategoriesQuery } from "@/entities/category"
 
@@ -13,7 +13,7 @@ export const CategoryList = () => {
    }
 
    if (isError) {
-      return <ErrorFallback onRetry={refetch} isRetrying={isLoading} />
+      return <BackendErrorFallback onRetry={refetch} isRetrying={isLoading} />
    }
 
    return (

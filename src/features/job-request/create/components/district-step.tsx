@@ -1,9 +1,9 @@
 import { Search } from "lucide-react"
-import { FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form"
+import { FormControl, FormField, FormItem, FormMessage } from "@/shared/ui/form"
 import { useFormContext } from "react-hook-form"
 import type { JobRequestData } from "@/features/job-request/create/utils/form-schema"
-import { FormAutocomplete } from "@/components/autocomplete/autocomplete"
-import { ErrorFallback } from "@/components/error-fallback"
+import { FormAutocomplete } from "@/shared/components/autocomplete/autocomplete"
+import { BackendErrorFallback } from "@/shared/components/backend-error-fallback"
 import { useCityDistrictsQuery } from "@/entities/location/queries"
 import { useMemo } from "react"
 import { capitalizeFirstLetter } from "@/shared/utils/string-utils"
@@ -24,7 +24,7 @@ export const DistrictStep = ({ cityName }: DistrictStepProps) => {
    }, [data])
 
    if (isError) {
-      return <ErrorFallback onRetry={refetch} isRetrying={isLoading} />
+      return <BackendErrorFallback onRetry={refetch} isRetrying={isLoading} />
    }
 
    return (

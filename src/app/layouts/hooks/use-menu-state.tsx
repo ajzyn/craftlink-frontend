@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react"
-import { usePreventScrolling } from "@/shared/hooks/use-prevent-scrolling"
+import { usePreventScrolling } from "@/shared/hooks"
 import { useRouter } from "@tanstack/react-router"
 
 export const useMenuState = () => {

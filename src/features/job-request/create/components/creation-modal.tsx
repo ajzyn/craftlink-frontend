@@ -5,7 +5,7 @@ import {
    DialogFooter,
    DialogHeader,
    DialogTitle,
-} from "@/components/ui/dialog"
+} from "@/shared/ui/dialog"
 import { useJobRequestStepper } from "@/features/job-request/create/hooks/use-job-request-stepper"
 import { useJobRequestSteps } from "@/features/job-request/create/hooks/use-job-request-steps"
 import { CreationForm } from "@/features/job-request/create/components/creation-form"
