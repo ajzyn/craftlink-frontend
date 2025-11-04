@@ -4,9 +4,9 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useRouter } from "@tanstack/react-router"
 import { useCreateJobRequestMutation } from "@/features/job-request/api/mutations"
 import { toast } from "sonner"
-import type { CityDto } from "@/shared/types/location-types"
-import type { ServiceDetailsDto } from "@/features/services/api/types"
 import { useState } from "react"
+import type { CityDto } from "@/entities/location"
+import type { ServiceDetailsDto } from "@/entities/service"
 
 export const useJobRequestForm = (selectedCity: CityDto, selectedService: ServiceDetailsDto) => {
    const router = useRouter()

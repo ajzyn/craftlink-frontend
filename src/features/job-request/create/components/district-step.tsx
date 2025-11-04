@@ -4,7 +4,7 @@ import { useFormContext } from "react-hook-form"
 import type { JobRequestData } from "@/features/job-request/create/utils/form-schema"
 import { FormAutocomplete } from "@/components/autocomplete/autocomplete"
 import { ErrorFallback } from "@/components/error-fallback"
-import { useCityDistrictsQuery } from "@/features/location/api/queries"
+import { useCityDistrictsQuery } from "@/entities/location/queries"
 import { useMemo } from "react"
 import { capitalizeFirstLetter } from "@/shared/utils/string-utils"
 

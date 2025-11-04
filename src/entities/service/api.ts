@@ -1,5 +1,5 @@
 import { apiClient } from "@/shared/api/http-client"
-import type { ServiceBasicDto, ServiceDetailsDto } from "@/features/services/api/types"
+import type { ServiceBasicDto, ServiceDetailsDto } from "./types"
 
 export const serviceApi = {
    getSearchServicesRequest: async (searchPhrase: string) => {

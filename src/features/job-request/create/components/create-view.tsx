@@ -1,10 +1,10 @@
 import { HeroSection } from "@/features/job-request/create/components/hero-section"
 import { CreationModal } from "@/features/job-request/create/components/creation-modal"
-import type { ServiceDetailsDto } from "@/features/services/api/types"
-import type { CityDto } from "@/shared/types/location-types"
 import { useJobRequestUI } from "@/features/job-request/create/hooks/use-job-request-ui"
 import { useMemo } from "react"
 import { capitalizeFirstLetter } from "@/shared/utils/string-utils"
+import type { CityDto } from "@/entities/location"
+import type { ServiceDetailsDto } from "@/entities/service"
 
 interface CreateViewProps {
    selectedService: ServiceDetailsDto

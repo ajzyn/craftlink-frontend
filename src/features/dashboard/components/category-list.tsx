@@ -1,8 +1,8 @@
-import { useAllCategoriesQuery } from "@/features/categories/api/queries"
 import { useRouter } from "@tanstack/react-router"
 import { ErrorFallback } from "@/components/error-fallback"
 import { DynamicIcon } from "@/components/dynamic-icon"
 import { ListSkeleton } from "@/features/dashboard/components/list-skeleton"
+import { useAllCategoriesQuery } from "@/entities/category"
 
 export const CategoryList = () => {
    const router = useRouter()

@@ -1,5 +1,5 @@
-import type { CityDto } from "@/shared/types/location-types"
 import { useState } from "react"
+import type { CityDto } from "@/entities/location"
 
 export const useJobRequestUI = () => {
    const [isStepperOpen, setIsStepperOpen] = useState(false)

@@ -1,4 +1,4 @@
-import type { CategoryBasicDto } from "@/features/categories/api/types"
+import type { CategoryBasicDto } from "@/entities/category"
 
 export interface ServiceBasicDto {
    id: number

@@ -1,7 +1,7 @@
 import { Search } from "lucide-react"
 import { FormAutocomplete } from "@/components/autocomplete/autocomplete"
-import { serviceApi } from "@/features/services/api/api"
-import type { ServiceBasicDto } from "@/features/services/api/types"
+import { serviceApi } from "@/entities/service/api"
+import type { ServiceBasicDto } from "@/entities/service/types"
 import { useRouter } from "@tanstack/react-router"
 
 export const ServiceSelect = () => {

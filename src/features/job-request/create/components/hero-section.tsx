@@ -1,8 +1,8 @@
-import type { CityDto } from "@/shared/types/location-types"
 import { CategoryBanner } from "@/components/category-banner"
 import { Search } from "lucide-react"
 import { FormAutocomplete } from "@/components/autocomplete/autocomplete"
-import type { ServiceDetailsDto } from "@/features/services/api/types"
+import type { CityDto } from "@/entities/location"
+import type { ServiceDetailsDto } from "@/entities/service"
 
 interface ServiceRequestHeroProps {
    service: ServiceDetailsDto

@@ -1,17 +1,10 @@
 import { useQuery } from "@tanstack/react-query"
-import { categoryApi } from "@/features/categories/api/api"
-import { categoryKeys } from "@/features/categories/api/keys"
-
-export const useAllCategoriesQuery = () => {
-   return useQuery({
-      queryFn: categoryApi.getAllCategoriesRequests,
-      queryKey: categoryKeys.all,
-   })
-}
+import { getCategoryDetailsRequest } from "@/features/categories/api/api"
+import { categoryKeys } from "@/entities/category"
 
 export const useCategoryDetailsQuery = (slug?: string) => {
    return useQuery({
-      queryFn: () => categoryApi.getCategoryDetailsRequest(slug!),
+      queryFn: () => getCategoryDetailsRequest(slug!),
       queryKey: categoryKeys.detail(slug!),
       enabled: !!slug,
    })

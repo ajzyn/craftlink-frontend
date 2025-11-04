@@ -1,5 +1,3 @@
-import type { CityDto } from "@/shared/types/location-types"
-import type { ServiceDetailsDto } from "@/features/services/api/types"
 import {
    Dialog,
    DialogContent,
@@ -17,6 +15,8 @@ import { useState } from "react"
 import { AuthGate } from "@/features/job-request/create/components/auth-gate"
 import { useJobRequestForm } from "@/features/job-request/create/hooks/use-job-request-form"
 import { useAuthStore } from "@/features/auth/stores/use-auth-store"
+import type { CityDto } from "@/entities/location"
+import type { ServiceDetailsDto } from "@/entities/service"
 
 interface ServiceRequestCreationModalProps {
    isOpen: boolean

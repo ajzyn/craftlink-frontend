@@ -1,16 +1,10 @@
-import type { ServiceBasicDto } from "@/features/services/api/types"
+import type { ServiceBasicDto } from "@/entities/service/types"
+import type { CategoryBasicDto } from "@/entities/category/types"
 
-export interface CategoryBasicDto {
-   id: number
-   slug: string
-   iconName: string
-   name: string
-}
+export interface CategoryServiceDto extends Omit<ServiceBasicDto, "category"> {}
 
 export interface CategoryDetailsDto extends CategoryBasicDto {
    description: string
    imageKey: string
    services: CategoryServiceDto[]
 }
-
-export interface CategoryServiceDto extends Omit<ServiceBasicDto, "category"> {}

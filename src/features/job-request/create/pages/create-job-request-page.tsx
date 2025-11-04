@@ -1,7 +1,7 @@
 import { Navigate, useParams } from "@tanstack/react-router"
 import { ErrorFallback } from "@/components/error-fallback"
-import { useServiceDetailsQuery } from "@/features/services/api/queries"
-import { useCitiesQuery } from "@/features/location/api/queries"
+import { useServiceDetailsQuery } from "@/entities/service/queries"
+import { useCitiesQuery } from "@/entities/location/queries"
 import { CreateView } from "@/features/job-request/create/components/create-view"
 
 const CreateJobRequestPage = () => {

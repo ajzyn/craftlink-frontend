@@ -4,10 +4,10 @@ import { Separator } from "@/components/ui/separator"
 import { Clock, FileText, MapPin } from "lucide-react"
 import type { JobRequestData } from "@/features/job-request/create/utils/form-schema"
 import { format } from "date-fns"
-import type { CityDto } from "@/shared/types/location-types"
-import type { ServiceDetailsDto } from "@/features/services/api/types"
+import type { ServiceDetailsDto } from "@/entities/service"
 import { pl } from "date-fns/locale"
 import { deadlineLabels, DeadlineType } from "@/features/job-request/shared/types/deadline-types"
+import type { CityDto } from "@/entities/location"
 
 interface SummaryStepProps {
    city: CityDto

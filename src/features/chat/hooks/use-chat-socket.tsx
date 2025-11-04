@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react"
 import { useChatWindowStore } from "../stores/use-chat-window-store"
 import { useAuthStore } from "@/features/auth/stores/use-auth-store"
-import { getChatClient } from "@/features/chat/api/websocket-client"
+import { getChatClient } from "@/shared/api/websocket-client"
 import type { Client, StompSubscription } from "@stomp/stompjs"
 import type { ChatMessage } from "@/features/chat/api/types"
 

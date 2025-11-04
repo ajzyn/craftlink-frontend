@@ -4,9 +4,9 @@ import { DateStep } from "../components/date-step"
 import { SummaryStep } from "../components/summary-step"
 import { DescriptionStep } from "../components/description-step"
 import { DistrictStep } from "../components/district-step"
-import type { CityDto } from "@/shared/types/location-types"
-import type { ServiceDetailsDto } from "@/features/services/api/types"
 import { Bell, Clock, FileText, MapPin } from "lucide-react"
+import type { ServiceDetailsDto } from "@/entities/service"
+import type { CityDto } from "@/entities/location"
 
 export const useJobRequestSteps = (city: CityDto, service: ServiceDetailsDto): JobRequestStep[] =>
    useMemo(() => {
