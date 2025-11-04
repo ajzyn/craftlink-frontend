@@ -6,7 +6,7 @@ import type {
    JobRequestSummaryDto,
    MyJobRequestsParamsDto,
 } from "@/features/job-request/api/types"
-import type { CreationResponseDto, SliceResponseDto } from "@/shared/api/types"
+import type { CreationDto, SliceDto } from "@/shared/api/types"
 
 //TODO:
 // aktualizuj cache danego elementu jezeli jest deleted albo completed
@@ -20,13 +20,12 @@ export const applyJobRequest = async (id: string) => {
    return response.data
 }
 export const getMyJobRequests = async (params: MyJobRequestsParamsDto) => {
-   const response = await apiClient.get<SliceResponseDto<JobRequestSummaryDto>>(
-      `/sec/job-requests/my`,
-      { params },
-   )
+   const response = await apiClient.get<SliceDto<JobRequestSummaryDto>>(`/sec/job-requests/my`, {
+      params,
+   })
    return response.data
 }
 export const createJobRequest = async (requestDto: CreateJobRequestRequestDto) => {
-   const response = await apiClient.post<CreationResponseDto>("/sec/job-requests", requestDto)
+   const response = await apiClient.post<CreationDto>("/sec/job-requests", requestDto)
    return response.data
 }

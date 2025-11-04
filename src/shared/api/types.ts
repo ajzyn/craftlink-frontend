@@ -1,14 +1,14 @@
-export interface CreationResponseDto {
+export interface CreationDto {
    id: string
 }
 
-export interface SliceResponseDto<T> {
+export interface SliceDto<T> {
    content: T[]
    first: boolean
    last: boolean
    hasNext: boolean
 }
 
-export interface SliceRequestParamsDto {
+export interface SliceParamsDto {
    pageNumber: number
 }

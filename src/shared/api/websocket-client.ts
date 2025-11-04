@@ -1,5 +1,4 @@
 import { Client } from "@stomp/stompjs"
-import { BACKEND_BASE_URL } from "@/shared/api/http-client"
 import { toast } from "sonner"
 
 let client: Client | null = null
@@ -14,8 +13,7 @@ export const getChatClient = (token: string) => {
    }
 
    clientToken = token
-   //TODO: check it
-   const wsUrl = `${BACKEND_BASE_URL.replace(/^http/, "ws")}/ws-chat?token=${token}`
+   const wsUrl = `${import.meta.env.VITE_WS_API_BASE_URL}/ws-chat?token=${token}`
 
    client = new Client({
       brokerURL: wsUrl,

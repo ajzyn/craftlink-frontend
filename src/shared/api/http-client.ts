@@ -2,9 +2,7 @@ import axios, { type AxiosInstance, type AxiosRequestConfig, type AxiosResponse 
 import { useAuthStore } from "@/features/auth/stores/use-auth-store"
 import type { AuthenticationDto } from "@/features/auth/api/types"
 
-//TODO: move to env vars
-export const BACKEND_BASE_URL = "http://localhost:8080"
-const API_BASE_URL = `${BACKEND_BASE_URL}/api`
+const API_BASE_URL = import.meta.env.VITE_REST_API_BASE_URL
 
 class ApiClient {
    private static instance: ApiClient
