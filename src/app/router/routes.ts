@@ -2,14 +2,22 @@ import { type ComponentType, type LazyExoticComponent } from "react"
 import { lazyRouteComponent } from "@tanstack/react-router"
 import type { Authority } from "@/features/auth/api/types"
 
-export interface AppRouteConfig {
-   path: string
-   element: ComponentType | LazyExoticComponent<ComponentType>
-   authRequired?: boolean
-   requiredAuthorities?: Authority[]
-}
+export type AppRouteConfig =
+   | {
+        path: string
+        element: ComponentType | LazyExoticComponent<ComponentType>
+        authRequired?: boolean
+        requiredAuthorities?: Authority[]
+        children?: never
+     }
+   | {
+        path: string
+        element?: never
+        authRequired?: boolean
+        requiredAuthorities?: Authority[]
+        children: AppRouteConfig[]
+     }
 
-//TODO: nested routes
 export const appRoutes: AppRouteConfig[] = [
    {
       path: "/",
@@ -34,20 +42,27 @@ export const appRoutes: AppRouteConfig[] = [
       ),
    },
    {
-      path: "/zlecenia/$id",
-      element: lazyRouteComponent(
-         () => import("@/features/job-request/details/pages/job-request-details-page"),
-      ),
-   },
-   {
-      path: "/zlecenia/moje",
-      element: lazyRouteComponent(
-         () => import("@/features/job-request/browse/mine/pages/my-job-requests-page"),
-      ),
-   },
-   {
       path: "/zlecenia",
-      element: lazyRouteComponent(() => import("@/features/job-request/browse/all/pages/all")),
+      children: [
+         {
+            path: "/",
+            element: lazyRouteComponent(
+               () => import("@/features/job-request/browse/all/pages/all"),
+            ),
+         },
+         {
+            path: "moje",
+            element: lazyRouteComponent(
+               () => import("@/features/job-request/browse/mine/pages/my-job-requests-page"),
+            ),
+         },
+         {
+            path: "$id",
+            element: lazyRouteComponent(
+               () => import("@/features/job-request/details/pages/job-request-details-page"),
+            ),
+         },
+      ],
    },
    {
       path: "/kontakt",
