@@ -1,6 +1,6 @@
 import { type ComponentType, type LazyExoticComponent } from "react"
 import { lazyRouteComponent } from "@tanstack/react-router"
-import type { Authority } from "@/features/auth/types/auth-types"
+import type { Authority } from "@/features/auth/api/types"
 
 export interface AppRouteConfig {
    path: string
@@ -30,20 +30,24 @@ export const appRoutes: AppRouteConfig[] = [
    {
       path: "/zamowienie-uslugi/$serviceSlug",
       element: lazyRouteComponent(
-         () => import("@/features/job-request/create/pages/job-request-page"),
+         () => import("@/features/job-request/create/pages/create-job-request-page"),
       ),
    },
    {
       path: "/zlecenia/$id",
-      element: lazyRouteComponent(() => import("@/features/job-request/browse/pages/details")),
+      element: lazyRouteComponent(
+         () => import("@/features/job-request/details/pages/job-request-details-page"),
+      ),
    },
    {
       path: "/zlecenia/moje",
-      element: lazyRouteComponent(() => import("@/features/job-request/browse/pages/my")),
+      element: lazyRouteComponent(
+         () => import("@/features/job-request/browse/mine/pages/my-job-requests-page"),
+      ),
    },
    {
       path: "/zlecenia",
-      element: lazyRouteComponent(() => import("@/features/job-request/browse/pages/all")),
+      element: lazyRouteComponent(() => import("@/features/job-request/browse/all/pages/all")),
    },
    {
       path: "/kontakt",

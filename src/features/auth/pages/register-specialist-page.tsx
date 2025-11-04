@@ -1,5 +1,5 @@
-import { AuthLayout } from "@/features/auth/layouts/auth-layout"
-import { UserType } from "@/features/auth/types/auth-types"
+import { AuthLayout } from "@/features/auth/components/auth-layout"
+import { UserType } from "@/features/auth/api/types"
 import { RegisterForm } from "@/features/auth/components/register-form"
 
 const RegisterSpecialistPage = () => {

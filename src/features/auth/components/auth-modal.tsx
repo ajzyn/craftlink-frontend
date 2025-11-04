@@ -2,7 +2,7 @@ import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/compone
 import { useAuthStore } from "@/features/auth/stores/use-auth-store"
 import { useEffect } from "react"
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden"
-import { AuthLayout } from "@/features/auth/layouts/auth-layout"
+import { AuthLayout } from "@/features/auth/components/auth-layout"
 import { LoginForm } from "@/features/auth/components/login-form"
 
 interface AuthModalProps {

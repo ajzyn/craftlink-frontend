@@ -2,10 +2,10 @@ import { useForm } from "react-hook-form"
 import { createJobRequestSchema, type JobRequestData } from "../utils/form-schema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useRouter } from "@tanstack/react-router"
-import { useCreateJobRequestMutation } from "@/features/job-request/create/api/queries"
+import { useCreateJobRequestMutation } from "@/features/job-request/api/mutations"
 import { toast } from "sonner"
 import type { CityDto } from "@/shared/types/location-types"
-import type { ServiceDetailsDto } from "@/features/services/types/data"
+import type { ServiceDetailsDto } from "@/features/services/api/types"
 import { useState } from "react"
 
 export const useJobRequestForm = (selectedCity: CityDto, selectedService: ServiceDetailsDto) => {

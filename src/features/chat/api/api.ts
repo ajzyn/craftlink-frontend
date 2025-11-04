@@ -1,4 +1,4 @@
-import type { Conversation } from "@/features/chat/types/chat"
+import type { Conversation } from "@/features/chat/api/types"
 import { apiClient } from "@/shared/api/http-client"
 
 export const chatApi = {

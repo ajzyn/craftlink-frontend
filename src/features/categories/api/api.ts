@@ -1,5 +1,5 @@
 import { apiClient } from "@/shared/api/http-client"
-import type { CategoryBasicDto, CategoryDetailsDto } from "@/features/categories/types/data"
+import type { CategoryBasicDto, CategoryDetailsDto } from "@/features/categories/api/types"
 
 export const categoryApi = {
    getAllCategoriesRequests: async () => {

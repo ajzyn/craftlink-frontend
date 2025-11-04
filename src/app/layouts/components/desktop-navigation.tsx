@@ -9,7 +9,7 @@ import {
    DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Separator } from "@/components/ui/separator"
-import { type UserDto } from "@/features/auth/types/auth-types"
+import { type UserDto } from "@/features/auth/api/types"
 import { ChevronDown, LogOut, User } from "lucide-react"
 import { useNavigate } from "@tanstack/react-router"
 import { getUserInitials } from "@/shared/utils/string-utils"

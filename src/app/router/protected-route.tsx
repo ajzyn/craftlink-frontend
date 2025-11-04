@@ -1,6 +1,6 @@
 import { useAuthStore } from "@/features/auth/stores/use-auth-store"
 import type { ReactNode } from "react"
-import type { Authority } from "@/features/auth/types/auth-types"
+import type { Authority } from "@/features/auth/api/types"
 import { Navigate } from "@tanstack/react-router"
 import { useBreakpoint } from "@/shared/hooks/use-breakpoint"
 import { toast } from "sonner"

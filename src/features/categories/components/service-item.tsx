@@ -1,4 +1,4 @@
-import type { CategoryServiceDto } from "@/features/categories/types/data"
+import type { CategoryServiceDto } from "@/features/categories/api/types"
 import { Card, CardContent } from "@/components/ui/card"
 import { ChevronRight } from "lucide-react"
 import { useRouter } from "@tanstack/react-router"

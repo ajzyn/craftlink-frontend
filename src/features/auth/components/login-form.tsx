@@ -12,14 +12,14 @@ import {
 import { Input } from "@/components/ui/input"
 
 import { useLoginMutation } from "../api/mutations"
-import { loginSchema } from "@/features/auth/utils/login-schema"
+import { loginFormSchema } from "@/features/auth/utils/login-form-schema"
 import { useAuthForm } from "@/features/auth/hooks/use-auth-form"
 
 export const LoginForm = ({ onSuccess }: { onSuccess?: VoidFunction }) => {
    const loginMutation = useLoginMutation()
 
    const { form, onSubmit } = useAuthForm({
-      schema: loginSchema,
+      schema: loginFormSchema,
       defaultValues: { email: "", password: "" },
       mutation: loginMutation.mutateAsync,
       successMessage: "Zostałeś pomyślnie zalogowany.",

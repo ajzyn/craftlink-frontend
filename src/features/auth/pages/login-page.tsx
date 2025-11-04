@@ -1,4 +1,4 @@
-import { AuthLayout } from "@/features/auth/layouts/auth-layout"
+import { AuthLayout } from "@/features/auth/components/auth-layout"
 import { LoginForm } from "@/features/auth/components/login-form"
 
 const LoginPage = () => {

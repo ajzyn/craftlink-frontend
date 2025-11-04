@@ -3,7 +3,7 @@ import { useChatWindowStore } from "../stores/use-chat-window-store"
 import { useAuthStore } from "@/features/auth/stores/use-auth-store"
 import { getChatClient } from "@/features/chat/api/websocket-client"
 import type { Client, StompSubscription } from "@stomp/stompjs"
-import type { ChatMessage } from "@/features/chat/types/chat"
+import type { ChatMessage } from "@/features/chat/api/types"
 
 export const useChatSocket = (conversationId?: string) => {
    const token = useAuthStore(state => state.accessToken)

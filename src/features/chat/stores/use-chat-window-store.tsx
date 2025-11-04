@@ -1,5 +1,5 @@
 import { create } from "zustand"
-import type { ChatMessage } from "@/features/chat/types/chat"
+import type { ChatMessage } from "@/features/chat/api/types"
 
 interface ChatState {
    messages: Record<string, ChatMessage[]>

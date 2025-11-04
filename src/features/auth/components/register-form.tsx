@@ -12,8 +12,8 @@ import {
 import { Input } from "@/components/ui/input"
 import { useAuthForm } from "@/features/auth/hooks/use-auth-form"
 import { useRegisterMutation } from "@/features/auth/api/mutations"
-import { type RegisterFormData, registerSchema } from "../utils/register-schema"
-import type { UserType } from "@/features/auth/types/auth-types"
+import { type RegisterFormData, registerFormSchema } from "../utils/register-form-schema"
+import type { UserType } from "@/features/auth/api/types"
 
 interface RegisterFormProps {
    onSuccess?: VoidFunction
@@ -32,7 +32,7 @@ export const RegisterForm = ({ onSuccess, userType }: RegisterFormProps) => {
    }
 
    const { form, onSubmit } = useAuthForm({
-      schema: registerSchema,
+      schema: registerFormSchema,
       defaultValues: {
          username: "",
          email: "",

@@ -1,6 +1,6 @@
 import axios, { type AxiosInstance, type AxiosRequestConfig, type AxiosResponse } from "axios"
 import { useAuthStore } from "@/features/auth/stores/use-auth-store"
-import type { AuthenticationResponse } from "@/features/auth/types/auth-types"
+import type { AuthenticationDto } from "@/features/auth/api/types"
 
 //TODO: move to env vars
 export const BACKEND_BASE_URL = "http://localhost:8080"
@@ -158,7 +158,7 @@ class ApiClient {
          withCredentials: true,
       })
 
-      return refreshClient.get<AuthenticationResponse>("/auth/refresh-token")
+      return refreshClient.get<AuthenticationDto>("/auth/refresh-token")
    }
 }
 

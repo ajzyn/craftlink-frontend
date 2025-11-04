@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "@tanstack/react-router"
 import { useCategoryDetailsQuery } from "@/features/categories/api/queries"
 import { Button } from "@/components/ui/button"
 import { ServiceItem } from "@/features/categories/components/service-item"
-import { ServiceItemSkeleton } from "@/features/categories/components/skeletons/service-item-skeleton"
+import { ServiceItemSkeleton } from "@/features/categories/components/service-item-skeleton"
 import { ErrorFallback } from "@/components/error-fallback"
 import { CategoryBanner } from "@/components/category-banner"
 

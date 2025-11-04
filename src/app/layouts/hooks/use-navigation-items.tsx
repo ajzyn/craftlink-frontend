@@ -1,4 +1,4 @@
-import { UserType } from "@/features/auth/types/auth-types"
+import { UserType } from "@/features/auth/api/types"
 import { useRouterState } from "@tanstack/react-router"
 import { BarChart, Briefcase, Hammer, ShoppingBag, User, Users } from "lucide-react"
 import { type ReactNode, useMemo } from "react"

@@ -1,4 +1,4 @@
-import type { UserDto } from "@/features/auth/types/auth-types"
+import type { UserDto } from "@/features/auth/api/types"
 import { Button } from "@/components/ui/button"
 import { LogIn, LogOut, Settings } from "lucide-react"
 import type { MenuElement } from "@/app/layouts/hooks/use-navigation-items"

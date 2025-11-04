@@ -1,5 +1,5 @@
 import { Badge } from "@/components/ui/badge"
-import { JobRequestStatus } from "../types/job-request-status-enum"
+import { JobRequestStatus } from "../types/status-enum"
 import { useAuthStore } from "@/features/auth/stores/use-auth-store"
 
 interface JobRequestStatusProps {

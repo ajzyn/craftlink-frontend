@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { jwtDecode } from "jwt-decode"
 import { toast } from "sonner"
 import { useAuthStore } from "@/features/auth/stores/use-auth-store"
-import type { JwtPayload, UserDto } from "@/features/auth/types/auth-types"
+import type { JwtPayload, UserDto } from "@/features/auth/api/types"
 
 interface UseAuthFormProps<T extends ZodTypeAny> {
    schema: T
@@ -15,6 +15,7 @@ interface UseAuthFormProps<T extends ZodTypeAny> {
    onSuccess?: VoidFunction
 }
 
+//TODO: ogarnac typy -> RegisterFormData
 export const useAuthForm = <T extends ZodTypeAny>({
    schema,
    defaultValues,

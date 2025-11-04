@@ -1,11 +1,11 @@
 import { useMemo } from "react"
 import type { JobRequestStep } from "../types/stepper"
-import { JobDateStep } from "../components/steps/date/job-date-step"
-import { Summary } from "../components/steps/summary/summary"
-import { Description } from "../components/steps/description/description"
-import { DistrictStep } from "../components/steps/district/district-step"
+import { DateStep } from "../components/date-step"
+import { SummaryStep } from "../components/summary-step"
+import { DescriptionStep } from "../components/description-step"
+import { DistrictStep } from "../components/district-step"
 import type { CityDto } from "@/shared/types/location-types"
-import type { ServiceDetailsDto } from "@/features/services/types/data"
+import type { ServiceDetailsDto } from "@/features/services/api/types"
 import { Bell, Clock, FileText, MapPin } from "lucide-react"
 
 export const useJobRequestSteps = (city: CityDto, service: ServiceDetailsDto): JobRequestStep[] =>
@@ -13,21 +13,21 @@ export const useJobRequestSteps = (city: CityDto, service: ServiceDetailsDto): J
       const base: JobRequestStep[] = [
          {
             id: 1,
-            component: <JobDateStep />,
+            component: <DateStep />,
             name: "serviceTime",
             title: "Termin usługi",
             icon: Clock,
          },
          {
             id: 2,
-            component: <Description />,
+            component: <DescriptionStep />,
             name: "description",
             title: "Opisz usługę",
             icon: FileText,
          },
          {
             id: 3,
-            component: <Summary service={service} city={city} />,
+            component: <SummaryStep service={service} city={city} />,
             title: "Podsumowanie",
             icon: Bell,
          },

@@ -1,5 +1,5 @@
 import { create } from "zustand"
-import type { UserDto } from "@/features/auth/types/auth-types"
+import type { UserDto } from "@/features/auth/api/types"
 
 interface AuthActions {
    setUser: (user: UserDto) => void

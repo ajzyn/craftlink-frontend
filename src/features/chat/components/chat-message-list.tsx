@@ -1,4 +1,4 @@
-import type { ChatMessage } from "@/features/chat/types/chat"
+import type { ChatMessage } from "@/features/chat/api/types"
 
 export const ChatMessageList = ({ messages }: { messages: ChatMessage[] }) => (
    <div className="flex flex-col gap-2 p-3 overflow-y-auto h-full">

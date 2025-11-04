@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card"
-import { SelectService } from "@/features/dashboard/components/select-service"
-import { CategoriesList } from "@/features/dashboard/components/categories-list"
+import { ServiceSelect } from "@/features/dashboard/components/service-select"
+import { CategoryList } from "@/features/dashboard/components/category-list"
 
 const DashboardPage = () => {
    return (
@@ -22,8 +22,8 @@ const DashboardPage = () => {
                <section className="max-w-5xl mx-auto">
                   <Card className="shadow-xl">
                      <CardContent className="p-6 sm:p-8">
-                        <SelectService />
-                        <CategoriesList />
+                        <ServiceSelect />
+                        <CategoryList />
                      </CardContent>
                   </Card>
                </section>
