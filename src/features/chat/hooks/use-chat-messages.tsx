@@ -1,21 +1,24 @@
 import { useChatHistoryQuery } from "@/features/chat/api/queries"
 import { useChatWindowStore } from "@/features/chat/stores/use-chat-window-store"
-import { useEffect } from "react"
+import { useEffect, useMemo } from "react"
+import { useShallow } from "zustand/react/shallow"
 
 export const useChatMessages = (conversationId?: string) => {
-   const setMessages = useChatWindowStore(state => state.setMessages)
-   const runtimeMessages = useChatWindowStore(state => state.messages)
+   const { messages: runtimeMessages, setMessages } = useChatWindowStore(
+      useShallow(state => ({ messages: state.messages, setMessages: state.setMessages })),
+   )
 
-   const { data: history, isSuccess, isError, isLoading } = useChatHistoryQuery(conversationId)
+   const { data: chatHistory, isSuccess, isError, isLoading } = useChatHistoryQuery(conversationId)
 
    useEffect(() => {
-      if (isSuccess) {
-         // console.log("here")
-         // setMessages(conversationId!, history?.messages ?? [])
+      if (isSuccess && conversationId) {
+         setMessages(conversationId, chatHistory?.messages ?? [])
       }
-   }, [conversationId, history?.messages, isSuccess, setMessages])
+   }, [isSuccess, conversationId, chatHistory?.messages, setMessages])
 
-   const allMessages = [...(history?.messages ?? []), ...(runtimeMessages[conversationId!] ?? [])]
+   const allMessages = useMemo(() => {
+      return [...(chatHistory?.messages ?? []), ...(runtimeMessages[conversationId!] ?? [])]
+   }, [chatHistory?.messages, runtimeMessages, conversationId])
 
    return { isError, isLoading, messages: allMessages }
 }
