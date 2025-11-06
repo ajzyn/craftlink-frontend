@@ -107,7 +107,6 @@ class ApiClient {
             if (originalRequest.url?.includes("/auth/refresh-token")) {
                this.isRefreshing = false
                useAuthStore.getState().logout()
-               window.location.href = "/login"
                return Promise.reject(error)
             }
 
@@ -137,9 +136,6 @@ class ApiClient {
             } catch (refreshError) {
                this.processQueue(refreshError, null)
                useAuthStore.getState().logout()
-               if (window.location.pathname !== "/") {
-                  window.location.href = "/"
-               }
                return Promise.reject(refreshError)
             } finally {
                this.isRefreshing = false

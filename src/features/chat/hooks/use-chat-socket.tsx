@@ -1,55 +1,46 @@
-import { useEffect, useRef } from "react"
+// use-chat-socket.tsx
+import { useCallback, useEffect } from "react"
 import { useChatWindowStore } from "../stores/use-chat-window-store"
 import { useAuthStore } from "@/features/auth/stores/use-auth-store"
-import { getChatClient } from "@/shared/api/websocket-client"
-import type { Client, StompSubscription } from "@stomp/stompjs"
 import type { ChatMessage } from "@/features/chat/api/types"
+import type { IMessage } from "@stomp/stompjs"
+import { wsClient } from "@/shared/api/websocket-client"
 
 export const useChatSocket = (conversationId?: string) => {
    const token = useAuthStore(state => state.accessToken)
    const addMessage = useChatWindowStore(state => state.addMessage)
    const activeConversationId = useChatWindowStore(state => state.activeConversationId)
-   const wsClientRef = useRef<Client | null>(null)
-   const subRef = useRef<StompSubscription | null>(null)
 
    useEffect(() => {
-      if (!token) return
-      wsClientRef.current = getChatClient(token)
-   }, [token])
-
-   useEffect(() => {
-      const client = wsClientRef.current
-      if (!client || !token || !conversationId) return
-
-      const subscribeNow = () => {
-         subRef.current?.unsubscribe()
-         subRef.current = client.subscribe(`/topic/conversations/${conversationId}`, msg => {
-            const body = JSON.parse(msg.body) as ChatMessage
-            addMessage(conversationId, body)
-         })
-      }
-
-      if (client.connected) {
-         subscribeNow()
-      } else {
-         client.onConnect = subscribeNow
-      }
+      void wsClient.acquire(token ?? undefined)
 
       return () => {
-         subRef.current?.unsubscribe()
-         subRef.current = null
+         void wsClient.release()
       }
-   }, [conversationId, token, addMessage])
+   }, [])
 
-   const sendMessage = (content: string) => {
-      const client = wsClientRef.current
-      if (!conversationId || !client || !content.trim()) return
+   useEffect(() => {
+      if (!conversationId) return
 
-      client.publish({
-         destination: `/app/chat.send/${conversationId}`,
-         body: JSON.stringify({ content }),
-      })
-   }
+      const handleMessage = (msg: IMessage) => {
+         const body = JSON.parse(msg.body) as ChatMessage
+         addMessage(conversationId, body)
+      }
+
+      wsClient.subscribe(conversationId, handleMessage)
+
+      return () => {
+         wsClient.unsubscribe(conversationId)
+      }
+   }, [conversationId, addMessage])
+
+   const sendMessage = useCallback(
+      (content: string) => {
+         if (!conversationId || !content.trim()) return
+         wsClient.send(conversationId, content)
+      },
+      [conversationId],
+   )
 
    return { sendMessage, activeConversationId }
 }

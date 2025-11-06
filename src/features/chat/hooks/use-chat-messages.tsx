@@ -10,7 +10,8 @@ export const useChatMessages = (conversationId?: string) => {
 
    useEffect(() => {
       if (isSuccess) {
-         setMessages(conversationId!, history?.messages ?? [])
+         // console.log("here")
+         // setMessages(conversationId!, history?.messages ?? [])
       }
    }, [conversationId, history?.messages, isSuccess, setMessages])
 

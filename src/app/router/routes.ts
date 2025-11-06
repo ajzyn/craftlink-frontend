@@ -18,6 +18,8 @@ export type AppRouteConfig =
         children: AppRouteConfig[]
      }
 
+//TODO: add routing protections
+
 export const appRoutes: AppRouteConfig[] = [
    {
       path: "/",
