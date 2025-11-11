@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader } from "@/shared/ui/card"
 import { cn } from "@/lib/utils"
 
 interface SectionProps {
-   label: string
+   label: React.ReactNode
    children: React.ReactNode
    className?: string
 }

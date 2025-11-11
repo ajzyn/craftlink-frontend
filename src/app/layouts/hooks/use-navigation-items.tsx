@@ -1,6 +1,6 @@
 import { UserType } from "@/features/auth/api/types"
 import { useRouterState } from "@tanstack/react-router"
-import { BarChart, Briefcase, Hammer, ShoppingBag, User, Users } from "lucide-react"
+import { BarChart, Briefcase, Hammer, Mail, ShoppingBag, User, Users } from "lucide-react"
 import { type ReactNode, useMemo } from "react"
 
 export interface MenuElement {
@@ -30,7 +30,14 @@ export const useNavigationItems = (
    const { location } = useRouterState()
    return useMemo(() => {
       if (userType && NAVIGATION_CONFIGS[userType]) {
-         return NAVIGATION_CONFIGS[userType]
+         return [
+            ...NAVIGATION_CONFIGS[userType],
+            {
+               label: "Wiadomości",
+               href: "/wiadomosci",
+               icon: <Mail />,
+            },
+         ]
       }
 
       const navItems: MenuElement[] = [{ label: "Usługi", href: "/services", icon: <Hammer /> }]

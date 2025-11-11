@@ -18,7 +18,7 @@ export type AppRouteConfig =
         children: AppRouteConfig[]
      }
 
-//TODO: add routing protections
+//TODO: add routing protections and consider if its good to have them all as lazy loaded
 
 export const appRoutes: AppRouteConfig[] = [
    {
@@ -42,6 +42,10 @@ export const appRoutes: AppRouteConfig[] = [
       element: lazyRouteComponent(
          () => import("@/features/job-request/create/pages/create-job-request-page"),
       ),
+   },
+   {
+      path: "/wiadomosci",
+      element: lazyRouteComponent(() => import("@/features/chat/pages/conversation-list-page")),
    },
    {
       path: "/zlecenia",

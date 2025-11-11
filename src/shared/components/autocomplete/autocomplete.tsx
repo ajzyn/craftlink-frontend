@@ -12,7 +12,7 @@ import { useDebounce } from "@/shared/hooks"
 interface FormAutocompleteProps<T extends AutocompleteOption | string> {
    value?: string | number | T | null
    onChange?: (value: T | null, inputValue?: string) => void
-   onBlur?: () => void
+   onBlur?: VoidFunction
    placeholder?: string
    options?: T[]
    queryFn?: (query: string) => Promise<T[]>

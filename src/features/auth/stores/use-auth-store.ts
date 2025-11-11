@@ -67,9 +67,16 @@ useAuthStore.subscribe(
    (token, prevToken) => {
       if (wsClient.isActive() && !isNil(token) && token !== prevToken) {
          console.log("🔄 Triggering WS reconnect from middleware")
-         wsClient.reconnect(token ?? undefined)
+         void wsClient.reconnect(token ?? undefined)
       }
    },
 )
 
-useAuthStore.subscribe(state => state.isAuthenticated, wsClient.disconnect) //TODO: handle case when user with opened chat is logging in
+useAuthStore.subscribe(
+   state => state.isAuthenticated,
+   isAuthenticated => {
+      if (!isAuthenticated) {
+         void wsClient.disconnect()
+      }
+   },
+) //TODO: handle case when user with opened chat is logging in

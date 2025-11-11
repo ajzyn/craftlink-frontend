@@ -8,7 +8,7 @@ import {
 } from "@tanstack/react-query"
 import type { ApiError } from "@/shared/api/api-types"
 
-const hasRollback = (context: unknown): context is { rollback: () => void } => {
+const hasRollback = (context: unknown): context is { rollback: VoidFunction } => {
    return (
       typeof context === "object" &&
       context !== null &&
@@ -28,7 +28,7 @@ export interface BaseMutationOptions<
    onOptimisticUpdate?: (
       queryClient: QueryClient,
       variables: TVariables,
-   ) => void | { rollback?: () => void } | Promise<void | { rollback?: () => void }>
+   ) => void | { rollback?: VoidFunction } | Promise<void | { rollback?: VoidFunction }>
    onCacheUpdate?: {
       key: (variables: TVariables, data: TData) => QueryKey
       update: (prev: TCache, data: TData, variables: TVariables) => TCache

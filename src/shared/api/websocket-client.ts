@@ -8,8 +8,8 @@ const WS_BASE_URL = import.meta.env.VITE_WS_API_BASE_URL
 const API_BASE_URL = import.meta.env.VITE_REST_API_BASE_URL
 
 interface QueuedMessage {
-   convId: string
-   content: string
+   destination: string
+   body?: string
 }
 
 class WsClient {
@@ -72,37 +72,34 @@ class WsClient {
       await this.connect(token)
    }
 
-   public subscribe(conversationId: string, callback: (msg: IMessage) => void): void {
-      const destination = `/topic/conversations/${conversationId}`
-
+   public subscribe(destination: string, callback: (msg: IMessage) => void): void {
       if (this.client?.connected) {
-         this.stompSubscriptions.get(conversationId)?.unsubscribe()
-         this.currentSubscriptions.set(conversationId, callback)
-         this.stompSubscriptions.set(conversationId, this.client.subscribe(destination, callback))
+         this.stompSubscriptions.get(destination)?.unsubscribe()
+         this.currentSubscriptions.set(destination, callback)
+         this.stompSubscriptions.set(destination, this.client.subscribe(destination, callback))
       } else {
-         this.pendingSubscriptions.set(conversationId, callback)
+         this.pendingSubscriptions.set(destination, callback)
       }
    }
 
-   public send(conversationId: string, content: string): void {
+   public send(destination: string, body?: string): void {
       if (this.messageQueue.length >= this.MAX_QUEUE_SIZE) {
          toast.error("Wystąpił błąd. Spróbuj później")
          return
       }
 
       if (!this.client?.connected) {
-         this.messageQueue.push({ convId: conversationId, content })
+         this.messageQueue.push({ destination, body })
          return
       }
 
-      const body = JSON.stringify({ content })
-      this.client.publish({ destination: `/app/chat.send/${conversationId}`, body })
+      this.client.publish({ destination, body })
    }
 
-   public unsubscribe(conversationId: string): void {
-      this.stompSubscriptions.get(conversationId)?.unsubscribe()
-      this.stompSubscriptions.delete(conversationId)
-      this.pendingSubscriptions.delete(conversationId)
+   public unsubscribe(destination: string): void {
+      this.stompSubscriptions.get(destination)?.unsubscribe()
+      this.stompSubscriptions.delete(destination)
+      this.pendingSubscriptions.delete(destination)
    }
 
    public async disconnect(): Promise<void> {
@@ -162,7 +159,7 @@ class WsClient {
       const queue = [...this.messageQueue]
       this.messageQueue = []
 
-      queue.forEach(msg => this.send(msg.convId, msg.content))
+      queue.forEach(msg => this.send(msg.destination, msg.body))
    }
 
    private processPendingSubscriptions(): void {

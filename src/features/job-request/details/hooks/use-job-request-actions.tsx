@@ -6,7 +6,7 @@ import { useApplyJobRequestMutation } from "../../api/mutations"
 export const useJobRequestActions = (requestId: string) => {
    const { value, write } = useLocalStorage<string[]>(StorageKeys.FAVORITE_JOBS)
    const applyMutation = useApplyJobRequestMutation()
-   const setActiveConversation = useChatWindowStore(state => state.setActiveConversation)
+   const openChatWindow = useChatWindowStore(state => state.openWindow)
 
    const handleShare = async () => {
       try {
@@ -38,7 +38,7 @@ export const useJobRequestActions = (requestId: string) => {
    const handleApply = async () => {
       const response = await applyMutation.mutateAsync(requestId)
 
-      setActiveConversation(response.conversationId)
+      openChatWindow(response.conversationId)
    }
 
    const handleDelete = () => {}

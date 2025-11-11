@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils"
 interface ErrorStateProps {
    title?: string
    description?: string
-   onRetry?: () => void
+   onRetry?: VoidFunction
    retryText?: string
    isRetrying?: boolean
    size?: "sm" | "md" | "lg"
