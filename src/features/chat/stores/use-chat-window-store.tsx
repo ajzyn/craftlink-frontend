@@ -43,8 +43,6 @@ export const useChatWindowStore = create<ChatState & ChatActions>(set => ({
          const window = state.windows[conversationId]
          const shouldIncrementUnread = window?.minimized || !window?.isOpen
 
-         console.log(message)
-
          return {
             messages: {
                ...state.messages,

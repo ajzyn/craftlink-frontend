@@ -24,7 +24,7 @@ export const ChatMessageList = ({ messages }: ChatMessageListProps) => {
             <div
                key={msg.sentAt + msg.senderId}
                className={cn(
-                  "flex flex-col w-3/4 gap-1 rounded-md px-2 py-1 capitalize",
+                  "flex flex-col w-3/4 gap-1 rounded-md pl-3 pr-2 py-1",
                   userId === msg.senderId
                      ? "bg-primary/30 self-end"
                      : "bg-secondary brightness-95 self-start",

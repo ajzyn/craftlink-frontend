@@ -1,24 +1,17 @@
-// hooks/use-chat-socket.tsx
 import { useCallback, useEffect } from "react"
-import { useChatWindowStore } from "../stores/use-chat-window-store"
 import { useAuthStore } from "@/features/auth/stores/use-auth-store"
 import type {
    ChatEventEnvelopeDto,
    ChatMessageDto,
    ChatMessageReadDto,
-   ConversationDto,
 } from "@/features/chat/api/types"
 import type { IMessage } from "@stomp/stompjs"
 import { wsClient } from "@/shared/api/websocket-client"
-import { useQueryClient } from "@tanstack/react-query"
-import { chatKeys } from "../api/keys"
+import { useChatEventHandlers } from "@/features/chat/hooks/use-chat-event-handlers"
 
-export const useChatSocket = (conversationId?: string) => {
+export const useChatSocket = (conversationId: string) => {
    const token = useAuthStore(state => state.accessToken)
-   const currentUserId = useAuthStore(state => state.user?.id)
-   const queryClient = useQueryClient()
-   const addMessage = useChatWindowStore(state => state.addMessage)
-   const markMessagesAsRead = useChatWindowStore(state => state.markAllMessagesAsReadUpTo)
+   const { handleMessageEvent, handleReadEvent } = useChatEventHandlers(conversationId)
 
    useEffect(() => {
       void wsClient.acquire(token ?? undefined)
@@ -26,50 +19,26 @@ export const useChatSocket = (conversationId?: string) => {
    }, [token])
 
    useEffect(() => {
-      if (!conversationId || !currentUserId) return
-
-      const destination = `/topic/conversations/${conversationId}`
-
       const handleEvent = (msg: IMessage) => {
          const envelope = JSON.parse(msg.body) as ChatEventEnvelopeDto<
             ChatMessageDto | ChatMessageReadDto
          >
 
          switch (envelope.type) {
-            case "MESSAGE": {
-               const message = envelope.payload as ChatMessageDto
-               addMessage(message)
-
-               queryClient.setQueryData(chatKeys.all, (old: ConversationDto[] | undefined) => {
-                  if (!old) return old
-
-                  return old.map(conv =>
-                     conv.id === conversationId ? { ...conv, lastMessage: message } : conv,
-                  )
-               })
+            case "MESSAGE":
+               handleMessageEvent(envelope.payload as ChatMessageDto)
                break
-            }
-            case "READ_MESSAGE": {
-               const { lastReadMessageId, readAt, readerId, conversationId } =
-                  envelope.payload as ChatMessageReadDto
-               markMessagesAsRead(
-                  conversationId,
-                  lastReadMessageId,
-                  readAt,
-                  readerId,
-                  currentUserId,
-               )
+            case "READ_MESSAGE":
+               handleReadEvent(envelope.payload as ChatMessageReadDto)
                break
-            }
          }
       }
 
+      const destination = `/topic/conversations/${conversationId}`
       wsClient.subscribe(destination, handleEvent)
 
-      return () => {
-         wsClient.unsubscribe(destination)
-      }
-   }, [conversationId, currentUserId, addMessage, markMessagesAsRead])
+      return () => wsClient.unsubscribe(destination)
+   }, [conversationId, handleMessageEvent, handleReadEvent])
 
    const sendMessage = useCallback(
       (content: string) => {

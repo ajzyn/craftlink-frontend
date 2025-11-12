@@ -31,8 +31,6 @@ export const useAuthStore = create(
       setUser: user => set({ user, isAuthenticated: true }),
 
       setAccessToken: token => {
-         console.log("📝 setAccessToken called", { hasToken: !!token })
-
          set({ accessToken: token })
       },
 
@@ -66,7 +64,6 @@ useAuthStore.subscribe(
    state => state.accessToken,
    (token, prevToken) => {
       if (wsClient.isActive() && !isNil(token) && token !== prevToken) {
-         console.log("🔄 Triggering WS reconnect from middleware")
          void wsClient.reconnect(token ?? undefined)
       }
    },
