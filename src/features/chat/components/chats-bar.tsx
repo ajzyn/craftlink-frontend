@@ -4,15 +4,15 @@ import { useShallow } from "zustand/react/shallow"
 import { isEmpty } from "lodash"
 
 export const ChatsBar = () => {
-   const openWindows = useChatWindowStore(
+   const openedWindows = useChatWindowStore(
       useShallow(state => Object.values(state.windows).filter(w => w.isOpen)),
    )
 
-   if (isEmpty(openWindows)) return null
+   if (isEmpty(openedWindows)) return null
 
    return (
       <div className="fixed bottom-0 right-4 flex gap-3 z-50">
-         {openWindows.map(w => (
+         {openedWindows.map(w => (
             <ChatWindow key={w.id} conversationId={w.id} minimized={w.minimized} />
          ))}
       </div>

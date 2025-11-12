@@ -14,5 +14,7 @@ export const useAllConversationsQuery = () => {
    return useQuery({
       queryKey: chatKeys.all,
       queryFn: () => getAllConversations(),
+      refetchInterval: 10000,
+      refetchOnWindowFocus: true,
    })
 }

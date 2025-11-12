@@ -1,12 +1,12 @@
-import { useChatWindowStore } from "@/features/chat/stores/use-chat-window-store"
 import { StorageKeys, useLocalStorage } from "@/shared/hooks"
 import { toast } from "sonner"
 import { useApplyJobRequestMutation } from "../../api/mutations"
+import { useOpenChat } from "@/features/chat/hooks/use-open-chat"
 
 export const useJobRequestActions = (requestId: string) => {
    const { value, write } = useLocalStorage<string[]>(StorageKeys.FAVORITE_JOBS)
    const applyMutation = useApplyJobRequestMutation()
-   const openChatWindow = useChatWindowStore(state => state.openWindow)
+   const openChatWindow = useOpenChat()
 
    const handleShare = async () => {
       try {

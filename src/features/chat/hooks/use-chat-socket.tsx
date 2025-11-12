@@ -6,20 +6,19 @@ import type {
    ChatEventEnvelopeDto,
    ChatMessageDto,
    ChatMessageReadDto,
+   ConversationDto,
 } from "@/features/chat/api/types"
 import type { IMessage } from "@stomp/stompjs"
 import { wsClient } from "@/shared/api/websocket-client"
-import { useShallow } from "zustand/react/shallow"
+import { useQueryClient } from "@tanstack/react-query"
+import { chatKeys } from "../api/keys"
 
 export const useChatSocket = (conversationId?: string) => {
    const token = useAuthStore(state => state.accessToken)
    const currentUserId = useAuthStore(state => state.user?.id)
-   const { addMessage, markMessagesAsRead } = useChatWindowStore(
-      useShallow(state => ({
-         addMessage: state.addMessage,
-         markMessagesAsRead: state.markAllMessagesAsReadUpTo,
-      })),
-   )
+   const queryClient = useQueryClient()
+   const addMessage = useChatWindowStore(state => state.addMessage)
+   const markMessagesAsRead = useChatWindowStore(state => state.markAllMessagesAsReadUpTo)
 
    useEffect(() => {
       void wsClient.acquire(token ?? undefined)
@@ -40,9 +39,17 @@ export const useChatSocket = (conversationId?: string) => {
             case "MESSAGE": {
                const message = envelope.payload as ChatMessageDto
                addMessage(message)
+
+               queryClient.setQueryData(chatKeys.all, (old: ConversationDto[] | undefined) => {
+                  if (!old) return old
+
+                  return old.map(conv =>
+                     conv.id === conversationId ? { ...conv, lastMessage: message } : conv,
+                  )
+               })
                break
             }
-            case "BULK_READ_RECEIPT": {
+            case "READ_MESSAGE": {
                const { lastReadMessageId, readAt, readerId, conversationId } =
                   envelope.payload as ChatMessageReadDto
                markMessagesAsRead(
