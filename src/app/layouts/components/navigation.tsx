@@ -34,10 +34,8 @@ export const Navigation = () => {
          <header
             className={cn(
                "fixed top-0 left-0 right-0 z-40",
-               "max-w-8xl mx-auto pr-4 sm:pr-6 lg:pr-8 border-b border-gray-200",
-               isScrolled
-                  ? "bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
-                  : "bg-background/90 backdrop-blur-sm supports-[backdrop-filter]:bg-background/60",
+               "max-w-8xl mx-auto pr-4 sm:pr-6 lg:pr-8 border-b border-gray-200 shadow-[0_2px_6px_rgba(0,0,0,0.05)]",
+               isScrolled ? "bg-background/95 backdrop-blur" : "bg-background/90 backdrop-blur-sm",
             )}
          >
             <div className="mx-auto max-w-7xl h-16 lg:h-18 w-full flex items-center justify-between">

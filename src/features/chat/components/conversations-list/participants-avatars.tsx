@@ -6,11 +6,11 @@ interface ListItemChatParticipantsProps {
    participants: ConversationParticipantDto[]
 }
 
-export const Participants = ({ participants }: ListItemChatParticipantsProps) => {
+export const ParticipantsAvatars = ({ participants }: ListItemChatParticipantsProps) => {
    return (
       <div className="flex -space-x-2">
          {participants.map(p => (
-            <Avatar key={p.id} className="w-12 h-12">
+            <Avatar key={p.id} className="w-12 h-12 md:h-20 md:w-20">
                <AvatarImage src={p.name} alt={p.name} />
                <AvatarFallback className="bg-accent">{getUserInitials(p.name)}</AvatarFallback>
             </Avatar>

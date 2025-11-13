@@ -5,7 +5,7 @@ import { pl } from "date-fns/locale"
 import { useMemo } from "react"
 import { cn } from "@/lib/utils"
 import { useConversationNavigation } from "@/features/chat/hooks/use-navigation"
-import { Participants } from "@/features/chat/components/conversations-list/participants"
+import { ParticipantsAvatars } from "@/features/chat/components/conversations-list/participants-avatars"
 import { ContextBadge } from "./context-badge"
 
 export const Item = ({ conversation }: { conversation: ConversationDto }) => {
@@ -29,12 +29,12 @@ export const Item = ({ conversation }: { conversation: ConversationDto }) => {
    return (
       <div
          onClick={openConversation}
-         className="p-4 hover:bg-accent/50 transition-colors cursor-pointer flex items-center justify-between gap-6"
+         className="p-4 hover:bg-accent/20 rounded-md transition-colors cursor-pointer flex items-center justify-between gap-6 md:px-10"
       >
-         <Participants participants={otherParticipants} />
+         <ParticipantsAvatars participants={otherParticipants} />
          <div className="flex-1 flex justify-between items-center">
-            <div>
-               <p className="text-sm capitalize font-semibold truncate">
+            <div className="space-y-1.5">
+               <p className="text-md capitalize font-semibold truncate">
                   {participantNames}
                   {isUnread && (
                      <Badge variant="default" className="ml-2 h-5 min-w-5 px-1 text-xs">

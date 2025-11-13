@@ -14,10 +14,10 @@ export const ContextBadge = ({ context, onClick }: ChatContextBadgeProps) => {
             <Badge
                onClick={onClick}
                variant="secondary"
-               className="mt-auto h-10 cursor-pointer hover:bg-primary/60"
+               className="mt-auto h-10 cursor-pointer transition-colors hover:bg-primary/40 max-md:bg-primary/10 "
             >
-               <Briefcase className="w-3 h-3 mr-1" />
-               Zobacz zlecenie
+               <Briefcase className="w-3 h-3 md:mr-1" />
+               <span className="hidden md:inline-block">Zobacz zlecenie</span>
             </Badge>
          )}
       </div>

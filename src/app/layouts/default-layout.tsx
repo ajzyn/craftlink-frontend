@@ -3,7 +3,6 @@ import type { ReactNode } from "react"
 import { Navigation } from "@/app/layouts/components/navigation"
 import { Footer } from "@/shared/components/footer"
 import { WindowsBar } from "@/features/chat/components/conversation/windows-bar"
-import { Separator } from "@/shared/ui/separator"
 
 interface DefaultLayoutProps {
    children: ReactNode
@@ -13,9 +12,9 @@ export const DefaultLayout = ({ children }: DefaultLayoutProps) => {
    return (
       <div className="min-h-screen flex flex-col bg-background w-full">
          <Navigation />
-         <Separator className="mt-17" />
+         <div className="mt-17" />
 
-         <main className="flex-1 bg-gradient-to-br from-yellow-50 via-background to-teal-50">
+         <main className="flex-1 bg-gray-50 md:bg-gradient-to-br md:from-yellow-50 md:via-background md:to-teal-50">
             <Toaster />
             <WindowsBar />
             {children}
