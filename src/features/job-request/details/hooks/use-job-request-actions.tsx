@@ -1,12 +1,12 @@
 import { StorageKeys, useLocalStorage } from "@/shared/hooks"
 import { toast } from "sonner"
 import { useApplyJobRequestMutation } from "../../api/mutations"
-import { useOpenChat } from "@/features/chat/hooks/use-open-chat"
+import { useConversationStore } from "@/features/chat/stores/use-conversation-store"
 
 export const useJobRequestActions = (requestId: string) => {
    const { value, write } = useLocalStorage<string[]>(StorageKeys.FAVORITE_JOBS)
    const applyMutation = useApplyJobRequestMutation()
-   const openChatWindow = useOpenChat()
+   const openConversation = useConversationStore(state => state.openWindow)
 
    const handleShare = async () => {
       try {
@@ -38,7 +38,7 @@ export const useJobRequestActions = (requestId: string) => {
    const handleApply = async () => {
       const response = await applyMutation.mutateAsync(requestId)
 
-      openChatWindow(response.conversationId)
+      openConversation(response.conversationId)
    }
 
    const handleDelete = () => {}

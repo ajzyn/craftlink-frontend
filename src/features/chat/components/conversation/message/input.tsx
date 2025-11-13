@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Button } from "@/shared/ui/button"
 
-export const ChatInput = ({ onSend }: { onSend: (msg: string) => void }) => {
+export const Input = ({ onSend }: { onSend: (msg: string) => void }) => {
    const [text, setText] = useState("")
 
    const handleSend = () => {

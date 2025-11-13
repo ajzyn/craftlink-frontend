@@ -1,7 +1,7 @@
-import type { ChatMessageDto } from "@/features/chat/api/types"
+import type { ConversationMessageDto } from "@/features/chat/api/types"
 import { useEffect, useRef, useState } from "react"
 
-export const useChatScroll = (messages: ChatMessageDto[]) => {
+export const useScroll = (messages: ConversationMessageDto[]) => {
    const scrollRef = useRef<HTMLDivElement>(null)
    const [isNearBottom, setIsNearBottom] = useState(true)
    const prevMessagesLengthRef = useRef(messages.length)

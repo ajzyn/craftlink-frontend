@@ -1,12 +1,12 @@
-import type { ChatParticipantDto } from "@/features/chat/api/types"
+import type { ConversationParticipantDto } from "@/features/chat/api/types"
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar"
 import { getUserInitials } from "@/shared/utils"
 
 interface ListItemChatParticipantsProps {
-   participants: ChatParticipantDto[]
+   participants: ConversationParticipantDto[]
 }
 
-export const ListItemChatParticipants = ({ participants }: ListItemChatParticipantsProps) => {
+export const Participants = ({ participants }: ListItemChatParticipantsProps) => {
    return (
       <div className="flex -space-x-2">
          {participants.map(p => (

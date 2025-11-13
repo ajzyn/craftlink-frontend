@@ -5,7 +5,7 @@ import { useCitiesQuery } from "@/entities/location/queries"
 import { CreateView } from "@/features/job-request/create/components/create-view"
 
 const CreateJobRequestPage = () => {
-   const { serviceSlug } = useParams({ from: "/zamowienie-uslugi/$serviceSlug" })
+   const { serviceSlug } = useParams({ from: "/zlecenia/stworz/$serviceSlug" })
    const {
       data: service,
       isLoading: isLoadingService,

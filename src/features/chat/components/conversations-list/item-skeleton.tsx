@@ -1,7 +1,7 @@
 import { Skeleton } from "@/shared/ui/skeleton"
 import { Separator } from "@/shared/ui/separator"
 
-export const ListItemSkeleton = ({ count = 3 }: { count?: number }) => {
+export const ItemSkeleton = ({ count = 3 }: { count?: number }) => {
    return (
       <>
          {Array.from({ length: count }).map((_, index) => (

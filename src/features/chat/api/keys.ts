@@ -1,6 +1,6 @@
 import { createQueryKeys } from "@/shared/api/query-keys-factory"
 
-export const chatKeys = createQueryKeys("chat", {
+export const conversationKeys = createQueryKeys("conversation", {
    all: null,
-   history: (conversationId: string) => ["chat", "history", conversationId],
+   history: (conversationId: string) => ["history", conversationId],
 })

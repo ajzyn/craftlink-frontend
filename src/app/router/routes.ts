@@ -38,14 +38,19 @@ export const appRoutes: AppRouteConfig[] = [
       element: lazyRouteComponent(() => import("@/features/categories/pages/category-page")),
    },
    {
-      path: "/zamowienie-uslugi/$serviceSlug",
-      element: lazyRouteComponent(
-         () => import("@/features/job-request/create/pages/create-job-request-page"),
-      ),
-   },
-   {
       path: "/wiadomosci",
-      element: lazyRouteComponent(() => import("@/features/chat/pages/conversation-list-page")),
+      children: [
+         {
+            path: "/",
+            element: lazyRouteComponent(
+               () => import("@/features/chat/pages/conversation-list-page"),
+            ),
+         },
+         {
+            path: "/$conversationId",
+            element: lazyRouteComponent(() => import("@/features/chat/pages/conversation-page")),
+         },
+      ],
    },
    {
       path: "/zlecenia",
@@ -54,6 +59,12 @@ export const appRoutes: AppRouteConfig[] = [
             path: "/",
             element: lazyRouteComponent(
                () => import("@/features/job-request/browse/all/pages/all"),
+            ),
+         },
+         {
+            path: "/stworz/$serviceSlug",
+            element: lazyRouteComponent(
+               () => import("@/features/job-request/create/pages/create-job-request-page"),
             ),
          },
          {

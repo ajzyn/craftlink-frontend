@@ -2,7 +2,7 @@ import { Toaster } from "sonner"
 import type { ReactNode } from "react"
 import { Navigation } from "@/app/layouts/components/navigation"
 import { Footer } from "@/shared/components/footer"
-import { ChatsBar } from "@/features/chat/components/chats-bar"
+import { WindowsBar } from "@/features/chat/components/conversation/windows-bar"
 import { Separator } from "@/shared/ui/separator"
 
 interface DefaultLayoutProps {
@@ -17,7 +17,7 @@ export const DefaultLayout = ({ children }: DefaultLayoutProps) => {
 
          <main className="flex-1 bg-gradient-to-br from-yellow-50 via-background to-teal-50">
             <Toaster />
-            <ChatsBar />
+            <WindowsBar />
             {children}
          </main>
          <Footer />

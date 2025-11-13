@@ -1,9 +1,7 @@
 import { CardHeader, CardTitle } from "@/shared/ui/card"
-import { useOpenChat } from "@/features/chat/hooks/use-open-chat"
-import { useChatWindowStore } from "@/features/chat/stores/use-chat-window-store"
+import { useConversationStore } from "@/features/chat/stores/use-conversation-store"
 import { useShallow } from "zustand/react/shallow"
 import { useMemo } from "react"
-import type { ChatParticipantDto } from "../api/types"
 import { Badge } from "@/shared/ui/badge"
 import { Button } from "@/shared/ui/button"
 import { Minus, X } from "lucide-react"
@@ -13,24 +11,20 @@ import { useAuthStore } from "@/features/auth/stores/use-auth-store"
 interface ChatWindowHeaderProps {
    conversationId: string
    minimized: boolean
-   participants: ChatParticipantDto[]
 }
 
-export const ChatWindowHeader = ({
-   conversationId,
-   minimized,
-   participants,
-}: ChatWindowHeaderProps) => {
-   const maximizeWindow = useOpenChat()
+export const HeaderDesktop = ({ conversationId, minimized }: ChatWindowHeaderProps) => {
    const userId = useAuthStore(state => state.user?.id)
-
-   const { closeWindow, minimizeWindow, unreadCount } = useChatWindowStore(
-      useShallow(state => ({
-         closeWindow: state.closeWindow,
-         minimizeWindow: state.minimizeWindow,
-         unreadCount: state.windows[conversationId]?.unreadCount ?? 0,
-      })),
-   )
+   const { closeWindow, minimizeWindow, unreadCount, maximizeWindow, participants } =
+      useConversationStore(
+         useShallow(state => ({
+            closeWindow: state.closeWindow,
+            minimizeWindow: state.minimizeWindow,
+            unreadCount: state.windows[conversationId]?.unreadCount ?? 0,
+            maximizeWindow: state.openWindow,
+            participants: state.windows[conversationId]?.participants,
+         })),
+      )
 
    const chatRecipientNames = useMemo(
       () => participants?.filter(p => p.id !== userId).map(p => p.name),

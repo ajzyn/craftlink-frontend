@@ -1,17 +1,17 @@
-import { useChatHistoryQuery } from "@/features/chat/api/queries"
-import { useChatWindowStore } from "@/features/chat/stores/use-chat-window-store"
+import { useConversationHistoryQuery } from "@/features/chat/api/queries"
+import { useConversationStore } from "@/features/chat/stores/use-conversation-store"
 import { useEffect } from "react"
 import { useShallow } from "zustand/react/shallow"
 
-export const useChatMessages = (conversationId: string) => {
-   const { setConversation, messages } = useChatWindowStore(
+export const useMessages = (conversationId: string) => {
+   const { setConversation, messages } = useConversationStore(
       useShallow(state => ({
          messages: state.messages[conversationId],
          setConversation: state.setConversation,
       })),
    )
 
-   const { data, isSuccess, isError, isLoading } = useChatHistoryQuery(conversationId)
+   const { data, isSuccess, isError, isLoading } = useConversationHistoryQuery(conversationId)
 
    useEffect(() => {
       if (isSuccess && conversationId) {

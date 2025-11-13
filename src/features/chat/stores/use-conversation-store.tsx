@@ -1,25 +1,25 @@
 import { create } from "zustand"
-import type { ChatMessageDto, ChatParticipantDto } from "@/features/chat/api/types"
+import type { ConversationMessageDto, ConversationParticipantDto } from "@/features/chat/api/types"
 
-interface ChatWindow {
+interface ConversationWindow {
    id: string
    isOpen: boolean
    minimized: boolean
    unreadCount: number
-   participants: ChatParticipantDto[]
+   participants: ConversationParticipantDto[]
 }
 
-interface ChatState {
-   messages: Record<string, ChatMessageDto[]>
-   windows: Record<string, ChatWindow>
+interface ConversationState {
+   messages: Record<string, ConversationMessageDto[]>
+   windows: Record<string, ConversationWindow>
 }
 
-interface ChatActions {
-   addMessage: (message: ChatMessageDto) => void
+interface ConversationActions {
+   addMessage: (message: ConversationMessageDto) => void
    setConversation: (
       conversationId: string,
-      participants: ChatParticipantDto[],
-      messages: ChatMessageDto[],
+      participants: ConversationParticipantDto[],
+      messages: ConversationMessageDto[],
    ) => void
    markAllMessagesAsReadUpTo: (
       conversationId: string,
@@ -33,7 +33,7 @@ interface ChatActions {
    closeWindow: (id: string) => void
 }
 
-export const useChatWindowStore = create<ChatState & ChatActions>(set => ({
+export const useConversationStore = create<ConversationState & ConversationActions>(set => ({
    messages: {},
    windows: {},
 

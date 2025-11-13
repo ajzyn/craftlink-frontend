@@ -7,7 +7,7 @@ interface ChatContextBadgeProps {
    onClick: (e: React.MouseEvent<HTMLSpanElement>) => void
 }
 
-export const ChatContextBadge = ({ context, onClick }: ChatContextBadgeProps) => {
+export const ContextBadge = ({ context, onClick }: ChatContextBadgeProps) => {
    return (
       <div className="flex flex-col gap-2 items-end">
          {context.type === "JOB" && (

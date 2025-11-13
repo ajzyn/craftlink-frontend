@@ -9,7 +9,7 @@ export const ServiceSelect = () => {
 
    const handleServiceChange = (service: ServiceBasicDto | null) => {
       if (!service) return
-      router.navigate({ to: `/zamowienie-uslugi/${service.slug}` })
+      router.navigate({ to: `/zlecenia/stworz/${service.slug}` })
    }
 
    return (

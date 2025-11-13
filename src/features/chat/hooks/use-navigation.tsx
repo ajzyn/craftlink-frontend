@@ -1,15 +1,15 @@
 import { useNavigate } from "@tanstack/react-router"
 import { useBreakpoint } from "@/shared/hooks"
-import { useOpenChat } from "./use-open-chat"
+import { useConversationStore } from "@/features/chat/stores/use-conversation-store"
 
 export const useConversationNavigation = (conversationId: string) => {
    const { isMobile } = useBreakpoint()
-   const openChatWindow = useOpenChat()
+   const openChatWindow = useConversationStore(state => state.openWindow)
    const navigate = useNavigate()
 
    const openConversation = () => {
       if (isMobile) {
-         navigate({ to: `/zlecenia/${conversationId}` })
+         navigate({ to: `/wiadomosci/${conversationId}` })
       } else {
          openChatWindow(conversationId)
       }

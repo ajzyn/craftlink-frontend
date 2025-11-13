@@ -1,7 +1,7 @@
 import type { ConversationDto, ConversationWithMessagesDto } from "@/features/chat/api/types"
 import { apiClient } from "@/shared/api/http-client"
 
-export const getChatConversation = async (conversationId: string) => {
+export const getConversation = async (conversationId: string) => {
    const response = await apiClient.get<ConversationWithMessagesDto>(`/sec/chats/${conversationId}`)
    return response.data
 }

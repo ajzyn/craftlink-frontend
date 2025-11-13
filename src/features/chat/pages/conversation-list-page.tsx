@@ -2,8 +2,8 @@ import { useAllConversationsQuery } from "@/features/chat/api/queries"
 import { Section } from "@/shared/components/section"
 import { Separator } from "@/shared/ui/separator"
 import { BackendErrorFallback } from "@/shared/components/backend-error-fallback"
-import { ListItemSkeleton } from "@/features/chat/components/list-item-skeleton"
-import { ListItem } from "@/features/chat/components/list-item"
+import { ItemSkeleton } from "@/features/chat/components/conversations-list/item-skeleton"
+import { Item } from "../components/conversations-list/item"
 
 const ConversationListPage = () => {
    const { data, isError, isFetching, refetch } = useAllConversationsQuery()
@@ -16,11 +16,11 @@ const ConversationListPage = () => {
             {isError ? (
                <BackendErrorFallback onRetry={refetch} isRetrying={isFetching} />
             ) : isFetching && !data ? (
-               <ListItemSkeleton count={5} />
+               <ItemSkeleton count={5} />
             ) : (
                data?.map((conversation, index) => (
                   <div key={conversation.id}>
-                     <ListItem conversation={conversation} />
+                     <Item conversation={conversation} />
                      {index < data.length - 1 && <Separator />}
                   </div>
                ))

@@ -11,7 +11,7 @@ export const ServiceItem = ({ service }: ServiceItemProps) => {
    const router = useRouter()
 
    const handleNavigate = () => {
-      router.navigate({ to: `/zamowienie-uslugi/${service.slug}` })
+      router.navigate({ to: `/zlecenia/stworz/${service.slug}` })
    }
 
    return (

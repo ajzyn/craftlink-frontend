@@ -1,9 +1,9 @@
-export interface ChatEventEnvelopeDto<T> {
+export interface ConversationWebsocketEvent<T> {
    type: string
    payload: T
 }
 
-export interface ChatMessageDto {
+export interface ConversationMessageDto {
    id: string
    isRead?: boolean
    senderId: string
@@ -12,22 +12,22 @@ export interface ChatMessageDto {
    conversationId: string
 }
 
-export interface ChatMessageReadDto {
+export interface ConversationMessageReadDto {
    conversationId: string
    lastReadMessageId: string
    readAt: string
    readerId: string
 }
 
-export interface ChatParticipantDto {
+export interface ConversationParticipantDto {
    id: string
    name: string
 }
 
 export interface ConversationWithMessagesDto {
    id: string
-   participants: ChatParticipantDto[]
-   messages: ChatMessageDto[]
+   participants: ConversationParticipantDto[]
+   messages: ConversationMessageDto[]
 }
 
 export enum ConversationType {
@@ -45,9 +45,9 @@ export interface ConversationContextDto {
 
 export interface ConversationDto {
    id: string
-   otherParticipants: ChatParticipantDto[]
+   otherParticipants: ConversationParticipantDto[]
    type: ConversationType
    unreadMessageCount: number
    context: ConversationContextDto
-   lastMessage: ChatMessageDto | null
+   lastMessage: ConversationMessageDto | null
 }

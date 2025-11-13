@@ -4,11 +4,11 @@ import { formatDistanceToNow } from "date-fns/formatDistanceToNow"
 import { pl } from "date-fns/locale"
 import { useMemo } from "react"
 import { cn } from "@/lib/utils"
-import { ChatContextBadge } from "@/features/chat/components/chat-context-badge"
-import { useConversationNavigation } from "@/features/chat/hooks/use-chat-navigation"
-import { ListItemChatParticipants } from "@/features/chat/components/list-item-chat-participants"
+import { useConversationNavigation } from "@/features/chat/hooks/use-navigation"
+import { Participants } from "@/features/chat/components/conversations-list/participants"
+import { ContextBadge } from "./context-badge"
 
-export const ListItem = ({ conversation }: { conversation: ConversationDto }) => {
+export const Item = ({ conversation }: { conversation: ConversationDto }) => {
    const { lastMessage, unreadMessageCount, otherParticipants, context, id } = conversation
    const { openConversation, navigateToContext } = useConversationNavigation(id)
    const isUnread = unreadMessageCount > 0
@@ -31,7 +31,7 @@ export const ListItem = ({ conversation }: { conversation: ConversationDto }) =>
          onClick={openConversation}
          className="p-4 hover:bg-accent/50 transition-colors cursor-pointer flex items-center justify-between gap-6"
       >
-         <ListItemChatParticipants participants={otherParticipants} />
+         <Participants participants={otherParticipants} />
          <div className="flex-1 flex justify-between items-center">
             <div>
                <p className="text-sm capitalize font-semibold truncate">
@@ -54,7 +54,7 @@ export const ListItem = ({ conversation }: { conversation: ConversationDto }) =>
 
             <div className="flex flex-col">
                {lastMessage && <p className="text-xs text-muted-foreground mt-1 mb-2">{timeAgo}</p>}
-               <ChatContextBadge onClick={navigateToContext(context.id)} context={context} />
+               <ContextBadge onClick={navigateToContext(context.id)} context={context} />
             </div>
          </div>
       </div>

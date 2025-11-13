@@ -76,4 +76,4 @@ useAuthStore.subscribe(
          void wsClient.disconnect()
       }
    },
-) //TODO: handle case when user with opened chat is logging in
+)
