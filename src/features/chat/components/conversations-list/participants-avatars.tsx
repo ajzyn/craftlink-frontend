@@ -1,5 +1,5 @@
 import type { ConversationParticipantDto } from "@/features/chat/api/types"
-import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "@/shared/components/ui/avatar"
 import { getUserInitials } from "@/shared/utils"
 
 interface ListItemChatParticipantsProps {

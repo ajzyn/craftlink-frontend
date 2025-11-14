@@ -1,4 +1,4 @@
-import { Button } from "@/shared/ui/button"
+import { Button } from "@/shared/components/ui/button"
 import { ArrowLeft } from "lucide-react"
 import { DynamicIcon } from "@/shared/components/dynamic-icon"
 import { useRouter } from "@tanstack/react-router"

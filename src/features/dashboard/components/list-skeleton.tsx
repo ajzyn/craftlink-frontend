@@ -1,4 +1,4 @@
-import { Skeleton } from "@/shared/ui/skeleton"
+import { Skeleton } from "@/shared/components/ui/skeleton"
 
 interface CategoryListSkeletonProps {
    length?: number

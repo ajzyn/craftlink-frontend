@@ -1,4 +1,4 @@
-import { Card, CardContent } from "@/shared/ui/card"
+import { Card, CardContent } from "@/shared/components/ui/card"
 import { ServiceSelect } from "@/features/dashboard/components/service-select"
 import { CategoryList } from "@/features/dashboard/components/category-list"
 

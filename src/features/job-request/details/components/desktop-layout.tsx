@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader } from "@/shared/ui/card"
+import { Card, CardContent, CardHeader } from "@/shared/components/ui/card"
 import { CategorySection } from "@/features/job-request/details/components/category-section"
 import { CreationDateValue } from "@/features/job-request/details/components/creation-date-value"
 import { JobRequestStatusBadge } from "@/features/job-request/shared/components/status-badge"

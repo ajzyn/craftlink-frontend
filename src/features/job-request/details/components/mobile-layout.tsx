@@ -1,7 +1,7 @@
 import type { JobRequestDetailsDto } from "@/features/job-request/api/types"
 import { JobRequestStatusBadge } from "@/features/job-request/shared/components/status-badge"
 import { CreationDateValue } from "@/features/job-request/details/components/creation-date-value"
-import { Card, CardContent, CardHeader } from "@/shared/ui/card"
+import { Card, CardContent, CardHeader } from "@/shared/components/ui/card"
 import { CategorySection } from "@/features/job-request/details/components/category-section"
 import { ActionsSection } from "@/features/job-request/details/components/actions-section"
 import { LocationSection } from "@/features/job-request/details/components/location-section"

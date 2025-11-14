@@ -5,7 +5,7 @@ const ConversationPage = () => {
    const { conversationId } = useParams({ from: "/wiadomosci/$conversationId" })
 
    return (
-      <div className="h-screen flex flex-col bg-background">
+      <div className="fixed top-16 z-51 bottom-0 left-0 w-full flex flex-col bg-background">
          <Container conversationId={conversationId} />
       </div>
    )

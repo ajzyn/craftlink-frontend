@@ -5,7 +5,7 @@ import { defaultGetOptionKey } from "./utils/get-default-key"
 import { defaultFilterOption } from "./utils/default-filter-option"
 import { useAutocompleteSearch } from "./hooks/use-autocomplete-search"
 import { ChevronDown, X } from "lucide-react"
-import { Input } from "@/shared/ui/input"
+import { Input } from "@/shared/components/ui/input"
 import { cn } from "@/lib/utils"
 import { useDebounce } from "@/shared/hooks"
 
@@ -160,7 +160,7 @@ export const FormAutocomplete = <T extends AutocompleteOption | string>({
                placeholder={placeholder}
                disabled={disabled}
                className={cn(
-                  "pl-10 pr-10",
+                  "pl-10 pr-10 h-14",
                   error && "border-destructive focus-visible:ring-destructive",
                )}
             />

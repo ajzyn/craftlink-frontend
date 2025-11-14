@@ -1,5 +1,5 @@
 import type { MenuElement } from "@/app/layouts/hooks/use-navigation-items"
-import { Button } from "@/shared/ui/button"
+import { Button } from "@/shared/components/ui/button"
 import {
    DropdownMenu,
    DropdownMenuContent,
@@ -7,8 +7,8 @@ import {
    DropdownMenuLabel,
    DropdownMenuSeparator,
    DropdownMenuTrigger,
-} from "@/shared/ui/dropdown-menu"
-import { Separator } from "@/shared/ui/separator"
+} from "@/shared/components/ui/dropdown-menu"
+import { Separator } from "@/shared/components/ui/separator"
 import { type UserDto } from "@/features/auth/api/types"
 import { ChevronDown, LogOut, User } from "lucide-react"
 import { useNavigate } from "@tanstack/react-router"
@@ -24,11 +24,11 @@ export const DesktopNavigation = ({ navigationItems, user, onLogout }: DesktopNa
    const navigate = useNavigate()
 
    const navigateToProfilePage = async () => {
-      await navigate({ to: "/profile" })
+      await navigate({ to: "/profil" })
    }
 
    const navigateToRegisterSpecialist = async () => {
-      await navigate({ to: " /register" })
+      await navigate({ to: "/zarejestruj" })
    }
 
    const handleNavigate = async (href: string) => {

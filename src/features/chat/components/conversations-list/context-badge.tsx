@@ -1,4 +1,4 @@
-import { Badge } from "@/shared/ui/badge"
+import { Badge } from "@/shared/components/ui/badge"
 import { Briefcase } from "lucide-react"
 import type { ConversationContextDto } from "@/features/chat/api/types"
 

@@ -1,5 +1,5 @@
 import { Menu, X } from "lucide-react"
-import { Button } from "@/shared/ui/button"
+import { Button } from "@/shared/components/ui/button"
 import { cn } from "@/lib/utils"
 import { useMenuState } from "../hooks/use-menu-state"
 import { useNavigationItems } from "../hooks/use-navigation-items"

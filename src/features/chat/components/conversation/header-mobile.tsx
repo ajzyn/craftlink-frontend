@@ -1,4 +1,4 @@
-import { Button } from "@/shared/ui/button"
+import { Button } from "@/shared/components/ui/button"
 import { ArrowLeft } from "lucide-react"
 import { useNavigate } from "@tanstack/react-router"
 import { useMemo } from "react"
@@ -20,9 +20,9 @@ export const HeaderMobile = ({ conversationId }: MobileChatHeaderProps) => {
    )
 
    return (
-      <div className="flex items-center justify-between p-4 pr-10 bg-primary/50 border-b">
+      <div className="flex items-center justify-between p-4 pr-10 bg-primary/50 shadow-bottom-lg">
          <Button variant="ghost" size="icon" onClick={() => navigate({ to: "/wiadomosci" })}>
-            <ArrowLeft className="h-5 w-5" />
+            <ArrowLeft className="h-5 w-5 text-gray-700" />
          </Button>
 
          <h1 className="font-semibold capitalize truncate">{chatRecipientNames?.join(", ")}</h1>

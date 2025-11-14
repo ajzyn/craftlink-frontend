@@ -1,5 +1,11 @@
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form"
-import { Input } from "@/shared/ui/input"
+import {
+   FormControl,
+   FormField,
+   FormItem,
+   FormLabel,
+   FormMessage,
+} from "@/shared/components/ui/form"
+import { Input } from "@/shared/components/ui/input"
 import type { Control, FieldPath, FieldValues } from "react-hook-form"
 
 interface FormInputTextProps<T extends FieldValues> {

@@ -1,5 +1,5 @@
 import { AlertTriangle, RefreshCw } from "lucide-react"
-import { Button } from "@/shared/ui/button"
+import { Button } from "@/shared/components/ui/button"
 import { cn } from "@/lib/utils"
 
 interface ErrorStateProps {

@@ -1,12 +1,19 @@
 import { Loader2, Lock, Mail } from "lucide-react"
 
-import { Button } from "@/shared/ui/button"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form"
-import { Input } from "@/shared/ui/input"
+import { Button } from "@/shared/components/ui/button"
+import {
+   Form,
+   FormControl,
+   FormField,
+   FormItem,
+   FormLabel,
+   FormMessage,
+} from "@/shared/components/ui/form"
 
 import { useLoginMutation } from "../api/mutations"
 import { loginFormSchema } from "@/features/auth/utils/login-form-schema"
 import { useAuthForm } from "@/features/auth/hooks/use-auth-form"
+import { InputWithIcon } from "@/shared/components/input-with-icon"
 
 export const LoginForm = ({ onSuccess }: { onSuccess?: VoidFunction }) => {
    const loginMutation = useLoginMutation()
@@ -30,15 +37,13 @@ export const LoginForm = ({ onSuccess }: { onSuccess?: VoidFunction }) => {
                   <FormItem>
                      <FormLabel className="text-sm text-foreground">Email</FormLabel>
                      <FormControl>
-                        <div className="relative items items-center justify-center">
-                           <Mail className="absolute left-3 top-5 h-4 w-4 text-muted-foreground" />
-                           <Input
-                              type="email"
-                              placeholder="Wprowadź email"
-                              disabled={loginMutation.isPending}
-                              {...field}
-                           />
-                        </div>
+                        <InputWithIcon
+                           icon={Mail}
+                           type="email"
+                           placeholder="Wprowadź email"
+                           disabled={loginMutation.isPending}
+                           {...field}
+                        />
                      </FormControl>
                      <FormMessage />
                   </FormItem>
@@ -52,15 +57,13 @@ export const LoginForm = ({ onSuccess }: { onSuccess?: VoidFunction }) => {
                   <FormItem>
                      <FormLabel>Hasło</FormLabel>
                      <FormControl>
-                        <div className="relative">
-                           <Lock className="absolute left-3 top-5 h-4 w-4 text-muted-foreground" />
-                           <Input
-                              type="password"
-                              placeholder="Wprowadź hasło"
-                              disabled={loginMutation.isPending}
-                              {...field}
-                           />
-                        </div>
+                        <InputWithIcon
+                           icon={Lock}
+                           type="password"
+                           placeholder="Wprowadź hasło"
+                           disabled={loginMutation.isPending}
+                           {...field}
+                        />
                      </FormControl>
                      <FormMessage />
                   </FormItem>

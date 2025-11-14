@@ -1,5 +1,5 @@
 import type { ConversationDto } from "@/features/chat/api/types"
-import { Badge } from "@/shared/ui/badge"
+import { Badge } from "@/shared/components/ui/badge"
 import { formatDistanceToNow } from "date-fns/formatDistanceToNow"
 import { pl } from "date-fns/locale"
 import { useMemo } from "react"

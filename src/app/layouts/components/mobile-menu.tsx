@@ -1,10 +1,11 @@
 import type { UserDto } from "@/features/auth/api/types"
-import { Button } from "@/shared/ui/button"
+import { Button } from "@/shared/components/ui/button"
 import { LogIn, LogOut, Settings } from "lucide-react"
 import type { MenuElement } from "@/app/layouts/hooks/use-navigation-items"
-import { Separator } from "@/shared/ui/separator"
+import { Separator } from "@/shared/components/ui/separator"
 import { Footer } from "@/shared/components/footer"
 import { getUserInitials } from "@/shared/utils/string-utils"
+import { Link } from "@tanstack/react-router"
 
 interface MobileMenuProps {
    isOpen: boolean
@@ -41,10 +42,10 @@ export const MobileMenu = ({
                      }}
                   >
                      {item.href ? (
-                        <a href={item.href} className="flex items-center space-x-4 w-full">
+                        <Link to={item.href} className="flex items-center space-x-4 w-full">
                            <span className="text-muted-foreground text-xl">{item.icon}</span>
                            <span className="font-medium">{item.label}</span>
-                        </a>
+                        </Link>
                      ) : (
                         <div className="flex items-center space-x-4 w-full">
                            <span className="text-muted-foreground text-xl">{item.icon}</span>
@@ -73,10 +74,10 @@ export const MobileMenu = ({
                            onClick={onClose}
                            asChild
                         >
-                           <a href="/settings" className="flex items-center space-x-4">
+                           <Link to="/settings" className="flex items-center space-x-4">
                               <Settings size={20} />
                               <span>Ustawienia</span>
-                           </a>
+                           </Link>
                         </Button>
 
                         <Button
@@ -96,14 +97,18 @@ export const MobileMenu = ({
                   <Button
                      variant="ghost"
                      className="w-full justify-start h-14 px-4 text-lg hover:bg-muted"
-                     onClick={onClose}
+                     asChild
                   >
-                     <a href="/register" className="flex items-center space-x-4 w-full">
+                     <Link
+                        to="/zarejestruj"
+                        onClick={onClose}
+                        className="flex items-center space-x-4 w-full"
+                     >
                         <span className="text-muted-foreground text-xl">
                            <LogIn />
                         </span>
                         <span className="font-medium">Craftlink dla wykonawców</span>
-                     </a>
+                     </Link>
                   </Button>
                )}
             </div>

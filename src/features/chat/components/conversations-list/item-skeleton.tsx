@@ -1,5 +1,5 @@
-import { Skeleton } from "@/shared/ui/skeleton"
-import { Separator } from "@/shared/ui/separator"
+import { Skeleton } from "@/shared/components/ui/skeleton"
+import { Separator } from "@/shared/components/ui/separator"
 
 export const ItemSkeleton = ({ count = 3 }: { count?: number }) => {
    return (

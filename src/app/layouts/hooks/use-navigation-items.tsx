@@ -42,7 +42,7 @@ export const useNavigationItems = (
 
       const navItems: MenuElement[] = [{ label: "Usługi", href: "/services", icon: <Hammer /> }]
 
-      if (location.pathname !== "/login" && openLoginDialog) {
+      if (location.pathname !== "/zaloguj" && openLoginDialog) {
          navItems.push({
             label: "Zaloguj",
             icon: <User />,

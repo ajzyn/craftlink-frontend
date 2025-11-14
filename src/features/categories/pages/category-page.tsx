@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "@tanstack/react-router"
 import { useCategoryDetailsQuery } from "@/features/categories/api/queries"
-import { Button } from "@/shared/ui/button"
+import { Button } from "@/shared/components/ui/button"
 import { ServiceItem } from "@/features/categories/components/service-item"
 import { ServiceItemSkeleton } from "@/features/categories/components/service-item-skeleton"
 import { BackendErrorFallback } from "@/shared/components/backend-error-fallback"

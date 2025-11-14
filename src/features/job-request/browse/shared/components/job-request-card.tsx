@@ -1,4 +1,4 @@
-import { Card } from "@/shared/ui/card"
+import { Card } from "@/shared/components/ui/card"
 import { CalendarClock, MapPin } from "lucide-react"
 import { useNavigate } from "@tanstack/react-router"
 import type { JobRequestSummaryDto } from "@/features/job-request/api/types"

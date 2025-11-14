@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Calendar } from "@/shared/ui/calendar"
+import { Calendar } from "@/shared/components/ui/calendar"
 import { format } from "date-fns"
 import { pl } from "date-fns/locale"
 

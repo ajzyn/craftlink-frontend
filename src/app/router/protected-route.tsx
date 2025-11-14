@@ -14,7 +14,7 @@ export const ProtectedRoute = ({ children, requiredAuthorities = [] }: Protected
    const user = useAuthStore(state => state.user)
    const { isMobile } = useBreakpoint()
 
-   const navigateDefaultPage = () => <Navigate to={isMobile ? "/login" : "/"} />
+   const navigateDefaultPage = () => <Navigate to={isMobile ? "/zaloguj" : "/"} />
 
    if (!user) {
       return navigateDefaultPage()

@@ -1,6 +1,6 @@
 import { memo } from "react"
 import { cn } from "@/lib/utils"
-import { Card } from "@/shared/ui/card"
+import { Card } from "@/shared/components/ui/card"
 import { Container } from "@/features/chat/components/conversation/container"
 
 interface ChatWindowProps {

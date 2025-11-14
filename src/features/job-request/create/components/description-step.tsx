@@ -1,7 +1,7 @@
 import { useFormContext } from "react-hook-form"
-import { FormControl, FormField, FormItem, FormMessage } from "@/shared/ui/form"
+import { FormControl, FormField, FormItem, FormMessage } from "@/shared/components/ui/form"
 import type { JobRequestData } from "@/features/job-request/create/utils/form-schema"
-import { Textarea } from "@/shared/ui/textarea"
+import { Textarea } from "@/shared/components/ui/textarea"
 
 export const DescriptionStep = () => {
    const { control } = useFormContext<JobRequestData>()

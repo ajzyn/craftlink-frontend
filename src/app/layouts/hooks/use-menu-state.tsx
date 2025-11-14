@@ -32,7 +32,8 @@ export const useMenuState = () => {
    }, [])
 
    const handleOpenLoginMobileView = useCallback(() => {
-      router.navigate({ to: "/login" })
+      setIsMobileMenuOpen(false)
+      router.navigate({ to: "/zaloguj" })
    }, [router])
 
    return {

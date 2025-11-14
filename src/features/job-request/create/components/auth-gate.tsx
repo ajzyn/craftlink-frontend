@@ -2,8 +2,8 @@ import { useState } from "react"
 import { LoginForm } from "@/features/auth/components/login-form"
 import { RegisterForm } from "@/features/auth/components/register-form"
 import { UserType } from "@/features/auth/api/types"
-import { Separator } from "@/shared/ui/separator"
-import { Button } from "@/shared/ui/button"
+import { Separator } from "@/shared/components/ui/separator"
+import { Button } from "@/shared/components/ui/button"
 
 export const AuthGate = ({ onSuccessAuth }: { onSuccessAuth: VoidFunction }) => {
    const [isLoginMode, setIsLoginMode] = useState(false)

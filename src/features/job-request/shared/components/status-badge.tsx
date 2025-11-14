@@ -1,4 +1,4 @@
-import { Badge } from "@/shared/ui/badge"
+import { Badge } from "@/shared/components/ui/badge"
 import { JobRequestStatus } from "../types/status-enum"
 import { useAuthStore } from "@/features/auth/stores/use-auth-store"
 

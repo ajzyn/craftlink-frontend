@@ -1,7 +1,13 @@
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form"
+import {
+   FormControl,
+   FormField,
+   FormItem,
+   FormLabel,
+   FormMessage,
+} from "@/shared/components/ui/form"
 import { useFormContext, useWatch } from "react-hook-form"
 import type { JobRequestData } from "@/features/job-request/create/utils/form-schema"
-import { RadioGroup, RadioGroupItem } from "@/shared/ui/radio-group"
+import { RadioGroup, RadioGroupItem } from "@/shared/components/ui/radio-group"
 import { useEffect } from "react"
 import { DeadlineCalendar } from "@/features/job-request/create/components/deadline-calendar"
 import { deadlineLabels, DeadlineType } from "@/features/job-request/shared/types/deadline-types"

@@ -1,5 +1,5 @@
 import { useBreakpoint } from "@/shared/hooks"
-import { Card, CardContent, CardHeader } from "@/shared/ui/card"
+import { Card, CardContent, CardHeader } from "@/shared/components/ui/card"
 import { MapPin, Pin } from "lucide-react"
 import { SectionContent, SectionIconContent } from "@/shared/components/section"
 

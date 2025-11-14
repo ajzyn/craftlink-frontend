@@ -1,5 +1,5 @@
 import { Search } from "lucide-react"
-import { FormControl, FormField, FormItem, FormMessage } from "@/shared/ui/form"
+import { FormControl, FormField, FormItem, FormMessage } from "@/shared/components/ui/form"
 import { useFormContext } from "react-hook-form"
 import type { JobRequestData } from "@/features/job-request/create/utils/form-schema"
 import { FormAutocomplete } from "@/shared/components/autocomplete/autocomplete"

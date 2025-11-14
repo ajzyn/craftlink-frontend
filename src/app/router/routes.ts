@@ -26,11 +26,11 @@ export const appRoutes: AppRouteConfig[] = [
       element: lazyRouteComponent(() => import("@/features/dashboard/pages/dashboard-page")),
    },
    {
-      path: "/login",
+      path: "/zaloguj",
       element: lazyRouteComponent(() => import("@/features/auth/pages/login-page")),
    },
    {
-      path: `/register`,
+      path: `/zarejestruj`,
       element: lazyRouteComponent(() => import("@/features/auth/pages/register-specialist-page")),
    },
    {

@@ -1,12 +1,19 @@
 import { Loader2, Lock, Mail, User } from "lucide-react"
 
-import { Button } from "@/shared/ui/button"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form"
-import { Input } from "@/shared/ui/input"
+import { Button } from "@/shared/components/ui/button"
+import {
+   Form,
+   FormControl,
+   FormField,
+   FormItem,
+   FormLabel,
+   FormMessage,
+} from "@/shared/components/ui/form"
 import { useAuthForm } from "@/features/auth/hooks/use-auth-form"
 import { useRegisterMutation } from "@/features/auth/api/mutations"
 import { type RegisterFormData, registerFormSchema } from "../utils/register-form-schema"
 import type { UserType } from "@/features/auth/api/types"
+import { InputWithIcon } from "@/shared/components/input-with-icon"
 
 interface RegisterFormProps {
    onSuccess?: VoidFunction
@@ -48,15 +55,13 @@ export const RegisterForm = ({ onSuccess, userType }: RegisterFormProps) => {
                   <FormItem>
                      <FormLabel>Nazwa użytkownika</FormLabel>
                      <FormControl>
-                        <div className="relative">
-                           <User className="absolute left-3 top-5 h-4 w-4 text-muted-foreground" />
-                           <Input
-                              placeholder="Wprowadź nazwę użytkownika"
-                              className="pl-10 min-h-12"
-                              disabled={registerMutation.isPending}
-                              {...field}
-                           />
-                        </div>
+                        <InputWithIcon
+                           icon={User}
+                           placeholder="Wprowadź nazwę użytkownika"
+                           className="pl-10 min-h-12"
+                           disabled={registerMutation.isPending}
+                           {...field}
+                        />
                      </FormControl>
                      <FormMessage />
                   </FormItem>
@@ -70,17 +75,16 @@ export const RegisterForm = ({ onSuccess, userType }: RegisterFormProps) => {
                   <FormItem>
                      <FormLabel>Email</FormLabel>
                      <FormControl>
-                        <div className="relative">
-                           <Mail className="absolute left-3 top-5 h-4 w-4 text-muted-foreground" />
-                           <Input
-                              type="email"
-                              placeholder="Wprowadź email"
-                              className="pl-10 min-h-12"
-                              disabled={registerMutation.isPending}
-                              {...field}
-                           />
-                        </div>
+                        <InputWithIcon
+                           icon={Mail}
+                           type="email"
+                           placeholder="Wprowadź email"
+                           className="pl-10 min-h-12"
+                           disabled={registerMutation.isPending}
+                           {...field}
+                        />
                      </FormControl>
+
                      <FormMessage />
                   </FormItem>
                )}
@@ -93,15 +97,13 @@ export const RegisterForm = ({ onSuccess, userType }: RegisterFormProps) => {
                   <FormItem>
                      <FormLabel>Hasło</FormLabel>
                      <FormControl>
-                        <div className="relative">
-                           <Lock className="absolute left-3 top-5 h-4 w-4 text-muted-foreground" />
-                           <Input
-                              type="password"
-                              placeholder="Wprowadź hasło"
-                              disabled={registerMutation.isPending}
-                              {...field}
-                           />
-                        </div>
+                        <InputWithIcon
+                           icon={Lock}
+                           type="password"
+                           placeholder="Wprowadź hasło"
+                           disabled={registerMutation.isPending}
+                           {...field}
+                        />
                      </FormControl>
                      <FormMessage />
                   </FormItem>
@@ -115,15 +117,13 @@ export const RegisterForm = ({ onSuccess, userType }: RegisterFormProps) => {
                   <FormItem>
                      <FormLabel>Potwierdź hasło</FormLabel>
                      <FormControl>
-                        <div className="relative">
-                           <Lock className="absolute left-3 top-5 h-4 w-4 text-muted-foreground" />
-                           <Input
-                              type="password"
-                              placeholder="Potwierdź hasło"
-                              disabled={registerMutation.isPending}
-                              {...field}
-                           />
-                        </div>
+                        <InputWithIcon
+                           icon={Lock}
+                           type="password"
+                           placeholder="Potwierdź hasło"
+                           disabled={registerMutation.isPending}
+                           {...field}
+                        />
                      </FormControl>
                      <FormMessage />
                   </FormItem>

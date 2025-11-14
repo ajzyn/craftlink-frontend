@@ -1,6 +1,6 @@
 import { deadlineLabels, DeadlineType } from "@/features/job-request/shared/types/deadline-types"
 import { useBreakpoint } from "@/shared/hooks"
-import { Card, CardContent, CardHeader } from "@/shared/ui/card"
+import { Card, CardContent, CardHeader } from "@/shared/components/ui/card"
 import { Clock, Zap } from "lucide-react"
 import { getFormattedDateTime } from "@/shared/utils/date-utils"
 import { SectionContent, SectionIconContent } from "@/shared/components/section"
