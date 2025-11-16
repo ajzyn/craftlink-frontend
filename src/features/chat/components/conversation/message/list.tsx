@@ -1,6 +1,6 @@
 import type { ConversationMessageDto } from "@/features/chat/api/types"
 import { useAuthStore } from "@/features/auth/stores/use-auth-store"
-import { useScroll } from "@/features/chat/hooks/use-scroll"
+import { useAutoScroll } from "@/features/chat/hooks/use-auto-scroll"
 import { Item } from "@/features/chat/components/conversation/message/item"
 
 interface ConversationMessageListProps {
@@ -9,7 +9,7 @@ interface ConversationMessageListProps {
 
 export const List = ({ messages }: ConversationMessageListProps) => {
    const userId = useAuthStore(state => state.user?.id)
-   const { scrollRef, handleScroll } = useScroll(messages)
+   const { scrollRef, handleScroll } = useAutoScroll(messages)
 
    return (
       <div

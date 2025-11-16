@@ -6,8 +6,9 @@ interface CreationDateProps {
 
 export const CreationDateValue = ({ createdAt }: CreationDateProps) => {
    return (
-      <p className="text-foreground-muted text-sm">
-         Data stworzenia <span>{getFormattedDateTime(createdAt)}</span>
+      <p className="flex flex-col text-foreground-muted text-sm">
+         <span className="text-xs text-end">Data stworzenia</span>{" "}
+         <span>{getFormattedDateTime(createdAt)}</span>
       </p>
    )
 }

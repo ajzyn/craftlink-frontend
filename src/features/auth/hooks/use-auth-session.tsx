@@ -1,11 +1,16 @@
 import { useAuthStore } from "@/features/auth/stores/use-auth-store"
 import { toast } from "sonner"
 import { useLogoutMutation } from "../api/mutations"
+import { useShallow } from "zustand/react/shallow"
 
 export const useAuthSession = () => {
-   const user = useAuthStore(state => state.user)
-   const logout = useAuthStore(state => state.logout)
-   const isLoading = useAuthStore(state => state.isLoading)
+   const { user, logout, isLoading } = useAuthStore(
+      useShallow(state => ({
+         user: state.user,
+         logout: state.logout,
+         isLoading: state.isLoading,
+      })),
+   )
    const { mutateAsync: logoutMutation } = useLogoutMutation()
 
    const handleLogout = async () => {

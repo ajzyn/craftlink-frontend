@@ -25,7 +25,7 @@ export const DesktopLayout = ({ job }: JobRequestDesktopLayoutProps) => {
             <Card>
                <CardHeader className="flex justify-between">
                   <CategorySection service={job.service} />
-                  <div className="flex flex-col items-end">
+                  <div className="flex flex-col items-end gap-2">
                      <CreationDateValue createdAt={job.createdAt} />
                      <JobRequestStatusBadge status={job.status} requesterId={job.requester.id} />
                   </div>

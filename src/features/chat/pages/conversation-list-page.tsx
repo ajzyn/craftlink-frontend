@@ -10,22 +10,24 @@ const ConversationListPage = () => {
 
    return (
       <section>
-         <Section className="min-h-[70vh]" label="Twoje konwersacje">
-            {isError ? (
-               <BackendErrorFallback onRetry={refetch} isRetrying={isFetching} />
-            ) : isFetching && !data ? (
-               <ItemSkeleton count={5} />
-            ) : isEmpty(data) ? (
-               <p className="text-heading-lg">Nie masz jeszcze żadnych rozmów</p>
-            ) : (
-               <div className="space-y-3">
-                  {data?.map(conversation => (
-                     <div key={conversation.id}>
-                        <Item conversation={conversation} />
-                     </div>
-                  ))}
-               </div>
-            )}
+         <Section className="min-h-[70vh] md:mt-16" label="Twoje wiadomości">
+            <div className="md:px-6 md:pb-6">
+               {isError ? (
+                  <BackendErrorFallback onRetry={refetch} isRetrying={isFetching} />
+               ) : isFetching && !data ? (
+                  <ItemSkeleton count={5} />
+               ) : isEmpty(data) ? (
+                  <p className="text-heading-lg">Nie masz jeszcze żadnych rozmów</p>
+               ) : (
+                  <div className="space-y-3">
+                     {data?.map(conversation => (
+                        <div key={conversation.id}>
+                           <Item conversation={conversation} />
+                        </div>
+                     ))}
+                  </div>
+               )}
+            </div>
          </Section>
       </section>
    )

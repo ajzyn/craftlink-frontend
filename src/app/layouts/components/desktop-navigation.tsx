@@ -1,4 +1,3 @@
-import type { MenuElement } from "@/app/layouts/hooks/use-navigation-items"
 import { Button } from "@/shared/components/ui/button"
 import {
    DropdownMenu,
@@ -10,61 +9,86 @@ import {
 } from "@/shared/components/ui/dropdown-menu"
 import { Separator } from "@/shared/components/ui/separator"
 import { type UserDto } from "@/features/auth/api/types"
-import { ChevronDown, LogOut, User } from "lucide-react"
-import { useNavigate } from "@tanstack/react-router"
+import { ChevronDown } from "lucide-react"
+import { Link } from "@tanstack/react-router"
 import { getUserInitials } from "@/shared/utils/string-utils"
+import type { MenuItem, NavSection } from "@/app/layouts/types/navigation-types"
 
 interface DesktopNavigationProps {
-   navigationItems: MenuElement[]
+   headerItems: MenuItem[]
+   userDropdownSections: NavSection[]
    user: UserDto | null
-   onLogout: VoidFunction
 }
 
-export const DesktopNavigation = ({ navigationItems, user, onLogout }: DesktopNavigationProps) => {
-   const navigate = useNavigate()
+export const DesktopNavigation = ({
+   headerItems,
+   userDropdownSections,
+   user,
+}: DesktopNavigationProps) => {
+   const renderMenuItem = (item: MenuItem) => {
+      if (item.type === "link") {
+         return (
+            <Button key={item.label} variant="ghost" className="h-10" asChild>
+               <Link to={item.href} className="flex items-center space-x-2">
+                  <span className="text-muted-foreground">{item.icon}</span>
+                  <span className="text-md">{item.label}</span>
+               </Link>
+            </Button>
+         )
+      }
 
-   const navigateToProfilePage = async () => {
-      await navigate({ to: "/profil" })
+      const isCraftlinkRegistration = item.label === "Craftlink dla wykonawców"
+
+      return (
+         <Button
+            key={item.label}
+            variant="ghost"
+            onClick={item.onClick}
+            className={
+               isCraftlinkRegistration
+                  ? "h-10 cursor-pointer hover:bg-transparent text-muted-foreground text-md border-l border-gray-200 rounded-none pl-4 ml-2"
+                  : "h-10"
+            }
+         >
+            <div className="flex items-center space-x-2">
+               <span className="text-muted-foreground">{item.icon}</span>
+               <span className="text-md">{item.label}</span>
+            </div>
+         </Button>
+      )
    }
 
-   const navigateToRegisterSpecialist = async () => {
-      await navigate({ to: "/zarejestruj" })
-   }
+   const renderDropdownItem = (item: MenuItem) => {
+      if (item.type === "link") {
+         return (
+            <DropdownMenuItem key={item.label} asChild className="cursor-pointer">
+               <Link to={item.href} className="flex items-center space-x-2">
+                  <span className="w-4 h-4">{item.icon}</span>
+                  <span>{item.label}</span>
+               </Link>
+            </DropdownMenuItem>
+         )
+      }
 
-   const handleNavigate = async (href: string) => {
-      await navigate({ to: href })
+      return (
+         <DropdownMenuItem
+            key={item.label}
+            onClick={item.onClick}
+            className="space-x-2 cursor-pointer"
+         >
+            <span className="w-4 h-4">{item.icon}</span>
+            <span>{item.label}</span>
+         </DropdownMenuItem>
+      )
    }
 
    return (
-      <nav className="hidden lg:flex items-center space-x-1">
-         {navigationItems.map(item => (
-            <div key={item.label}>
-               {item.href ? (
-                  <Button
-                     onClick={() => handleNavigate(item.href!)}
-                     variant="ghost"
-                     className="h-10"
-                     asChild
-                  >
-                     <div className="flex items-center space-x-2">
-                        <span className="text-muted-foreground">{item.icon}</span>
-                        <span className="text-md">{item.label}</span>
-                     </div>
-                  </Button>
-               ) : (
-                  <Button onClick={item.onClick?.desktop} variant="ghost" className="h-10" asChild>
-                     <div className="flex items-center space-x-2">
-                        <span className="text-muted-foreground">{item.icon}</span>
-                        <span className="text-md">{item.label}</span>
-                     </div>
-                  </Button>
-               )}
-            </div>
-         ))}
+      <nav className="flex items-center gap-1">
+         {headerItems.map(renderMenuItem)}
 
-         <Separator orientation="vertical" className="!h-6" />
+         {user && <Separator orientation="vertical" className="!h-6" />}
 
-         {user ? (
+         {user && (
             <DropdownMenu modal={false}>
                <DropdownMenuTrigger>
                   <Button asChild variant="ghost">
@@ -84,27 +108,16 @@ export const DesktopNavigation = ({ navigationItems, user, onLogout }: DesktopNa
 
                   <DropdownMenuSeparator />
 
-                  <DropdownMenuItem
-                     onClick={navigateToProfilePage}
-                     className="space-x-2 cursor-pointer"
-                  >
-                     <User size={16} />
-                     <span>Profil</span>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem className="space-x-2 cursor-pointer" onClick={onLogout}>
-                     <LogOut size={16} />
-                     <span>Wyloguj się</span>
-                  </DropdownMenuItem>
+                  {userDropdownSections.map((section, sectionIndex) => (
+                     <div key={section.id}>
+                        {section.items.map(renderDropdownItem)}
+                        {sectionIndex < userDropdownSections.length - 1 && (
+                           <DropdownMenuSeparator />
+                        )}
+                     </div>
+                  ))}
                </DropdownMenuContent>
             </DropdownMenu>
-         ) : (
-            <Button
-               variant="ghost"
-               onClick={navigateToRegisterSpecialist}
-               className="cursor-pointer hover:bg-transparent text-muted-foreground text-md"
-            >
-               Craftlink dla wykonawców
-            </Button>
          )}
       </nav>
    )

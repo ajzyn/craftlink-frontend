@@ -1,33 +1,32 @@
-import { Menu, X } from "lucide-react"
-import { Button } from "@/shared/components/ui/button"
 import { cn } from "@/lib/utils"
-import { useMenuState } from "../hooks/use-menu-state"
-import { useNavigationItems } from "../hooks/use-navigation-items"
-import { MobileMenu } from "@/app/layouts/components/mobile-menu"
 import { DesktopNavigation } from "@/app/layouts/components/desktop-navigation"
 import { AuthModal } from "@/features/auth/components/auth-modal"
 import { Logo } from "@/shared/components/logo"
 import { useAuthSession } from "@/features/auth/hooks/use-auth-session"
+import { MobileNavigation } from "@/app/layouts/components/mobile-navigation"
+import { useBreakpoint } from "@/shared/hooks"
+import { useAuthView } from "@/app/layouts/hooks/use-auth-view"
+import { useNavigationConfig } from "@/app/layouts/hooks/use-navigation-config"
+import { useCheckScroll } from "@/app/layouts/hooks/use-check-scroll"
 
 export const Navigation = () => {
    const { user, handleLogout, isLoading } = useAuthSession()
+   const isScrolled = useCheckScroll()
+   const { isMobile } = useBreakpoint()
 
    const {
-      isScrolled,
-      isMobileMenuOpen,
-      setIsMobileMenuOpen,
       isLoginDialogOpen,
       handleCloseLoginDialog,
       handleOpenLoginDialog,
-      handleCloseMobileMenu,
       handleOpenLoginMobileView,
-   } = useMenuState()
+   } = useAuthView()
 
-   const navigationItems = useNavigationItems(
-      handleOpenLoginDialog,
-      handleOpenLoginMobileView,
-      user?.userType,
-   )
+   const navConfig = useNavigationConfig({
+      userType: user?.userType,
+      onLoginDesktop: handleOpenLoginDialog,
+      onLoginMobile: handleOpenLoginMobileView,
+      onLogout: handleLogout,
+   })
 
    return (
       <>
@@ -41,40 +40,21 @@ export const Navigation = () => {
             <div className="mx-auto max-w-7xl h-16 lg:h-18 w-full flex items-center justify-between">
                <Logo />
 
-               {!isLoading && (
-                  <>
-                     <DesktopNavigation
-                        navigationItems={navigationItems}
-                        user={user}
-                        onLogout={handleLogout}
+               {!isLoading &&
+                  (isMobile ? (
+                     <MobileNavigation
+                        headerItems={navConfig.mobile.header}
+                        hamburgerSections={navConfig.mobile.hamburger}
                      />
-
-                     <div className="lg:hidden">
-                        <Button
-                           onClick={() => setIsMobileMenuOpen(prev => !prev)}
-                           variant="ghost"
-                           size="icon"
-                           className="group hover:bg-transparent"
-                        >
-                           {isMobileMenuOpen ? (
-                              <X className="size-8 text-muted-foreground group-hover:text-foreground transition-colors duration-200" />
-                           ) : (
-                              <Menu className="size-8 text-muted-foreground group-hover:text-foreground transition-colors duration-200" />
-                           )}
-                        </Button>
-                     </div>
-                  </>
-               )}
+                  ) : (
+                     <DesktopNavigation
+                        headerItems={navConfig.desktop.header}
+                        userDropdownSections={navConfig.desktop.userDropdown}
+                        user={user}
+                     />
+                  ))}
             </div>
          </header>
-
-         <MobileMenu
-            isOpen={isMobileMenuOpen}
-            navigationItems={navigationItems}
-            user={user}
-            onClose={handleCloseMobileMenu}
-            onLogout={handleLogout}
-         />
 
          {isLoginDialogOpen && (
             <AuthModal isOpen={isLoginDialogOpen} onClose={handleCloseLoginDialog} />

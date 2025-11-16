@@ -1,5 +1,5 @@
 import { Button } from "@/shared/components/ui/button"
-import { Heart, Send, Share2 } from "lucide-react"
+import { Heart, Send, Share2, Trash } from "lucide-react"
 import { useJobRequestActions } from "@/features/job-request/details/hooks/use-job-request-actions"
 import { useAuthStore } from "@/features/auth/stores/use-auth-store"
 
@@ -46,12 +46,8 @@ export const ActionsSection = ({ requestId, isOwner }: JobRequestDetailsActionsP
                <span>Zlecenie zrealizowane</span>
             </Button>
 
-            <Button
-               variant="destructive"
-               onClick={handleDelete}
-               className="flex items-center gap-2"
-            >
-               <Heart className="h-4 w-4" />
+            <Button onClick={handleDelete} variant="secondary" className="flex items-center gap-2">
+               <Trash className="h-4 w-4" />
                <span>Usuń</span>
             </Button>
          </>
