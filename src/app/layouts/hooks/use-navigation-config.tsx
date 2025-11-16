@@ -1,7 +1,7 @@
 import { UserType } from "@/features/auth/api/types"
-import { Briefcase, LogOut, Mail, Settings, ShoppingBag, User } from "lucide-react"
+import { Briefcase, Home, LogOut, Mail, Settings, ShoppingBag, User } from "lucide-react"
 import { useMemo } from "react"
-import type { NavigationConfig } from "@/app/layouts/types/navigation-types"
+import type { MenuItem, NavigationConfig, NavSection } from "@/app/layouts/types/navigation-types"
 
 interface UseNavigationConfigParams {
    userType?: UserType
@@ -21,60 +21,65 @@ export const useNavigationConfig = ({
          id: "profile",
          items: [
             {
-               type: "link" as const,
+               type: "link",
                label: "Profil",
                icon: <User />,
                href: "/profil",
             },
             {
-               type: "link" as const,
+               type: "link",
                label: "Ustawienia",
                icon: <Settings />,
                href: "/settings",
             },
             {
-               type: "action" as const,
+               type: "action",
                label: "Wyloguj się",
                icon: <LogOut />,
                onClick: onLogout,
             },
          ],
-      }
+      } satisfies NavSection
 
-      const messagesItem = {
-         type: "link" as const,
-         label: "Wiadomości",
-         icon: <Mail />,
-         href: "/wiadomosci",
-      }
+      const commonItems = {
+         allJobs: {
+            type: "link",
+            label: "Dostępne zlecenia",
+            icon: <Briefcase />,
+            href: "/jobs",
+         },
+         myJobs: {
+            type: "link",
+            label: "Moje zlecenia",
+            icon: <ShoppingBag />,
+            href: "/zlecenia/moje",
+         },
+         home: {
+            type: "link",
+            label: "Home",
+            icon: <Home />,
+            href: "/",
+         },
+         messages: {
+            type: "link",
+            label: "Wiadomości",
+            icon: <Mail />,
+            href: "/wiadomosci",
+         },
+      } as const satisfies Record<string, MenuItem>
 
       if (userType === UserType.CLIENT) {
          return {
             desktop: {
-               header: [
-                  {
-                     type: "link" as const,
-                     label: "Moje zlecenia",
-                     icon: <ShoppingBag />,
-                     href: "/zlecenia/moje",
-                  },
-                  messagesItem,
-               ],
+               header: [commonItems.home, commonItems.myJobs, commonItems.messages],
                userDropdown: [profileSection],
             },
             mobile: {
-               header: [messagesItem],
+               header: [commonItems.home, commonItems.messages],
                hamburger: [
                   {
                      id: "client-actions",
-                     items: [
-                        {
-                           type: "link" as const,
-                           label: "Moje zlecenia",
-                           icon: <ShoppingBag />,
-                           href: "/zlecenia/moje",
-                        },
-                     ],
+                     items: [commonItems.myJobs],
                   },
                   profileSection,
                ],
@@ -85,30 +90,15 @@ export const useNavigationConfig = ({
       if (userType === UserType.SPECIALIST) {
          return {
             desktop: {
-               header: [
-                  {
-                     type: "link" as const,
-                     label: "Dostępne zlecenia",
-                     icon: <Briefcase />,
-                     href: "/jobs",
-                  },
-                  messagesItem,
-               ],
+               header: [commonItems.home, commonItems.allJobs, commonItems.messages],
                userDropdown: [profileSection],
             },
             mobile: {
-               header: [messagesItem],
+               header: [commonItems.home, commonItems.messages],
                hamburger: [
                   {
                      id: "specialist-actions",
-                     items: [
-                        {
-                           type: "link" as const,
-                           label: "Dostępne zlecenia",
-                           icon: <Briefcase />,
-                           href: "/jobs",
-                        },
-                     ],
+                     items: [commonItems.allJobs],
                   },
                   profileSection,
                ],
@@ -119,39 +109,42 @@ export const useNavigationConfig = ({
       if (userType === UserType.ADMIN) {
          return {
             desktop: {
-               header: [messagesItem],
+               header: [commonItems.home, commonItems.messages],
                userDropdown: [profileSection],
             },
             mobile: {
-               header: [messagesItem],
+               header: [commonItems.home, commonItems.messages],
                hamburger: [profileSection],
             },
          }
       }
 
+      const registerSpecialistItem: MenuItem = {
+         type: "link",
+         label: "Craftlink dla wykonawców",
+         href: "/zarejestruj",
+         icon: <User />,
+      }
+
       return {
          desktop: {
             header: [
+               commonItems.home,
                {
-                  type: "action" as const,
+                  type: "action",
                   label: "Zaloguj",
                   icon: <User />,
                   onClick: onLoginDesktop,
                   onClickMobile: onLoginMobile,
                },
-               {
-                  type: "link",
-                  label: "Craftlink dla wykonawców",
-                  href: "/zarejestruj",
-                  icon: <User />,
-               },
+               registerSpecialistItem,
             ],
-            userDropdown: [],
          },
          mobile: {
             header: [
+               commonItems.home,
                {
-                  type: "action" as const,
+                  type: "action",
                   label: "Zaloguj",
                   icon: <User />,
                   onClick: onLoginMobile,
@@ -160,14 +153,7 @@ export const useNavigationConfig = ({
             hamburger: [
                {
                   id: "guest-actions",
-                  items: [
-                     {
-                        type: "link" as const,
-                        label: "Craftlink dla wykonawców",
-                        icon: <User />,
-                        href: "/zarejestruj",
-                     },
-                  ],
+                  items: [registerSpecialistItem],
                },
             ],
          },

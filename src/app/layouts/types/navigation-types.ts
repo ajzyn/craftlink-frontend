@@ -26,7 +26,7 @@ export interface NavSection {
 export interface NavigationConfig {
    desktop: {
       header: MenuItem[]
-      userDropdown: NavSection[]
+      userDropdown?: NavSection[]
    }
    mobile: {
       header: MenuItem[]

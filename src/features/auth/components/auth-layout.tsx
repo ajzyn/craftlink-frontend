@@ -18,9 +18,5 @@ export const AuthLayout = ({ title, variant, description, children }: AuthLayout
       </div>
    )
 
-   return variant === "modal" ? (
-      content
-   ) : (
-      <div className="max-w-xl m-auto mt-10 rounded-lg bg-background shadow-md">{content}</div>
-   )
+   return variant === "modal" ? content : <div className="max-w-xl m-auto mt-16">{content}</div>
 }

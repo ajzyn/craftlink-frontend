@@ -16,7 +16,7 @@ import type { MenuItem, NavSection } from "@/app/layouts/types/navigation-types"
 
 interface DesktopNavigationProps {
    headerItems: MenuItem[]
-   userDropdownSections: NavSection[]
+   userDropdownSections?: NavSection[]
    user: UserDto | null
 }
 
@@ -108,7 +108,7 @@ export const DesktopNavigation = ({
 
                   <DropdownMenuSeparator />
 
-                  {userDropdownSections.map((section, sectionIndex) => (
+                  {userDropdownSections?.map((section, sectionIndex) => (
                      <div key={section.id}>
                         {section.items.map(renderDropdownItem)}
                         {sectionIndex < userDropdownSections.length - 1 && (
