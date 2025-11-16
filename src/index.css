@@ -342,6 +342,10 @@
     .shadow-bottom-lg {
         box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.10);
     }
+
+    .scrollbar-hide {
+        scrollbar-width: none;
+    }
 }
 
 @keyframes slide-in-from-right {

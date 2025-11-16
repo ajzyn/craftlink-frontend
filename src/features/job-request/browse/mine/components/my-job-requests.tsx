@@ -45,12 +45,14 @@ export const MyJobRequests = ({
             title="Twoje zlecenia"
          />
          <Tabs value={tabValue} onValueChange={handleOnTabChange}>
-            <TabsList className="h-12 space-x-2 bg-primary/5">
-               <TabsTrigger value="all">Wszystkie</TabsTrigger>
-               <TabsTrigger value={JobRequestStatus.ACTIVE}>Aktywne</TabsTrigger>
-               <TabsTrigger value={JobRequestStatus.COMPLETED}>Zakończone</TabsTrigger>
-               <TabsTrigger value={JobRequestStatus.CANCELLED}>Anulowane</TabsTrigger>
-            </TabsList>
+            <div className="overflow-x-auto scrollbar-hide -mx-4 px-4">
+               <TabsList className="h-12 bg-primary/5 inline-flex w-max min-w-full">
+                  <TabsTrigger value="all">Wszystkie</TabsTrigger>
+                  <TabsTrigger value={JobRequestStatus.ACTIVE}>Aktywne</TabsTrigger>
+                  <TabsTrigger value={JobRequestStatus.COMPLETED}>Zakończone</TabsTrigger>
+                  <TabsTrigger value={JobRequestStatus.CANCELLED}>Anulowane</TabsTrigger>
+               </TabsList>
+            </div>
             <div className="my-12">
                {isListEmpty ? (
                   <EmptyState
