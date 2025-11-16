@@ -1,6 +1,10 @@
 import { conversationKeys } from "@/features/chat/api/keys"
 import { useQuery } from "@tanstack/react-query"
-import { getAllConversations, getConversation } from "@/features/chat/api/api"
+import {
+   getAllConversations,
+   getConversation,
+   getUnreadConversationsCount,
+} from "@/features/chat/api/api"
 
 export const useConversationHistoryQuery = (conversationId: string) => {
    return useQuery({
@@ -13,8 +17,15 @@ export const useConversationHistoryQuery = (conversationId: string) => {
 export const useAllConversationsQuery = () => {
    return useQuery({
       queryKey: conversationKeys.all,
-      queryFn: () => getAllConversations(),
+      queryFn: getAllConversations,
       refetchInterval: 10000,
       refetchOnWindowFocus: true,
+   })
+}
+
+export const useUnreadConversationCountQuery = () => {
+   return useQuery({
+      queryKey: conversationKeys.all,
+      queryFn: getUnreadConversationsCount,
    })
 }

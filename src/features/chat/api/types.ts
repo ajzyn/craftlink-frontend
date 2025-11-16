@@ -51,3 +51,7 @@ export interface ConversationDto {
    context: ConversationContextDto
    lastMessage: ConversationMessageDto | null
 }
+
+export interface UnreadConversationsCountDto {
+   count: number
+}
