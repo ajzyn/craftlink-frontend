@@ -25,7 +25,9 @@ export const useAllConversationsQuery = () => {
 
 export const useUnreadConversationCountQuery = () => {
    return useQuery({
-      queryKey: conversationKeys.all,
+      queryKey: conversationKeys.unreadCount(),
       queryFn: getUnreadConversationsCount,
+      refetchInterval: 20000,
+      refetchOnWindowFocus: true,
    })
 }

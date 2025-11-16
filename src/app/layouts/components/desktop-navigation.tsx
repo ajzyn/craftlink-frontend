@@ -13,6 +13,7 @@ import { ChevronDown } from "lucide-react"
 import { Link } from "@tanstack/react-router"
 import { getUserInitials } from "@/shared/utils/string-utils"
 import type { MenuItem, NavSection } from "@/app/layouts/types/navigation-types"
+import { MessagesBadgeButton } from "@/app/layouts/components/messages-badge-button"
 
 interface DesktopNavigationProps {
    headerItems: MenuItem[]
@@ -26,6 +27,10 @@ export const DesktopNavigation = ({
    user,
 }: DesktopNavigationProps) => {
    const renderMenuItem = (item: MenuItem) => {
+      if (item.type === "link" && item.label === "Wiadomości") {
+         return <MessagesBadgeButton key={item.label} showLabel={true} />
+      }
+
       if (item.type === "link") {
          return (
             <Button key={item.label} variant="ghost" className="h-10" asChild>
