@@ -9,7 +9,7 @@ import { useAuthView } from "@/app/layouts/hooks/use-auth-view"
 import { useNavigationConfig } from "@/app/layouts/hooks/use-navigation-config"
 import { useCheckScroll } from "@/app/layouts/hooks/use-check-scroll"
 
-export const Navigation = () => {
+export const Header = () => {
    const { user, handleLogout, isLoading } = useAuthSession()
    const isScrolled = useCheckScroll()
    const { isMobile } = useBreakpoint()
