@@ -14,6 +14,7 @@ export const useConversationHistoryQuery = (conversationId: string) => {
    })
 }
 
+//TODO: websocket
 export const useAllConversationsQuery = () => {
    return useQuery({
       queryKey: conversationKeys.all,
@@ -23,6 +24,7 @@ export const useAllConversationsQuery = () => {
    })
 }
 
+//TODO: websocket
 export const useUnreadConversationCountQuery = () => {
    return useQuery({
       queryKey: conversationKeys.unreadCount(),

@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import { conversationKeys } from "@/features/chat/api/keys"
-import type { ConversationDto } from "@/features/chat/api/types"
+import type { ConversationDto, UnreadConversationsCountDto } from "@/features/chat/api/types"
 import { useQueryClient } from "@tanstack/react-query"
 import { useConversationStore } from "@/features/chat/stores/use-conversation-store"
 
@@ -22,5 +22,19 @@ export const useOptimisticReadStatus = (conversationId: string, minimized: boole
                : conv,
          )
       })
-   }, [minimized, isOpen])
+
+      queryClient.setQueryData(
+         conversationKeys.unreadCount(),
+         (old: UnreadConversationsCountDto | undefined) => {
+            if (!old || old.count === 0) {
+               return {
+                  count: 0,
+               }
+            }
+            return {
+               count: old.count - 1,
+            }
+         },
+      )
+   }, [minimized, isOpen, conversationId, queryClient])
 }
