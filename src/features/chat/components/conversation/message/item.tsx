@@ -13,7 +13,7 @@ export const Item = memo(({ message, isOwn }: ChatMessageProps) => {
    return (
       <div
          className={cn(
-            "flex flex-col w-3/4 gap-1 rounded-md pl-3 pr-2 py-1",
+            "flex flex-col w-3/4 gap-1 rounded-md pl-4 pr-2 pt-1 pb-2",
             isOwn ? "bg-primary/30 self-end" : "bg-secondary brightness-95 self-start",
          )}
       >

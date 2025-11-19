@@ -61,22 +61,24 @@ class WsClient {
       return this.activeChats > 0
    }
 
-   public async reconnect(token?: string): Promise<void> {
-      if (this.activeChats === 0) {
-         return
-      }
-
-      for (const [id, cb] of this.currentSubscriptions.entries()) {
-         this.pendingSubscriptions.set(id, cb)
-      }
-      await this.connect(token)
-   }
-
    public subscribe(destination: string, callback: (msg: IMessage) => void): void {
       if (this.client?.connected) {
          this.stompSubscriptions.get(destination)?.unsubscribe()
          this.currentSubscriptions.set(destination, callback)
-         this.stompSubscriptions.set(destination, this.client.subscribe(destination, callback))
+
+         const wrappedCallback = (msg: IMessage) => {
+            if (this.messageQueue.length > 0) {
+               this.messageQueue = this.messageQueue.filter(
+                  msg => msg.destination !== destination && msg.body !== msg.body,
+               )
+            }
+            callback(msg)
+         }
+
+         this.stompSubscriptions.set(
+            destination,
+            this.client.subscribe(destination, wrappedCallback),
+         )
       } else {
          this.pendingSubscriptions.set(destination, callback)
       }
@@ -88,12 +90,9 @@ class WsClient {
          return
       }
 
-      if (!this.client?.connected) {
-         this.messageQueue.push({ destination, body })
-         return
-      }
+      this.messageQueue.push({ destination, body })
 
-      this.client.publish({ destination, body })
+      this.flushQueue()
    }
 
    public unsubscribe(destination: string): void {
@@ -117,9 +116,26 @@ class WsClient {
       this.messageQueue = []
    }
 
+   public async reconnect(token?: string): Promise<void> {
+      if (this.activeChats === 0) {
+         return
+      }
+
+      for (const [id, cb] of this.currentSubscriptions.entries()) {
+         this.pendingSubscriptions.set(id, cb)
+      }
+
+      await this.connect(token)
+   }
+
    private async connect(token?: string): Promise<void> {
       if (this.client?.connected && this.token === token) {
          return
+      }
+
+      if (this.client) {
+         await this.client.deactivate()
+         this.client = null
       }
 
       this.token = token ?? null
@@ -137,18 +153,22 @@ class WsClient {
             this.processPendingSubscriptions()
             this.flushQueue()
          },
+         onStompError: async _ => {
+            console.log(_)
+            this.client?.deactivate()
+         },
+         onWebSocketClose: event => {
+            console.log(event)
+            if (event.code === 1006 || event.code === 1002) {
+               this.client?.deactivate()
 
-         onStompError: async frame => {
-            console.warn("WS stomp error", frame)
-
-            if (this.isAuthenticated && frame.headers.message?.includes("401")) {
-               await this.handleUnauthorized()
-            } else {
+               if (this.isAuthenticated) {
+                  this.handleUnauthorized()
+               }
+            } else if (event.code !== 1000) {
                toast.error("Błąd połączenia z czatem")
             }
          },
-
-         onWebSocketClose: () => console.warn("WS closed"),
          onWebSocketError: error => console.error("WS error", error),
       })
 
@@ -156,10 +176,13 @@ class WsClient {
    }
 
    private flushQueue(): void {
-      const queue = [...this.messageQueue]
-      this.messageQueue = []
+      if (!this.client?.connected || this.messageQueue.length === 0) {
+         return
+      }
 
-      queue.forEach(msg => this.send(msg.destination, msg.body))
+      this.messageQueue.forEach(msg => {
+         this.client!.publish({ destination: msg.destination, body: msg.body })
+      })
    }
 
    private processPendingSubscriptions(): void {
@@ -199,7 +222,6 @@ class WsClient {
    private async refreshToken() {
       const client = axios.create({
          baseURL: API_BASE_URL,
-         timeout: 10000,
          withCredentials: true,
       })
       return client.get<AuthenticationDto>("/auth/refresh-token")
