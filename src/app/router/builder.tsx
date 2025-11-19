@@ -1,4 +1,10 @@
-import { createRootRoute, createRoute, createRouter, Outlet } from "@tanstack/react-router"
+import {
+   type AnyRoute,
+   createRootRoute,
+   createRoute,
+   createRouter,
+   Outlet,
+} from "@tanstack/react-router"
 import { type AppRouteConfig, appRoutes } from "@/app/router/routes"
 import { ProtectedRoute } from "@/app/router/protected-route"
 import { DefaultLayout } from "@/app/layouts/default-layout"
@@ -10,21 +16,24 @@ export const rootRoute = createRootRoute({
       </DefaultLayout>
    ),
 })
-const buildRoutes = (configs: AppRouteConfig[]) => {
-   return configs.map(({ path, element: Comp, authRequired, requiredAuthorities }) =>
-      createRoute({
-         getParentRoute: () => rootRoute,
+
+const buildRoutes = (configs: AppRouteConfig[], parent: AnyRoute = rootRoute): AnyRoute[] => {
+   return configs.map(({ path, element: Comp, authRequired, requiredAuthorities, children }) => {
+      const route = createRoute({
+         getParentRoute: () => parent,
          path,
          component: () => {
-            const page = <Comp />
+            const content = children ? <Outlet /> : <Comp />
             return authRequired ? (
-               <ProtectedRoute requiredAuthorities={requiredAuthorities}>{page}</ProtectedRoute>
+               <ProtectedRoute requiredAuthorities={requiredAuthorities}>{content}</ProtectedRoute>
             ) : (
-               page
+               content
             )
          },
-      }),
-   )
+      })
+
+      return children ? route.addChildren(buildRoutes(children, route)) : route
+   })
 }
 
 const routeTree = rootRoute.addChildren(buildRoutes(appRoutes))

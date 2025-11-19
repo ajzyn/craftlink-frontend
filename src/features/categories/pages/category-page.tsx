@@ -1,10 +1,10 @@
 import { useNavigate, useParams } from "@tanstack/react-router"
 import { useCategoryDetailsQuery } from "@/features/categories/api/queries"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/shared/components/ui/button"
 import { ServiceItem } from "@/features/categories/components/service-item"
-import { ServiceItemSkeleton } from "@/features/categories/components/skeletons/service-item-skeleton"
-import { ErrorState } from "@/components/error-state"
-import { CategoryBanner } from "@/components/category-banner"
+import { ServiceItemSkeleton } from "@/features/categories/components/service-item-skeleton"
+import { BackendErrorFallback } from "@/shared/components/backend-error-fallback"
+import { CategoryBanner } from "@/shared/components/category-banner/category-banner"
 
 const CategoryPage = () => {
    const navigate = useNavigate()
@@ -16,7 +16,7 @@ const CategoryPage = () => {
    }
 
    if (isError) {
-      return <ErrorState onRetry={refetch} isRetrying={isLoading} />
+      return <BackendErrorFallback onRetry={refetch} isRetrying={isLoading} />
    }
 
    return (

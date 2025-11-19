@@ -1,10 +1,10 @@
-import { Card, CardContent } from "@/components/ui/card"
-import { SelectService } from "@/features/dashboard/components/select-service"
-import { CategoriesList } from "@/features/dashboard/components/categories-list"
+import { Card, CardContent } from "@/shared/components/ui/card"
+import { ServiceSelect } from "@/features/dashboard/components/service-select"
+import { CategoryList } from "@/features/dashboard/components/category-list"
 
 const DashboardPage = () => {
    return (
-      <section className="py-16 sm:py-24">
+      <section className="py-14">
          <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
             <div>
                <div className="text-center">
@@ -22,8 +22,8 @@ const DashboardPage = () => {
                <section className="max-w-5xl mx-auto">
                   <Card className="shadow-xl">
                      <CardContent className="p-6 sm:p-8">
-                        <SelectService />
-                        <CategoriesList />
+                        <ServiceSelect />
+                        <CategoryList />
                      </CardContent>
                   </Card>
                </section>

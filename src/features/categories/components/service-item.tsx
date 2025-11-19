@@ -1,5 +1,5 @@
-import type { CategoryServiceDto } from "@/features/categories/types/data"
-import { Card, CardContent } from "@/components/ui/card"
+import type { CategoryServiceDto } from "@/features/categories/api/types"
+import { Card, CardContent } from "@/shared/components/ui/card"
 import { ChevronRight } from "lucide-react"
 import { useRouter } from "@tanstack/react-router"
 
@@ -11,7 +11,7 @@ export const ServiceItem = ({ service }: ServiceItemProps) => {
    const router = useRouter()
 
    const handleNavigate = () => {
-      router.navigate({ to: `/zamowienie-uslugi/${service.slug}` })
+      router.navigate({ to: `/zlecenia/stworz/${service.slug}` })
    }
 
    return (
