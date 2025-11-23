@@ -1,6 +1,6 @@
 import type {
-   ConversationDto,
    ConversationWithMessagesDto,
+   MyConversationsDto,
    UnreadConversationsCountDto,
 } from "@/features/chat/api/types"
 import { apiClient } from "@/shared/api/http-client"
@@ -11,7 +11,7 @@ export const getConversation = async (conversationId: string) => {
 }
 
 export const getAllConversations = async () => {
-   const response = await apiClient.get<ConversationDto[]>(`/sec/chats`)
+   const response = await apiClient.get<MyConversationsDto>(`/sec/chats`)
    return response.data
 }
 

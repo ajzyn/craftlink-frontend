@@ -1,5 +1,5 @@
 import { create } from "zustand"
-import type { ConversationMessageDto, ConversationParticipantDto } from "@/features/chat/api/types"
+import type { ConversationParticipantDto } from "@/features/chat/api/types"
 
 interface ConversationWindow {
    id: string
@@ -9,19 +9,32 @@ interface ConversationWindow {
    participants: ConversationParticipantDto[]
 }
 
+export interface ConversationMessage {
+   id?: string
+   isRead: boolean
+   senderId?: string
+   content: string
+   sentAt: string
+   conversationId: string
+   isPending: boolean
+   tempId?: string
+}
+
 interface ConversationState {
-   messages: Record<string, ConversationMessageDto[]>
+   messages: Record<string, ConversationMessage[]>
    windows: Record<string, ConversationWindow>
 }
 
 interface ConversationActions {
-   addMessage: (message: ConversationMessageDto) => void
-   addOptimisticMessage: (message: Omit<ConversationMessageDto, "id" | "sentAt">) => void
-   confirmMessage: (serverMessage: ConversationMessageDto) => void
+   addMessage: (message: Omit<ConversationMessage, "isRead" | "isPending">) => void
+   addOptimisticMessage: (
+      message: Omit<ConversationMessage, "id" | "sentAt" | "isRead" | "isPending">,
+   ) => void
+   confirmMessage: (serverMessage: Omit<ConversationMessage, "isRead" | "isPending">) => void
    setConversation: (
       conversationId: string,
       participants: ConversationParticipantDto[],
-      messages: ConversationMessageDto[],
+      messages: ConversationMessage[],
    ) => void
    markAllMessagesAsReadUpTo: (
       conversationId: string,
@@ -49,7 +62,7 @@ export const useConversationStore = create<ConversationState & ConversationActio
          return {
             messages: {
                ...state.messages,
-               [conversationId]: [...messages, { ...message, isRead: false }],
+               [conversationId]: [...messages, { ...message, isRead: false, isPending: false }],
             },
             windows: shouldIncrementUnread
                ? {
@@ -75,8 +88,9 @@ export const useConversationStore = create<ConversationState & ConversationActio
                   {
                      ...message,
                      isRead: false,
+                     isPending: true,
                      sentAt: new Date().toISOString(),
-                  } as ConversationMessageDto,
+                  } as ConversationMessage,
                ],
             },
          }
@@ -91,7 +105,9 @@ export const useConversationStore = create<ConversationState & ConversationActio
             messages: {
                ...state.messages,
                [serverMessage.conversationId]: messages.map(msg =>
-                  msg.tempId === serverMessage.tempId ? { ...serverMessage, isRead: false } : msg,
+                  msg.tempId === serverMessage.tempId
+                     ? { ...serverMessage, isPending: false, tempId: undefined, isRead: false }
+                     : msg,
                ),
             },
          }

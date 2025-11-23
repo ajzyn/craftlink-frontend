@@ -20,7 +20,7 @@ const ConversationListPage = () => {
                   <p className="text-heading-lg">Nie masz jeszcze żadnych rozmów</p>
                ) : (
                   <div className="space-y-3">
-                     {data?.map(conversation => (
+                     {data?.conversations.map(conversation => (
                         <div key={conversation.id}>
                            <Item conversation={conversation} />
                         </div>

@@ -1,11 +1,11 @@
 import { getFormattedDateTime } from "@/shared/utils"
-import type { ConversationMessageDto } from "@/features/chat/api/types"
 import { cn } from "@/lib/utils"
 import { Check, CheckCheck } from "lucide-react"
 import { memo } from "react"
+import type { ConversationMessage } from "@/features/chat/stores/use-conversation-store"
 
 interface ChatMessageProps {
-   message: ConversationMessageDto
+   message: ConversationMessage
    isOwn: boolean
 }
 

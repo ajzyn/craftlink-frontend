@@ -1,5 +1,8 @@
 import { useConversationHistoryQuery } from "@/features/chat/api/queries"
-import { useConversationStore } from "@/features/chat/stores/use-conversation-store"
+import {
+   type ConversationMessage,
+   useConversationStore,
+} from "@/features/chat/stores/use-conversation-store"
 import { useEffect } from "react"
 import { useShallow } from "zustand/react/shallow"
 
@@ -15,7 +18,10 @@ export const useMessages = (conversationId: string) => {
 
    useEffect(() => {
       if (isSuccess && conversationId) {
-         setConversation(conversationId, data?.participants ?? [], data?.messages ?? [])
+         const messages: ConversationMessage[] =
+            data?.messages.map(msg => ({ ...msg, isPending: false })) ?? []
+
+         setConversation(conversationId, data?.participants ?? [], messages)
       }
    }, [isSuccess, conversationId, setConversation, data])
 

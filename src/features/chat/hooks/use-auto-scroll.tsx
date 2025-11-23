@@ -1,7 +1,7 @@
-import type { ConversationMessageDto } from "@/features/chat/api/types"
 import { useEffect, useRef, useState } from "react"
+import type { ConversationMessage } from "@/features/chat/stores/use-conversation-store"
 
-export const useAutoScroll = (messages: ConversationMessageDto[]) => {
+export const useAutoScroll = (messages: ConversationMessage[]) => {
    const scrollRef = useRef<HTMLDivElement>(null)
    const [isNearBottom, setIsNearBottom] = useState(true)
    const prevMessagesLengthRef = useRef(messages.length)
@@ -18,11 +18,7 @@ export const useAutoScroll = (messages: ConversationMessageDto[]) => {
 
       setIsNearBottom(isNear)
 
-      if (distanceFromBottom > threshold) {
-         hasScrolledManuallyRef.current = true
-      } else {
-         hasScrolledManuallyRef.current = false
-      }
+      hasScrolledManuallyRef.current = distanceFromBottom > threshold
    }
 
    useEffect(() => {

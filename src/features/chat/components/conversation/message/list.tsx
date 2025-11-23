@@ -1,10 +1,10 @@
-import type { ConversationMessageDto } from "@/features/chat/api/types"
 import { useAuthStore } from "@/features/auth/stores/use-auth-store"
 import { useAutoScroll } from "@/features/chat/hooks/use-auto-scroll"
 import { Item } from "@/features/chat/components/conversation/message/item"
+import type { ConversationMessage } from "@/features/chat/stores/use-conversation-store"
 
 interface ConversationMessageListProps {
-   messages: ConversationMessageDto[]
+   messages: ConversationMessage[]
 }
 
 export const List = ({ messages }: ConversationMessageListProps) => {

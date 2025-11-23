@@ -5,11 +5,11 @@ import { conversationKeys } from "@/features/chat/api/keys"
 import type {
    ConversationDto,
    ConversationMessageDto,
-   ConversationMessageReadDto,
    UnreadConversationsCountDto,
 } from "@/features/chat/api/types"
 import { useAuthStore } from "@/features/auth/stores/use-auth-store"
 import { useShallow } from "zustand/react/shallow"
+import type { ConversationMessageReadWS, ConversationMessageWS } from "@/features/chat/types/chat"
 
 export const useEventHandlers = (conversationId: string) => {
    const queryClient = useQueryClient()
@@ -24,16 +24,23 @@ export const useEventHandlers = (conversationId: string) => {
    )
 
    const addMessageFromOthers = useCallback(
-      (message: ConversationMessageDto) => {
+      (message: ConversationMessageWS) => {
          addMessage(message)
 
          queryClient.setQueryData(conversationKeys.all, (old: ConversationDto[] | undefined) => {
             if (!old) return old
+
+            const { tempId, ...rest } = message
+            const msg: ConversationMessageDto = {
+               ...rest,
+               isRead: false,
+            }
+
             return old.map(conv =>
                conv.id === conversationId
                   ? {
                        ...conv,
-                       lastMessage: message,
+                       lastMessage: msg,
                        unreadMessageCount: !isMinimized ? 0 : conv.unreadMessageCount + 1,
                     }
                   : conv,
@@ -61,7 +68,7 @@ export const useEventHandlers = (conversationId: string) => {
    )
 
    const handleMessageEvent = useCallback(
-      (message: ConversationMessageDto) => {
+      (message: ConversationMessageWS) => {
          if (message.senderId === currentUserId && message.tempId) {
             confirmMessage(message)
          } else {
@@ -72,7 +79,7 @@ export const useEventHandlers = (conversationId: string) => {
    )
 
    const handleReadEvent = useCallback(
-      (payload: ConversationMessageReadDto) => {
+      (payload: ConversationMessageReadWS) => {
          const { lastReadMessageId, readAt, readerId, conversationId } = payload
          markMessagesAsRead(conversationId, lastReadMessageId, readAt, readerId, currentUserId)
       },

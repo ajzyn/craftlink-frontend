@@ -1,11 +1,11 @@
 import { useEffect } from "react"
 import { useSocket } from "@/features/chat/hooks/use-socket"
 import { useAuthStore } from "@/features/auth/stores/use-auth-store"
-import type { ConversationMessageDto } from "@/features/chat/api/types"
+import type { ConversationMessage } from "@/features/chat/stores/use-conversation-store"
 
 export const useAutoMarkAsRead = (
    conversationId: string,
-   messages: ConversationMessageDto[],
+   messages: ConversationMessage[],
    minimized: boolean,
 ) => {
    const userId = useAuthStore(state => state.user?.id)

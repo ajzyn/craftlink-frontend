@@ -1,13 +1,10 @@
 import { useCallback, useEffect } from "react"
 import { useAuthStore } from "@/features/auth/stores/use-auth-store"
-import type {
-   ConversationMessageDto,
-   ConversationMessageReadDto,
-   ConversationWebsocketEvent,
-} from "@/features/chat/api/types"
+import type { ConversationWebsocketEvent } from "@/features/chat/api/types"
 import type { IMessage } from "@stomp/stompjs"
 import { wsClient } from "@/shared/api/websocket-client"
 import { useEventHandlers } from "@/features/chat/hooks/use-event-handlers"
+import type { ConversationMessageReadWS, ConversationMessageWS } from "@/features/chat/types/chat"
 
 export const useSocket = (conversationId: string) => {
    const token = useAuthStore(state => state.accessToken)
@@ -21,15 +18,15 @@ export const useSocket = (conversationId: string) => {
    useEffect(() => {
       const handleEvent = (msg: IMessage) => {
          const envelope = JSON.parse(msg.body) as ConversationWebsocketEvent<
-            ConversationMessageDto | ConversationMessageReadDto
+            ConversationMessageWS | ConversationMessageReadWS
          >
 
          switch (envelope.type) {
             case "MESSAGE":
-               handleMessageEvent(envelope.payload as ConversationMessageDto)
+               handleMessageEvent(envelope.payload as ConversationMessageWS)
                break
             case "READ_MESSAGE":
-               handleReadEvent(envelope.payload as ConversationMessageReadDto)
+               handleReadEvent(envelope.payload as ConversationMessageReadWS)
                break
          }
       }
