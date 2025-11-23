@@ -1,7 +1,7 @@
 import { getFormattedDateTime } from "@/shared/utils"
 import type { ConversationMessageDto } from "@/features/chat/api/types"
 import { cn } from "@/lib/utils"
-import { CheckCheck } from "lucide-react"
+import { Check, CheckCheck } from "lucide-react"
 import { memo } from "react"
 
 interface ChatMessageProps {
@@ -20,11 +20,14 @@ export const Item = memo(({ message, isOwn }: ChatMessageProps) => {
          <span className="flex justify-end items-center gap-2 text-sm text-gray-500">
             <span>{getFormattedDateTime(message.sentAt)}</span>
 
-            {isOwn && (
-               <CheckCheck
-                  className={cn("w-3 h-3", message.isRead ? "text-blue-500" : "text-gray-500")}
-               />
-            )}
+            {isOwn &&
+               (!message.id ? (
+                  <Check className={cn("w-3 h-3", "text-gray-500")} />
+               ) : (
+                  <CheckCheck
+                     className={cn("w-3 h-3", message.isRead ? "text-blue-500" : "text-gray-500")}
+                  />
+               ))}
          </span>
          <span className="">{message.content}</span>
       </div>

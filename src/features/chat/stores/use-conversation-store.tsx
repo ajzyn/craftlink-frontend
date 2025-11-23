@@ -16,6 +16,8 @@ interface ConversationState {
 
 interface ConversationActions {
    addMessage: (message: ConversationMessageDto) => void
+   addOptimisticMessage: (message: Omit<ConversationMessageDto, "id" | "sentAt">) => void
+   confirmMessage: (serverMessage: ConversationMessageDto) => void
    setConversation: (
       conversationId: string,
       participants: ConversationParticipantDto[],
@@ -39,21 +41,15 @@ export const useConversationStore = create<ConversationState & ConversationActio
 
    addMessage: message =>
       set(state => {
-         const { conversationId, ...rest } = message
+         const { conversationId } = message
+         const messages = state.messages[conversationId] ?? []
          const window = state.windows[conversationId]
          const shouldIncrementUnread = window?.minimized || !window?.isOpen
 
          return {
             messages: {
                ...state.messages,
-               [conversationId]: [
-                  ...(state.messages[conversationId] ?? []),
-                  {
-                     ...rest,
-                     conversationId,
-                     isRead: false,
-                  },
-               ],
+               [conversationId]: [...messages, { ...message, isRead: false }],
             },
             windows: shouldIncrementUnread
                ? {
@@ -64,6 +60,40 @@ export const useConversationStore = create<ConversationState & ConversationActio
                     },
                  }
                : state.windows,
+         }
+      }),
+
+   addOptimisticMessage: message =>
+      set(state => {
+         const { conversationId } = message
+
+         return {
+            messages: {
+               ...state.messages,
+               [conversationId]: [
+                  ...(state.messages[conversationId] ?? []),
+                  {
+                     ...message,
+                     isRead: false,
+                     sentAt: new Date().toISOString(),
+                  } as ConversationMessageDto,
+               ],
+            },
+         }
+      }),
+
+   confirmMessage: serverMessage =>
+      set(state => {
+         const messages = state.messages[serverMessage.conversationId]
+         if (!messages) return state
+
+         return {
+            messages: {
+               ...state.messages,
+               [serverMessage.conversationId]: messages.map(msg =>
+                  msg.tempId === serverMessage.tempId ? { ...serverMessage, isRead: false } : msg,
+               ),
+            },
          }
       }),
 

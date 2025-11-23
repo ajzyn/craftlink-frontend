@@ -41,9 +41,9 @@ export const useSocket = (conversationId: string) => {
    }, [conversationId, handleMessageEvent, handleReadEvent])
 
    const sendMessage = useCallback(
-      (content: string) => {
+      (content: string, tempId: string) => {
          if (!conversationId || !content.trim()) return
-         wsClient.send(`/app/chat.send/${conversationId}`, JSON.stringify({ content }))
+         wsClient.send(`/app/chat.send/${conversationId}`, JSON.stringify({ content, tempId }))
       },
       [conversationId],
    )

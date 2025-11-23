@@ -4,12 +4,14 @@ export interface ConversationWebsocketEvent<T> {
 }
 
 export interface ConversationMessageDto {
-   id: string
+   id?: string //TODO: Separate type
    isRead?: boolean
-   senderId: string
+   senderId?: string //TODO: Separate type
    content: string
    sentAt: string
    conversationId: string
+   isPending?: boolean //TODO: Separate type
+   tempId: string //TODO: Separate type
 }
 
 export interface ConversationMessageReadDto {

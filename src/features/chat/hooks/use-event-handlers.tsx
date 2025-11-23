@@ -14,15 +14,16 @@ import { useShallow } from "zustand/react/shallow"
 export const useEventHandlers = (conversationId: string) => {
    const queryClient = useQueryClient()
    const currentUserId = useAuthStore(state => state.user?.id)
-   const { addMessage, markMessagesAsRead, isMinimized } = useConversationStore(
+   const { addMessage, markMessagesAsRead, isMinimized, confirmMessage } = useConversationStore(
       useShallow(state => ({
          addMessage: state.addMessage,
          markMessagesAsRead: state.markAllMessagesAsReadUpTo,
          isMinimized: state.windows[conversationId]?.minimized,
+         confirmMessage: state.confirmMessage,
       })),
    )
 
-   const handleMessageEvent = useCallback(
+   const addMessageFromOthers = useCallback(
       (message: ConversationMessageDto) => {
          addMessage(message)
 
@@ -33,10 +34,7 @@ export const useEventHandlers = (conversationId: string) => {
                   ? {
                        ...conv,
                        lastMessage: message,
-                       unreadMessageCount:
-                          currentUserId === message.senderId || isMinimized == false
-                             ? 0
-                             : conv.unreadMessageCount + 1,
+                       unreadMessageCount: !isMinimized ? 0 : conv.unreadMessageCount + 1,
                     }
                   : conv,
             )
@@ -56,14 +54,21 @@ export const useEventHandlers = (conversationId: string) => {
                      count: 1,
                   }
                }
-
-               return {
-                  count: old.count + 1,
-               }
             },
          )
       },
-      [addMessage, conversationId, currentUserId, isMinimized, queryClient],
+      [addMessage, queryClient, conversationId, isMinimized],
+   )
+
+   const handleMessageEvent = useCallback(
+      (message: ConversationMessageDto) => {
+         if (message.senderId === currentUserId && message.tempId) {
+            confirmMessage(message)
+         } else {
+            addMessageFromOthers(message)
+         }
+      },
+      [addMessageFromOthers, confirmMessage, currentUserId],
    )
 
    const handleReadEvent = useCallback(

@@ -1,12 +1,12 @@
 import { List } from "@/features/chat/components/conversation/message/list"
 import { Input } from "@/features/chat/components/conversation/message/input"
-import { useSocket } from "@/features/chat/hooks/use-socket"
 import { useMessages } from "@/features/chat/hooks/use-messages"
 import { useAutoMarkAsRead } from "@/features/chat/hooks/use-auto-mark-as-read"
 import { useOptimisticReadStatus } from "@/features/chat/hooks/use-optimistic-read-status"
 import { useBreakpoint } from "@/shared/hooks"
 import { HeaderDesktop } from "@/features/chat/components/conversation/header-desktop"
 import { HeaderMobile } from "@/features/chat/components/conversation/header-mobile"
+import { useSendMessage } from "@/features/chat/hooks/use-send-message"
 
 interface ChatContainerProps {
    conversationId: string
@@ -16,7 +16,7 @@ interface ChatContainerProps {
 export const Container = ({ conversationId, minimized = false }: ChatContainerProps) => {
    const { isMobile } = useBreakpoint()
    const { messages, isError } = useMessages(conversationId)
-   const { sendMessage } = useSocket(conversationId)
+   const sendMessage = useSendMessage(conversationId)
    useAutoMarkAsRead(conversationId, messages, minimized)
    useOptimisticReadStatus(conversationId, minimized)
 

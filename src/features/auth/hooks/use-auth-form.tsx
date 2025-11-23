@@ -15,7 +15,6 @@ interface UseAuthFormProps<T extends ZodTypeAny> {
    onSuccess?: VoidFunction
 }
 
-//TODO: ogarnac typy -> RegisterFormData
 export const useAuthForm = <T extends ZodTypeAny>({
    schema,
    defaultValues,

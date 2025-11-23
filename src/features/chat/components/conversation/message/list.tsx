@@ -18,7 +18,7 @@ export const List = ({ messages }: ConversationMessageListProps) => {
          className="flex flex-col gap-2 p-3 overflow-y-auto h-full"
       >
          {messages.map(msg => (
-            <Item key={msg.id} message={msg} isOwn={userId === msg.senderId} />
+            <Item key={msg.id ?? msg.tempId} message={msg} isOwn={userId === msg.senderId} />
          ))}
       </div>
    )
