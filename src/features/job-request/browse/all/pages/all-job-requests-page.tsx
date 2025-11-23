@@ -1,11 +1,11 @@
-import { MyJobsList } from "@/features/job-request/browse/mine/components/my-jobs-list"
-import { LazyLoadingTrigger } from "@/shared/components/lazy-loading-trigger"
 import { BackendErrorFallback } from "@/shared/components/backend-error-fallback"
-import { useMyJobs } from "@/features/job-request/browse/mine/hooks/use-my-jobs"
+import { LazyLoadingTrigger } from "@/shared/components/lazy-loading-trigger"
+import { useAllJobs } from "@/features/job-request/browse/all/hooks/use-all-jobs"
+import { AllJobsList } from "@/features/job-request/browse/all/components/all-jobs-list"
 
-const MyJobRequestsPage = () => {
+const AllJobRequestPage = () => {
    const {
-      status,
+      params,
       allJobs,
       hasNextPage,
       isFetchingNextPage,
@@ -13,7 +13,7 @@ const MyJobRequestsPage = () => {
       refetch,
       isError,
       loaderRef,
-   } = useMyJobs()
+   } = useAllJobs()
 
    if (isError) {
       return <BackendErrorFallback onRetry={refetch} isRetrying={isLoading} />
@@ -21,10 +21,10 @@ const MyJobRequestsPage = () => {
 
    return (
       <section>
-         <MyJobsList
+         <AllJobsList
             isFetchingNextPage={isFetchingNextPage}
             jobs={allJobs}
-            selectedStatus={status}
+            activeFilters={params}
             isLoading={isLoading}
          />
          <LazyLoadingTrigger
@@ -35,4 +35,5 @@ const MyJobRequestsPage = () => {
       </section>
    )
 }
-export default MyJobRequestsPage
+
+export default AllJobRequestPage

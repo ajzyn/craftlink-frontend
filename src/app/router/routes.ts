@@ -58,7 +58,7 @@ export const appRoutes: AppRouteConfig[] = [
          {
             path: "/",
             element: lazyRouteComponent(
-               () => import("@/features/job-request/browse/all/pages/all"),
+               () => import("@/features/job-request/browse/all/pages/all-job-requests-page"),
             ),
          },
          {

@@ -46,7 +46,7 @@ export const useNavigationConfig = ({
             type: "link",
             label: "Dostępne zlecenia",
             icon: <Briefcase />,
-            href: "/jobs",
+            href: "/zlecenia",
          },
          myJobs: {
             type: "link",

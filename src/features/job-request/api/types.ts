@@ -2,6 +2,7 @@ import type { LifecycleStatus } from "@/shared/types"
 import type { JobRequestStatus } from "@/features/job-request/shared/types/status-enum"
 import { DeadlineType } from "@/features/job-request/shared/types/deadline-types"
 import type { SliceParamsDto } from "@/shared/api/types"
+import type { AllJobRequestSearchParams } from "@/features/job-request/browse/all/types/query"
 
 export interface CreateJobRequestRequestDto {
    city: string
@@ -63,11 +64,4 @@ export interface MyJobRequestsParamsDto extends SliceParamsDto {
    status?: JobRequestStatus
 }
 
-export interface JobRequestFeedParamsDto {
-   matching?: boolean
-   city?: string
-   district?: string
-   deadlineFrom?: string
-   deadlineTo?: string
-   page?: number
-}
+export interface AllJobRequestsParamsDto extends AllJobRequestSearchParams, SliceParamsDto {}

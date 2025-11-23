@@ -1,5 +1,6 @@
 import { apiClient } from "@/shared/api/http-client"
 import type {
+   AllJobRequestsParamsDto,
    ApplyJobRequestDto,
    CreateJobRequestRequestDto,
    JobRequestDetailsDto,
@@ -15,16 +16,26 @@ export const getJobRequestDetails = async (id: string) => {
    const response = await apiClient.get<JobRequestDetailsDto>(`/job-requests/${id}`)
    return response.data
 }
+
 export const applyJobRequest = async (id: string) => {
    const response = await apiClient.post<ApplyJobRequestDto>(`/sec/job-requests/${id}/apply`)
    return response.data
 }
+
 export const getMyJobRequests = async (params: MyJobRequestsParamsDto) => {
    const response = await apiClient.get<SliceDto<JobRequestSummaryDto>>(`/sec/job-requests/my`, {
       params,
    })
    return response.data
 }
+
+export const getAllJobRequests = async (params: AllJobRequestsParamsDto) => {
+   const response = await apiClient.get<SliceDto<JobRequestSummaryDto>>(`/sec/job-requests`, {
+      params,
+   })
+   return response.data
+}
+
 export const createJobRequest = async (requestDto: CreateJobRequestRequestDto) => {
    const response = await apiClient.post<CreationDto>("/sec/job-requests", requestDto)
    return response.data

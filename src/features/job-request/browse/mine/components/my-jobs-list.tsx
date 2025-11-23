@@ -16,7 +16,7 @@ interface MyJobRequestsProps {
    isFetchingNextPage: boolean
 }
 
-export const MyJobRequests = ({
+export const MyJobsList = ({
    jobs,
    selectedStatus,
    isLoading,

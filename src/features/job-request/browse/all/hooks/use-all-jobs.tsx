@@ -1,15 +1,15 @@
-import { useGetMyJobRequestQuery } from "@/features/job-request/api/queries"
+import { useAllMyJobRequestQuery } from "@/features/job-request/api/queries"
 import { useLazyLoader } from "@/shared/hooks"
 import { useSearch } from "@tanstack/react-router"
 import { useMemo } from "react"
-import type { JobRequestStatus } from "@/features/job-request/shared/types/status-enum"
+import type { AllJobRequestSearchParams } from "@/features/job-request/browse/all/types/query"
 
-export const useMyJobRequests = () => {
-   const { status } = useSearch({
-      from: "/zlecenia/moje",
-   }) as { status?: JobRequestStatus }
+export const useAllJobs = () => {
+   const params = useSearch({
+      from: "/zlecenia",
+   }) as AllJobRequestSearchParams
 
-   const query = useGetMyJobRequestQuery(status)
+   const query = useAllMyJobRequestQuery(params)
    const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, refetch, isError } =
       query
 
@@ -24,7 +24,7 @@ export const useMyJobRequests = () => {
    })
 
    return {
-      status,
+      params,
       allJobs,
       hasNextPage,
       isFetchingNextPage,

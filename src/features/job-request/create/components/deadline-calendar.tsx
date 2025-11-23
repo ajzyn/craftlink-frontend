@@ -13,9 +13,9 @@ export const DeadlineCalendar: React.FC<{
       <Calendar
          mode="single"
          selected={date}
-         onSelect={d => {
-            setDate(d)
-            onChange?.(d)
+         onSelect={date => {
+            setDate(date)
+            onChange?.(date)
          }}
          locale={pl}
          formatters={{
