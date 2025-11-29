@@ -1,14 +1,16 @@
 import { useJobFilters } from "../../hooks/use-job-filters"
 import { useLocationFilters } from "../../hooks/use-location-filters"
-import type { AllJobRequestSearchParams } from "../../types/query"
-import { getFormattedDate } from "@/shared/utils"
+import { type AllJobRequestSearchParams } from "../../types/filters"
 import { Label } from "@/shared/components/ui/label"
 import { Checkbox } from "@/shared/components/ui/checkbox"
 import { Button } from "@/shared/components/ui/button"
 import { FilterGroup } from "./filter-group"
-import { DatePicketBtn } from "./date-picket-btn"
+import { DatePickerBtn } from "./date-picker-btn"
 import { FormAutocomplete } from "@/shared/components/autocomplete/autocomplete"
 import { Combobox } from "@/shared/components/autocomplete/combobox"
+import { DeadlineUrgencyRadio } from "@/features/job-request/browse/all/components/filters/deadline-urgency-radio"
+import { useDeadlineFilters } from "../../hooks/use-deadline-filters"
+import { useMatchingFilter } from "../../hooks/use-matching.filter"
 
 interface FiltersContentProps {
    activeFilters: AllJobRequestSearchParams
@@ -38,14 +40,30 @@ export const FiltersContent = ({
       updateFilters,
    })
 
-   const handleDateChange = (field: "deadlineFrom" | "deadlineTo", date?: Date) => {
-      updateFilters({
-         [field]: date ? getFormattedDate(date.toISOString()) : undefined,
-      })
-   }
+   const { localMatching, handleMatchingChange, applyMatchingFilter } = useMatchingFilter({
+      activeFilters,
+      applyOnChange,
+      updateFilters,
+   })
+
+   const {
+      localUrgency,
+      localCustomFrom,
+      localCustomTo,
+      showCustomDates,
+      handleUrgencyChange,
+      handleCustomDateChange,
+      applyDeadlineFilters,
+   } = useDeadlineFilters({
+      activeFilters,
+      applyOnChange,
+      updateFilters,
+   })
 
    const handleApplyClick = () => {
       applyLocationFilters()
+      applyMatchingFilter()
+      applyDeadlineFilters()
       onApply?.()
    }
 
@@ -54,9 +72,7 @@ export const FiltersContent = ({
          <FilterGroup title="Lokalizacja">
             <div className="space-y-3">
                <div className="space-y-2">
-                  <Label htmlFor="city" className="text-sm font-medium text-primary-foreground">
-                     Miasto
-                  </Label>
+                  <Label className="text-sm font-medium text-primary-foreground">Miasto</Label>
                   <Combobox
                      placeholder="np. Warszawa"
                      onChange={handleCityChange}
@@ -67,10 +83,7 @@ export const FiltersContent = ({
                </div>
                {hasDistrict && (
                   <div className="space-y-2">
-                     <Label
-                        htmlFor="district"
-                        className="text-sm font-medium text-primary-foreground"
-                     >
+                     <Label className="text-sm font-medium text-primary-foreground">
                         Dzielnica
                      </Label>
                      <FormAutocomplete
@@ -89,10 +102,8 @@ export const FiltersContent = ({
             <label className="flex items-start gap-3 cursor-pointer group">
                <Checkbox
                   id="matching"
-                  checked={activeFilters.matching ?? false}
-                  onCheckedChange={checked =>
-                     updateFilters({ matching: checked ? true : undefined })
-                  }
+                  checked={localMatching}
+                  onCheckedChange={handleMatchingChange}
                   className="mt-1"
                />
                <span className="text-sm leading-normal group-hover:text-foreground/80 transition-colors">
@@ -102,21 +113,27 @@ export const FiltersContent = ({
          </FilterGroup>
 
          <FilterGroup title="Termin realizacji">
-            <div className="space-y-3">
-               <div className="space-y-1.5">
-                  <Label className="text-sm text-primary-foreground">Od</Label>
-                  <DatePicketBtn
-                     value={activeFilters.deadlineFrom}
-                     onChange={date => handleDateChange("deadlineFrom", date)}
-                  />
-               </div>
-               <div className="space-y-1.5">
-                  <Label className="text-sm text-primary-foreground">Do</Label>
-                  <DatePicketBtn
-                     value={activeFilters.deadlineTo}
-                     onChange={date => handleDateChange("deadlineTo", date)}
-                  />
-               </div>
+            <div className="space-y-4">
+               <DeadlineUrgencyRadio value={localUrgency} onChange={handleUrgencyChange} />
+
+               {showCustomDates && (
+                  <div className="space-y-3 pt-2 border-t border-border/50">
+                     <div className="space-y-1.5">
+                        <Label className="text-sm text-primary-foreground">Od</Label>
+                        <DatePickerBtn
+                           value={localCustomFrom}
+                           onChange={date => handleCustomDateChange("deadlineFrom", date)}
+                        />
+                     </div>
+                     <div className="space-y-1.5">
+                        <Label className="text-sm text-primary-foreground">Do</Label>
+                        <DatePickerBtn
+                           value={localCustomTo}
+                           onChange={date => handleCustomDateChange("deadlineTo", date)}
+                        />
+                     </div>
+                  </div>
+               )}
             </div>
          </FilterGroup>
 

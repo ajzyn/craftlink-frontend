@@ -6,7 +6,7 @@ import {
    getJobRequestDetails,
    getMyJobRequests,
 } from "@/features/job-request/api/api"
-import type { AllJobRequestSearchParams } from "@/features/job-request/browse/all/types/query"
+import type { AllJobRequestSearchParams } from "@/features/job-request/browse/all/types/filters"
 
 export const useGetJobRequestDetailsQuery = (id: string) => {
    return useQuery({

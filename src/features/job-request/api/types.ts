@@ -2,7 +2,7 @@ import type { LifecycleStatus } from "@/shared/types"
 import type { JobRequestStatus } from "@/features/job-request/shared/types/status-enum"
 import { DeadlineType } from "@/features/job-request/shared/types/deadline-types"
 import type { SliceParamsDto } from "@/shared/api/types"
-import type { AllJobRequestSearchParams } from "@/features/job-request/browse/all/types/query"
+import type { AllJobRequestSearchParams } from "@/features/job-request/browse/all/types/filters"
 
 export interface CreateJobRequestRequestDto {
    city: string

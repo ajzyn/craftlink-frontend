@@ -1,5 +1,5 @@
 import { useNavigate, useSearch } from "@tanstack/react-router"
-import type { AllJobRequestSearchParams } from "../types/query"
+import type { AllJobRequestSearchParams } from "../types/filters"
 
 export const useJobFilters = () => {
    const navigate = useNavigate({ from: "/zlecenia" })

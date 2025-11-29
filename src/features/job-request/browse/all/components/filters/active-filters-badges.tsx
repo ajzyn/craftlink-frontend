@@ -1,5 +1,5 @@
 import { useJobFilters } from "@/features/job-request/browse/all/hooks/use-job-filters"
-import type { AllJobRequestSearchParams } from "../../types/query"
+import type { AllJobRequestSearchParams } from "../../types/filters"
 import { Badge } from "@/shared/components/ui/badge"
 import { getFormattedDate } from "@/shared/utils"
 import { X } from "lucide-react"

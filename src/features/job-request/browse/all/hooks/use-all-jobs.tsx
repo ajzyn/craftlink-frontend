@@ -2,7 +2,7 @@ import { useAllMyJobRequestQuery } from "@/features/job-request/api/queries"
 import { useLazyLoader } from "@/shared/hooks"
 import { useSearch } from "@tanstack/react-router"
 import { useMemo } from "react"
-import type { AllJobRequestSearchParams } from "@/features/job-request/browse/all/types/query"
+import type { AllJobRequestSearchParams } from "@/features/job-request/browse/all/types/filters"
 
 export const useAllJobs = () => {
    const params = useSearch({

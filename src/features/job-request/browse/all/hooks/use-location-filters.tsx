@@ -1,20 +1,14 @@
 import { useEffect, useMemo, useState } from "react"
 import { useCitiesQuery, useCityDistrictsQuery } from "@/entities/location"
 import { toast } from "sonner"
-import type { AllJobRequestSearchParams } from "@/features/job-request/browse/all/types/query"
 import type { ComboboxOption } from "@/shared/components/autocomplete/combobox"
-
-interface UseLocationFiltersProps {
-   activeFilters: AllJobRequestSearchParams
-   applyOnChange: boolean
-   updateFilters: (filters: Partial<AllJobRequestSearchParams>) => void
-}
+import type { FiltersProps } from "@/features/job-request/browse/all/types/props"
 
 export const useLocationFilters = ({
    activeFilters,
    applyOnChange,
    updateFilters,
-}: UseLocationFiltersProps) => {
+}: FiltersProps) => {
    const [hasDistrict, setHasDistrict] = useState(false)
    const [draftCity, setDraftCity] = useState<string | null>(null)
    const [draftDistrict, setDraftDistrict] = useState<string>("")

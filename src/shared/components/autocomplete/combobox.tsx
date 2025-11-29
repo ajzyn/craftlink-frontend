@@ -48,7 +48,7 @@ export const Combobox = ({
    className,
 }: ComboboxProps) => {
    const [open, setOpen] = useState(false)
-   const [search, setSearch] = useState(value ?? "")
+   const [search, setSearch] = useState("")
    const commandRef = useRef<HTMLDivElement>(null)
    const inputRef = useRef<HTMLInputElement>(null)
    const [keyboardNavigationStarted, setKeyboardNavigationStarted] = useState(false)
@@ -68,16 +68,10 @@ export const Combobox = ({
       if (!value) return filtered
 
       const selectedIndex = filtered.findIndex(opt => opt.value === value)
-      if (selectedIndex > 0) {
-         const selected = filtered[selectedIndex]
-         return [
-            selected,
-            ...filtered.slice(0, selectedIndex),
-            ...filtered.slice(selectedIndex + 1),
-         ]
-      }
+      if (selectedIndex <= 0) return filtered
 
-      return filtered
+      const selected = filtered[selectedIndex]
+      return [selected, ...filtered.slice(0, selectedIndex), ...filtered.slice(selectedIndex + 1)]
    }, [options, search, value])
 
    const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -87,10 +81,14 @@ export const Combobox = ({
       onSearchChange?.(newSearch)
    }
 
-   const handleSelect = (selectedValue: string) => {
-      onChange(selectedValue === value ? null : selectedValue)
+   const clearInputAndClosePopover = () => {
       setOpen(false)
       setSearch("")
+   }
+
+   const handleSelect = (selectedValue: string) => {
+      onChange(selectedValue === value ? null : selectedValue)
+      clearInputAndClosePopover()
    }
 
    const handleClear = (e: MouseEvent) => {
@@ -101,16 +99,14 @@ export const Combobox = ({
    }
 
    const handleFocus = () => {
-      if (!open && selectedLabel) {
-         setSearch(selectedLabel)
-      }
+      setSearch("")
       setOpen(true)
    }
 
    const handleInputKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Enter" && search === "") {
          onChange(null)
-         setOpen(false)
+         clearInputAndClosePopover()
          return
       }
 

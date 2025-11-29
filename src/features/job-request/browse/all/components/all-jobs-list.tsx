@@ -1,5 +1,5 @@
 import type { JobRequestSummaryDto } from "@/features/job-request/api/types"
-import type { AllJobRequestSearchParams } from "@/features/job-request/browse/all/types/query"
+import type { AllJobRequestSearchParams } from "@/features/job-request/browse/all/types/filters"
 import { Container } from "@/shared/components/container"
 import { JobRequestListHero } from "@/features/job-request/browse/shared/components/job-request-list-hero"
 import { EmptyState } from "@/shared/components/empty-state"

@@ -14,3 +14,7 @@ export const getFormattedDate = (date?: string | null) => {
    const parsed = dayjs(date)
    return parsed.isValid() ? parsed.format("DD MMM YYYY") : "-"
 }
+
+export const getBackendCompatibleDate = (date: Date): string => {
+   return dayjs(date).format("YYYY-MM-DD")
+}
