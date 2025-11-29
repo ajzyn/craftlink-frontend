@@ -9,7 +9,7 @@ import { useFormContext, useWatch } from "react-hook-form"
 import type { JobRequestData } from "@/features/job-request/create/utils/form-schema"
 import { RadioGroup, RadioGroupItem } from "@/shared/components/ui/radio-group"
 import { useEffect } from "react"
-import { DeadlineCalendar } from "@/features/job-request/create/components/deadline-calendar"
+import { Calendar } from "@/shared/components/calendar"
 import { deadlineLabels, DeadlineType } from "@/features/job-request/shared/types/deadline-types"
 
 export const DateStep = () => {
@@ -80,10 +80,7 @@ export const DateStep = () => {
                      <FormItem className="space-y-2">
                         <FormLabel className="text-label-xl">Wybierz datę</FormLabel>
                         <FormControl>
-                           <DeadlineCalendar
-                              value={field.value}
-                              onChange={d => field.onChange(d)}
-                           />
+                           <Calendar value={field.value} onChange={d => field.onChange(d)} />
                         </FormControl>
                         <FormMessage />
                      </FormItem>

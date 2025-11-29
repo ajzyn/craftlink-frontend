@@ -6,7 +6,7 @@ export const useMatchingFilter = ({
    applyOnChange,
    updateFilters,
 }: FiltersProps) => {
-   const [draftMatching, setDraftMatching] = useState<boolean>(false)
+   const [draftMatching, setDraftMatching] = useState(true)
 
    useEffect(() => {
       setDraftMatching(activeFilters.matching ?? false)

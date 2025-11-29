@@ -9,21 +9,21 @@ export const useDeadlineFilters = ({
    updateFilters,
 }: FiltersProps) => {
    const [draftUrgency, setDraftUrgency] = useState<DeadlineUrgencyFilter | undefined>(undefined)
-   const [draftCustomFrom, setDraftCustomFrom] = useState<string | undefined>(undefined)
-   const [draftCustomTo, setDraftCustomTo] = useState<string | undefined>(undefined)
+   const [draftDeadlineFrom, setDraftDeadlineFrom] = useState<string | undefined>(undefined)
+   const [draftDeadlineTo, setDraftDeadlineTo] = useState<string | undefined>(undefined)
 
    useEffect(() => {
       setDraftUrgency(activeFilters.deadlineUrgency)
-      setDraftCustomFrom(activeFilters.deadlineFrom)
-      setDraftCustomTo(activeFilters.deadlineTo)
+      setDraftDeadlineFrom(activeFilters.deadlineFrom)
+      setDraftDeadlineTo(activeFilters.deadlineTo)
    }, [activeFilters.deadlineUrgency, activeFilters.deadlineFrom, activeFilters.deadlineTo])
 
    const handleUrgencyChange = (urgency?: DeadlineUrgencyFilter) => {
       setDraftUrgency(urgency)
 
       if (urgency !== DeadlineUrgencyFilter.CUSTOM) {
-         setDraftCustomFrom(undefined)
-         setDraftCustomTo(undefined)
+         setDraftDeadlineFrom(undefined)
+         setDraftDeadlineTo(undefined)
 
          if (applyOnChange) {
             updateFilters({
@@ -38,17 +38,25 @@ export const useDeadlineFilters = ({
    const handleCustomDateChange = (field: "deadlineFrom" | "deadlineTo", date?: Date) => {
       const formattedDate = date ? getBackendCompatibleDate(date) : undefined
 
+      const newDeadlineFrom = field === "deadlineFrom" ? formattedDate : draftDeadlineFrom
+      const newDeadlineTo = field === "deadlineTo" ? formattedDate : draftDeadlineTo
+
+      const shouldClearUrgency = !newDeadlineFrom && !newDeadlineTo
+
       if (field === "deadlineFrom") {
-         setDraftCustomFrom(formattedDate)
+         setDraftDeadlineFrom(formattedDate)
       } else {
-         setDraftCustomTo(formattedDate)
+         setDraftDeadlineTo(formattedDate)
       }
-      setDraftUrgency(DeadlineUrgencyFilter.CUSTOM)
+
+      if (shouldClearUrgency) {
+         setDraftUrgency(undefined)
+      }
 
       if (applyOnChange) {
          updateFilters({
-            deadlineUrgency: DeadlineUrgencyFilter.CUSTOM,
             [field]: formattedDate,
+            deadlineUrgency: shouldClearUrgency ? undefined : draftUrgency,
          })
       }
    }
@@ -56,8 +64,8 @@ export const useDeadlineFilters = ({
    const applyDeadlineFilters = () => {
       updateFilters({
          deadlineUrgency: draftUrgency,
-         deadlineFrom: draftCustomFrom,
-         deadlineTo: draftCustomTo,
+         deadlineFrom: draftDeadlineFrom,
+         deadlineTo: draftDeadlineTo,
       })
    }
 
@@ -65,8 +73,8 @@ export const useDeadlineFilters = ({
 
    return {
       localUrgency: draftUrgency,
-      localCustomFrom: draftCustomFrom,
-      localCustomTo: draftCustomTo,
+      localDeadlineFrom: draftDeadlineFrom,
+      localDeadlineTo: draftDeadlineTo,
       showCustomDates,
       handleUrgencyChange,
       handleCustomDateChange,

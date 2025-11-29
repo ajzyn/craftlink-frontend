@@ -5,12 +5,12 @@ import { Label } from "@/shared/components/ui/label"
 import { Checkbox } from "@/shared/components/ui/checkbox"
 import { Button } from "@/shared/components/ui/button"
 import { FilterGroup } from "./filter-group"
-import { DatePickerBtn } from "./date-picker-btn"
 import { FormAutocomplete } from "@/shared/components/autocomplete/autocomplete"
 import { Combobox } from "@/shared/components/autocomplete/combobox"
 import { DeadlineUrgencyRadio } from "@/features/job-request/browse/all/components/filters/deadline-urgency-radio"
 import { useDeadlineFilters } from "../../hooks/use-deadline-filters"
 import { useMatchingFilter } from "../../hooks/use-matching.filter"
+import { DatePicker } from "@/shared/components/date-picker"
 
 interface FiltersContentProps {
    activeFilters: AllJobRequestSearchParams
@@ -48,8 +48,8 @@ export const FiltersContent = ({
 
    const {
       localUrgency,
-      localCustomFrom,
-      localCustomTo,
+      localDeadlineFrom,
+      localDeadlineTo,
       showCustomDates,
       handleUrgencyChange,
       handleCustomDateChange,
@@ -66,6 +66,14 @@ export const FiltersContent = ({
       applyDeadlineFilters()
       onApply?.()
    }
+
+   const hasLocalChanges =
+      (localCity ?? undefined) !== activeFilters.city ||
+      (localDistrict || undefined) !== activeFilters.district ||
+      localMatching !== (activeFilters.matching ?? false) ||
+      localUrgency !== activeFilters.deadlineUrgency ||
+      localDeadlineFrom !== activeFilters.deadlineFrom ||
+      localDeadlineTo !== activeFilters.deadlineTo
 
    return (
       <div className="space-y-8">
@@ -120,16 +128,18 @@ export const FiltersContent = ({
                   <div className="space-y-3 pt-2 border-t border-border/50">
                      <div className="space-y-1.5">
                         <Label className="text-sm text-primary-foreground">Od</Label>
-                        <DatePickerBtn
-                           value={localCustomFrom}
+                        <DatePicker
+                           value={localDeadlineFrom}
                            onChange={date => handleCustomDateChange("deadlineFrom", date)}
+                           {...(localDeadlineTo && { maxDate: new Date(localDeadlineTo) })}
                         />
                      </div>
                      <div className="space-y-1.5">
                         <Label className="text-sm text-primary-foreground">Do</Label>
-                        <DatePickerBtn
-                           value={localCustomTo}
+                        <DatePicker
+                           value={localDeadlineTo}
                            onChange={date => handleCustomDateChange("deadlineTo", date)}
+                           {...(localDeadlineFrom && { minDate: new Date(localDeadlineFrom) })}
                         />
                      </div>
                   </div>
@@ -138,7 +148,7 @@ export const FiltersContent = ({
          </FilterGroup>
 
          {!applyOnChange && (
-            <Button className="w-full" onClick={handleApplyClick}>
+            <Button className="w-full" disabled={!hasLocalChanges} onClick={handleApplyClick}>
                Zastosuj filtry
             </Button>
          )}

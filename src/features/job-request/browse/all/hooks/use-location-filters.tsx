@@ -11,7 +11,7 @@ export const useLocationFilters = ({
 }: FiltersProps) => {
    const [hasDistrict, setHasDistrict] = useState(false)
    const [draftCity, setDraftCity] = useState<string | null>(null)
-   const [draftDistrict, setDraftDistrict] = useState<string>("")
+   const [draftDistrict, setDraftDistrict] = useState("")
 
    const localCity = applyOnChange ? (activeFilters.city ?? null) : draftCity
    const localDistrict = applyOnChange ? (activeFilters.district ?? "") : draftDistrict
@@ -44,17 +44,22 @@ export const useLocationFilters = ({
       }
    }, [applyOnChange, activeFilters.city, activeFilters.district])
 
-   const handleCityChange = (city: string | null) => {
+   const handleCityChange = (selectedCity: string | null) => {
       if (applyOnChange) {
          updateFilters({
-            city: city ?? undefined,
-            district: city !== localCity ? undefined : activeFilters.district,
+            city: selectedCity ?? undefined,
+            district: selectedCity !== localCity ? undefined : activeFilters.district,
          })
       } else {
-         setDraftCity(city)
-         if (city !== localCity) {
+         setDraftCity(selectedCity)
+         if (selectedCity !== localCity) {
             setDraftDistrict("")
          }
+      }
+
+      const city = cities?.find(c => c.name.toLowerCase() === selectedCity?.toLowerCase())
+      if (city?.hasDistricts) {
+         setHasDistrict(true)
       }
    }
 
@@ -66,11 +71,6 @@ export const useLocationFilters = ({
       } else {
          setDraftDistrict(district ?? "")
       }
-
-      const city = citiesOptions.find(
-         ({ value }) => value.toLowerCase() === district?.toLowerCase(),
-      )
-      setHasDistrict(city?.label !== district)
    }
 
    const applyLocationFilters = () => {

@@ -48,9 +48,9 @@ export const ActiveFiltersBadges = ({ activeFilters }: ActiveFiltersBadgesProps)
    return (
       <div
          className={cn(
-            "flex",
-            isMobile && "overflow-x-scroll scrollbar-hide gap-1 -mx-6 px-6 pt-4",
-            !isMobile && "flex-wrap gap-2",
+            "flex gap-2",
+            isMobile && "overflow-x-scroll scrollbar-hide -mx-6 px-6 pt-4",
+            !isMobile && "flex-wrap",
          )}
       >
          {badges.map(badge => (

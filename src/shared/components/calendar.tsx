@@ -1,16 +1,33 @@
 import * as React from "react"
-import { Calendar } from "@/shared/components/ui/calendar"
+import { Calendar as ShadcnUICalendar } from "@/shared/components/ui/calendar"
 import { format } from "date-fns"
 import { pl } from "date-fns/locale"
 
-export const DeadlineCalendar: React.FC<{
+interface CalendarProps {
    value?: Date
-   onChange?: (d: Date | undefined) => void
-}> = ({ value, onChange }) => {
+   onChange?: (date: Date | undefined) => void
+   minDate?: Date
+   maxDate?: Date
+}
+
+export const Calendar = ({ value, onChange, minDate, maxDate }: CalendarProps) => {
    const [date, setDate] = React.useState<Date | undefined>(value)
 
+   const getDisabledDates = () => {
+      if (minDate && maxDate) {
+         return [{ before: minDate }, { after: maxDate }]
+      }
+      if (minDate) {
+         return { before: minDate }
+      }
+      if (maxDate) {
+         return { after: maxDate }
+      }
+      return undefined
+   }
+
    return (
-      <Calendar
+      <ShadcnUICalendar
          mode="single"
          selected={date}
          onSelect={date => {
@@ -18,6 +35,7 @@ export const DeadlineCalendar: React.FC<{
             onChange?.(date)
          }}
          locale={pl}
+         disabled={getDisabledDates()}
          formatters={{
             formatCaption: month => format(month, "LLLL yyyy", { locale: pl }).toUpperCase(),
             formatWeekdayName: day => format(day, "EEE", { locale: pl }).toUpperCase(),
