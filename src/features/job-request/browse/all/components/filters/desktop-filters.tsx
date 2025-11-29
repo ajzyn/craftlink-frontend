@@ -9,7 +9,7 @@ export const DesktopFilters = ({ activeFilters }: AllJobsFiltersProps) => {
    return (
       <aside className="w-80 space-y-12 py-10 px-8 h-[calc(100vh-64px)] bg-white">
          <div className="flex items-center justify-between">
-            <h3 className="font-semibold text-lg text-primary-foreground min-h-8">Filtry</h3>
+            <h3 className="font-semibold text-lg text-primary-foreground h-8">Filtry</h3>
             {hasActiveFilters && (
                <Button size="sm" onClick={clearAll} className="text-primary-foreground">
                   Wyczyść

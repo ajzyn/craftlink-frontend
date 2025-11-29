@@ -3,6 +3,9 @@ import type { AllJobRequestSearchParams } from "../../types/filters"
 import { Badge } from "@/shared/components/ui/badge"
 import { getFormattedDate } from "@/shared/utils"
 import { X } from "lucide-react"
+import { isEmpty } from "lodash"
+import { cn } from "@/lib/utils"
+import { useBreakpoint } from "@/shared/hooks"
 
 interface ActiveFiltersBadgesProps {
    activeFilters: AllJobRequestSearchParams
@@ -15,6 +18,7 @@ interface BadgeItem {
 
 export const ActiveFiltersBadges = ({ activeFilters }: ActiveFiltersBadgesProps) => {
    const { clearFilter } = useJobFilters()
+   const { isMobile } = useBreakpoint()
 
    const badges = [
       activeFilters.city && {
@@ -39,21 +43,25 @@ export const ActiveFiltersBadges = ({ activeFilters }: ActiveFiltersBadgesProps)
       },
    ].filter(Boolean) as BadgeItem[]
 
-   if (badges.length === 0) return null
+   if (isEmpty(badges)) return null
 
+   console.log(isMobile)
    return (
-      <div className="flex flex-wrap gap-2">
+      <div
+         className={cn(
+            "flex",
+            isMobile && "overflow-x-scroll scrollbar-hide gap-1 -mx-6 px-6 pt-4",
+            !isMobile && "flex-wrap gap-2",
+         )}
+      >
          {badges.map(badge => (
             <Badge
-               key={badge!.key}
+               key={badge.key}
                variant="secondary"
-               className="flex items-center gap-1 px-2 py-1 bg-primary/50 text-primary-foreground"
+               className="flex items-center shrink-0 gap-1 px-2 py-1 bg-primary/50 text-primary-foreground"
             >
-               {badge!.label}
-               <X
-                  className="h-4 w-4 cursor-pointer"
-                  onClick={() => clearFilter(badge!.key as keyof AllJobRequestSearchParams)}
-               />
+               {badge.label}
+               <X className="h-4 w-4 cursor-pointer" onClick={() => clearFilter(badge.key)} />
             </Badge>
          ))}
       </div>

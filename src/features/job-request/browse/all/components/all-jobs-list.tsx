@@ -11,6 +11,7 @@ import { ActiveFiltersBadges } from "@/features/job-request/browse/all/component
 import { useBreakpoint } from "@/shared/hooks"
 import { DesktopFilters } from "@/features/job-request/browse/all/components/filters/desktop-filters"
 import { MobileFilters } from "@/features/job-request/browse/all/components/filters/mobile-filters"
+import { isEmpty } from "lodash"
 
 interface AllJobsListProps {
    jobs?: JobRequestSummaryDto[]
@@ -27,7 +28,7 @@ export const AllJobsList = ({
 }: AllJobsListProps) => {
    const { hasActiveFilters, clearAll } = useJobFilters()
    const { isDesktop } = useBreakpoint()
-   const isListEmpty = !isLoading && jobs?.length === 0
+   const isListEmpty = !isLoading && isEmpty(jobs)
 
    return (
       <div className="flex relative">
@@ -38,13 +39,9 @@ export const AllJobsList = ({
          )}
          {!isDesktop && <MobileFilters activeFilters={activeFilters} />}
 
-         <section className="flex-1 mx-6 md:mx-10">
-            <Container className="md:bg-white px-0!">
-               <div className="flex gap-2 flex-wrap flex-1 min-h-[26px]">
-                  {hasActiveFilters && isDesktop && (
-                     <ActiveFiltersBadges activeFilters={activeFilters} />
-                  )}
-               </div>
+         <section className="flex-1 mx-6 md:mx-10 min-w-0">
+            <Container className="md:bg-white max-md:px-0! py-6">
+               <ActiveFiltersBadges activeFilters={activeFilters} />
 
                <JobRequestListHero
                   description="Przeglądaj zlecenia z całej Polski. Znajdź oferty dopasowane do Twoich umiejętności."
