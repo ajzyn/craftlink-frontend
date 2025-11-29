@@ -45,7 +45,6 @@ export const ActiveFiltersBadges = ({ activeFilters }: ActiveFiltersBadgesProps)
 
    if (isEmpty(badges)) return null
 
-   console.log(isMobile)
    return (
       <div
          className={cn(
@@ -56,12 +55,13 @@ export const ActiveFiltersBadges = ({ activeFilters }: ActiveFiltersBadgesProps)
       >
          {badges.map(badge => (
             <Badge
+               onClick={() => clearFilter(badge.key)}
                key={badge.key}
                variant="secondary"
-               className="flex items-center shrink-0 gap-1 px-2 py-1 bg-primary/50 text-primary-foreground"
+               className="flex items-center shrink-0 gap-1 px-2 py-1 text-sm bg-primary/50 text-primary-foreground capitalize cursor-pointer"
             >
                {badge.label}
-               <X className="h-4 w-4 cursor-pointer" onClick={() => clearFilter(badge.key)} />
+               <X className="h-6 w-6" />
             </Badge>
          ))}
       </div>

@@ -17,7 +17,7 @@ export const JobRequestGrid = ({ isLoading, jobs, isFetchingNextPage }: JobReque
    const shouldShowNextPageSkeleton = isFetchingNextPage && !isLoading
 
    return (
-      <div className="grid gap-4 lg:grid-cols-2">
+      <div className="grid gap-4 xl:grid-cols-2">
          {isLoading
             ? Array.from({ length: 6 }).map((_, i) => <JobRequestCardSkeleton key={i} />)
             : jobs?.map(job => <JobRequestCard job={job} key={job.id} />)}
