@@ -1,14 +1,14 @@
-import { Badge } from "@/components/ui/badge"
-import { JobRequestStatus } from "../types/job-request-status-enum"
+import { Badge } from "@/shared/components/ui/badge"
+import { JobRequestStatus } from "../types/status-enum"
 import { useAuthStore } from "@/features/auth/stores/use-auth-store"
 
 interface JobRequestStatusProps {
    status: JobRequestStatus
-   requesterId: string
+   requesterId?: string
 }
 
 export const JobRequestStatusBadge = ({ status, requesterId }: JobRequestStatusProps) => {
-   const { user } = useAuthStore()
+   const user = useAuthStore(state => state.user)
    const isOwner = user?.id === requesterId
 
    const getBadgeVariant = () => {

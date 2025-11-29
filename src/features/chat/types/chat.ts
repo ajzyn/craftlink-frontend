@@ -1,17 +1,15 @@
-export interface ChatMessage {
+export interface ConversationMessageWS {
+   conversationId: string
    id: string
    senderId: string
    content: string
    sentAt: string
+   tempId?: string
 }
 
-export interface ChatParticipant {
-   id: string
-   name: string
-}
-
-export interface Conversation {
-   id: string
-   participants: ChatParticipant[]
-   messages: ChatMessage[]
+export interface ConversationMessageReadWS {
+   conversationId: string
+   lastReadMessageId: string
+   readAt: string
+   readerId: string
 }

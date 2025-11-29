@@ -1,9 +1,21 @@
-import type { Conversation } from "@/features/chat/types/chat"
+import type {
+   ConversationWithMessagesDto,
+   MyConversationsDto,
+   UnreadConversationsCountDto,
+} from "@/features/chat/api/types"
 import { apiClient } from "@/shared/api/http-client"
 
-export const chatApi = {
-   getConversation: async (conversationId: string): Promise<Conversation> => {
-      const response = await apiClient.get<Conversation>(`/sec/chat/${conversationId}`)
-      return response.data
-   },
+export const getConversation = async (conversationId: string) => {
+   const response = await apiClient.get<ConversationWithMessagesDto>(`/sec/chats/${conversationId}`)
+   return response.data
+}
+
+export const getAllConversations = async () => {
+   const response = await apiClient.get<MyConversationsDto>(`/sec/chats`)
+   return response.data
+}
+
+export const getUnreadConversationsCount = async () => {
+   const response = await apiClient.get<UnreadConversationsCountDto>("/sec/chats/unread-count")
+   return response.data
 }

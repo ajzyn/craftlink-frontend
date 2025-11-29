@@ -3,9 +3,8 @@ import { type TypeOf, type ZodTypeAny } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { jwtDecode } from "jwt-decode"
 import { toast } from "sonner"
-import { useRouter } from "@tanstack/react-router"
 import { useAuthStore } from "@/features/auth/stores/use-auth-store"
-import type { JwtPayload, UserDto } from "@/features/auth/types/auth-types"
+import type { JwtPayload, UserDto } from "@/features/auth/api/types"
 
 interface UseAuthFormProps<T extends ZodTypeAny> {
    schema: T
@@ -24,8 +23,8 @@ export const useAuthForm = <T extends ZodTypeAny>({
    errorMessage,
    onSuccess,
 }: UseAuthFormProps<T>) => {
-   const { setUser, setAccessToken } = useAuthStore()
-   const router = useRouter()
+   const setUser = useAuthStore(state => state.setUser)
+   const setAccessToken = useAuthStore(state => state.setAccessToken)
 
    const form = useForm<TypeOf<T>>({
       resolver: zodResolver(schema),
@@ -47,11 +46,10 @@ export const useAuthForm = <T extends ZodTypeAny>({
 
          setUser(user)
          setAccessToken(token)
-         toast("Sukces!", { description: successMessage })
-         router.navigate({ to: "/" })
+         toast(successMessage, { id: "auth-toast" })
          onSuccess?.()
       } catch {
-         toast("Błąd", { description: errorMessage })
+         toast(errorMessage, { id: "auth-toast" })
          form.reset()
       }
    }

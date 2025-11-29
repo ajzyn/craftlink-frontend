@@ -6,5 +6,5 @@ export interface JobRequestStep {
    title: string
    icon: LucideIcon
    component: React.ReactNode
-   validate?: keyof JobRequestData
+   name?: keyof JobRequestData
 }
