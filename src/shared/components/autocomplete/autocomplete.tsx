@@ -24,6 +24,7 @@ interface FormAutocompleteProps<T extends AutocompleteOption | string> {
    getOptionKey?: (option: T) => string | number
    filterOption?: (option: T, inputValue: string) => boolean
    allowCustomValue?: boolean
+   autoOpenOnFocus?: boolean
 }
 
 export const FormAutocomplete = <T extends AutocompleteOption | string>({
@@ -40,6 +41,7 @@ export const FormAutocomplete = <T extends AutocompleteOption | string>({
    getOptionKey = defaultGetOptionKey,
    filterOption = defaultFilterOption,
    allowCustomValue = false,
+   autoOpenOnFocus = true,
 }: FormAutocompleteProps<T>) => {
    const [inputValue, setInputValue] = useState("")
    const [isOpen, setIsOpen] = useState(false)
@@ -137,19 +139,29 @@ export const FormAutocomplete = <T extends AutocompleteOption | string>({
       [isOpen, suggestions, highlightedIndex, handleSelect, allowCustomValue, inputValue],
    )
 
-   const handleFocus = () => !disabled && setIsOpen(true)
+   const handleFocus = () => {
+      if (!disabled && autoOpenOnFocus) {
+         setIsOpen(true)
+      }
+   }
 
    const handleBlur = () => {
       setTimeout(() => {
          setIsOpen(false)
          setHighlightedIndex(-1)
          onBlur()
-      }, 0)
+      }, 2000)
+   }
+
+   const handleClick = () => {
+      if (!disabled && !autoOpenOnFocus) {
+         setIsOpen(true)
+      }
    }
 
    return (
-      <div className={cn("relative", className)}>
-         <div className="relative">
+      <div className="relative">
+         <div className="relative" onClick={handleClick}>
             <Input
                type="text"
                value={inputValue}
@@ -160,7 +172,9 @@ export const FormAutocomplete = <T extends AutocompleteOption | string>({
                placeholder={placeholder}
                disabled={disabled}
                className={cn(
+                  "capitalize",
                   "pl-10 pr-10 h-14",
+                  className,
                   error && "border-destructive focus-visible:ring-destructive",
                )}
             />
@@ -209,7 +223,7 @@ export const FormAutocomplete = <T extends AutocompleteOption | string>({
                               onMouseDown={() => handleSelect(suggestion)}
                               onMouseEnter={() => setHighlightedIndex(index)}
                               className={cn(
-                                 "w-full px-4 py-2 text-sm text-left transition-colors flex justify-between items-center",
+                                 "capitalize w-full px-4 py-2 text-sm text-left transition-colors flex justify-between items-center",
                                  "hover:bg-accent hover:text-accent-foreground",
                                  isHighlighted && "bg-accent text-accent-foreground",
                                  isSelected && "bg-primary/10 text-primary",

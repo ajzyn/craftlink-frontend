@@ -1,13 +1,14 @@
-import { useState } from "react"
 import { useJobFilters } from "../../hooks/use-job-filters"
+import { useLocationFilters } from "../../hooks/use-location-filters"
 import type { AllJobRequestSearchParams } from "../../types/query"
 import { getFormattedDate } from "@/shared/utils"
 import { Label } from "@/shared/components/ui/label"
-import { Input } from "@/shared/components/ui/input"
 import { Checkbox } from "@/shared/components/ui/checkbox"
 import { Button } from "@/shared/components/ui/button"
 import { FilterGroup } from "./filter-group"
-import { DatePicketBtn } from "@/features/job-request/browse/all/components/filters/date-picket-btn"
+import { DatePicketBtn } from "./date-picket-btn"
+import { FormAutocomplete } from "@/shared/components/autocomplete/autocomplete"
+import { Combobox } from "@/shared/components/autocomplete/combobox"
 
 interface FiltersContentProps {
    activeFilters: AllJobRequestSearchParams
@@ -15,30 +16,27 @@ interface FiltersContentProps {
    onApply?: () => void
 }
 
-export const FiltersContent = ({ activeFilters, applyOnChange, onApply }: FiltersContentProps) => {
+export const FiltersContent = ({
+   activeFilters,
+   applyOnChange = false,
+   onApply,
+}: FiltersContentProps) => {
    const { updateFilters } = useJobFilters()
-   const [localCity, setLocalCity] = useState(activeFilters.city ?? "")
-   const [localDistrict, setLocalDistrict] = useState(activeFilters.district ?? "")
 
-   const applyTextFilters = () => {
-      updateFilters({
-         city: localCity || undefined,
-         district: localDistrict || undefined,
-      })
-   }
-
-   const handleTextBlur = () => {
-      console.log("blue")
-      if (applyOnChange) {
-         applyTextFilters()
-      }
-   }
-
-   const handleTextKeyDown = (e: React.KeyboardEvent) => {
-      if (e.key === "Enter" && applyOnChange) {
-         applyTextFilters()
-      }
-   }
+   const {
+      cities,
+      districts,
+      localCity,
+      localDistrict,
+      handleCityChange,
+      handleDistrictChange,
+      applyLocationFilters,
+      hasDistrict,
+   } = useLocationFilters({
+      activeFilters,
+      applyOnChange,
+      updateFilters,
+   })
 
    const handleDateChange = (field: "deadlineFrom" | "deadlineTo", date?: Date) => {
       updateFilters({
@@ -47,11 +45,9 @@ export const FiltersContent = ({ activeFilters, applyOnChange, onApply }: Filter
    }
 
    const handleApplyClick = () => {
-      applyTextFilters()
+      applyLocationFilters()
       onApply?.()
    }
-
-   //TODO: use predefined component for location
 
    return (
       <div className="space-y-8">
@@ -61,30 +57,31 @@ export const FiltersContent = ({ activeFilters, applyOnChange, onApply }: Filter
                   <Label htmlFor="city" className="text-sm font-medium text-primary-foreground">
                      Miasto
                   </Label>
-                  <Input
-                     id="city"
+                  <Combobox
                      placeholder="np. Warszawa"
-                     value={localCity}
-                     onChange={e => setLocalCity(e.target.value)}
-                     onBlur={handleTextBlur}
-                     onKeyDown={handleTextKeyDown}
-                     className="h-10"
+                     onChange={handleCityChange}
+                     options={cities ?? []}
+                     className="h-10 py-1 px-3"
+                     value={localCity ?? undefined}
                   />
                </div>
-               <div className="space-y-2">
-                  <Label htmlFor="district" className="text-sm font-medium text-primary-foreground">
-                     Dzielnica
-                  </Label>
-                  <Input
-                     id="district"
-                     placeholder="np. Mokotów"
-                     value={localDistrict}
-                     onChange={e => setLocalDistrict(e.target.value)}
-                     onBlur={handleTextBlur}
-                     onKeyDown={handleTextKeyDown}
-                     className="h-10"
-                  />
-               </div>
+               {hasDistrict && (
+                  <div className="space-y-2">
+                     <Label
+                        htmlFor="district"
+                        className="text-sm font-medium text-primary-foreground"
+                     >
+                        Dzielnica
+                     </Label>
+                     <FormAutocomplete
+                        placeholder="np. Mokotów"
+                        options={districts ?? []}
+                        value={localDistrict}
+                        onChange={handleDistrictChange}
+                        className="h-10 py-1 px-3"
+                     />
+                  </div>
+               )}
             </div>
          </FilterGroup>
 
@@ -93,7 +90,9 @@ export const FiltersContent = ({ activeFilters, applyOnChange, onApply }: Filter
                <Checkbox
                   id="matching"
                   checked={activeFilters.matching ?? false}
-                  onCheckedChange={checked => updateFilters({ matching: !!checked })}
+                  onCheckedChange={checked =>
+                     updateFilters({ matching: checked ? true : undefined })
+                  }
                   className="mt-1"
                />
                <span className="text-sm leading-normal group-hover:text-foreground/80 transition-colors">

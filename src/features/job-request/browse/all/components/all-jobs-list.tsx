@@ -38,8 +38,8 @@ export const AllJobsList = ({
          )}
          {!isDesktop && <MobileFilters activeFilters={activeFilters} />}
 
-         <section className="flex-1 mx-10">
-            <Container className="md:bg-white">
+         <section className="flex-1 mx-6 md:mx-10">
+            <Container className="md:bg-white px-0!">
                <div className="flex gap-2 flex-wrap flex-1 min-h-[26px]">
                   {hasActiveFilters && isDesktop && (
                      <ActiveFiltersBadges activeFilters={activeFilters} />

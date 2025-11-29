@@ -39,7 +39,7 @@ const CreateJobRequestPage = () => {
    return (
       <CreateView
          selectedService={service}
-         rawCities={cities}
+         cities={cities}
          isLoadingService={isLoadingService}
          isLoadingCities={isLoadingCities}
       />

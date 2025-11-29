@@ -9,9 +9,10 @@ export const useCitiesQuery = () => {
    })
 }
 
-export const useCityDistrictsQuery = (cityName: string) => {
+export const useCityDistrictsQuery = (cityName?: string) => {
    return useQuery({
-      queryFn: () => getDistricts(cityName),
-      queryKey: locationKeys.detail(cityName),
+      queryFn: () => getDistricts(cityName!),
+      queryKey: locationKeys.detail(cityName!),
+      enabled: !!cityName,
    })
 }

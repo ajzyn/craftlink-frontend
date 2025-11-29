@@ -13,7 +13,7 @@ export const JobRequestCard = ({ job }: { job: JobRequestSummaryDto }) => {
    return (
       <Card
          onClick={() => navigate({ to: "/zlecenia/$id", params: { id: job.id } })}
-         className="cursor-pointer min-h-64 hover:shadow-lg transition-all border border-gray-200 rounded-xl py-8 px-5 flex flex-col justify-between bg-white"
+         className="cursor-pointer min-h-64 hover:shadow-lg transition-all border border-gray-200 rounded-xl py-8 px-5 flex flex-col justify-between bg-white pressed-button"
       >
          <div className="flex justify-between items-start">
             <div>
