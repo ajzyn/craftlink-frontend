@@ -19,7 +19,7 @@ export const useAllConversationsQuery = () => {
    return useQuery({
       queryKey: conversationKeys.all,
       queryFn: getAllConversations,
-      refetchInterval: 10000,
+      refetchInterval: 10 * 1000,
       refetchOnWindowFocus: true,
    })
 }
@@ -29,7 +29,7 @@ export const useUnreadConversationCountQuery = () => {
    return useQuery({
       queryKey: conversationKeys.unreadCount(),
       queryFn: getUnreadConversationsCount,
-      refetchInterval: 20000,
+      refetchInterval: 20 * 1000,
       refetchOnWindowFocus: true,
    })
 }

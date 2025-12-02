@@ -1,7 +1,7 @@
 import { Card, CardContent } from "@/shared/components/ui/card"
 import { Skeleton } from "@/shared/components/ui/skeleton"
 
-export const ServiceItemSkeleton = () => {
+export const ItemSkeleton = () => {
    return (
       <Card>
          <CardContent className="flex justify-between items-center">

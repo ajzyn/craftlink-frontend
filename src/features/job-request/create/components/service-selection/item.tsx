@@ -1,17 +1,18 @@
-import type { CategoryServiceDto } from "@/features/categories/api/types"
 import { Card, CardContent } from "@/shared/components/ui/card"
 import { ChevronRight } from "lucide-react"
 import { useRouter } from "@tanstack/react-router"
+import type { CategoryServiceDto } from "@/entities/category"
 
 interface ServiceItemProps {
    service: CategoryServiceDto
+   categorySlug: string
 }
 
-export const ServiceItem = ({ service }: ServiceItemProps) => {
+export const Item = ({ service, categorySlug }: ServiceItemProps) => {
    const router = useRouter()
 
    const handleNavigate = () => {
-      router.navigate({ to: `/zlecenia/stworz/${service.slug}` })
+      router.navigate({ to: `/zlecenia/nowe/${categorySlug}/${service.slug}` })
    }
 
    return (

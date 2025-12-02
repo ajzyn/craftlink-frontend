@@ -31,6 +31,7 @@ interface ComboboxProps {
    onSearchChange?: (search: string) => void
    placeholder?: string
    emptyText?: string
+   defaultText?: string
    isLoading?: boolean
    disabled?: boolean
    className?: string
@@ -42,11 +43,13 @@ export const Combobox = ({
    onChange,
    onSearchChange,
    placeholder = "Wybierz...",
-   emptyText = "Nie znaleziono.",
+   emptyText = "Nie znaleziono",
+   defaultText = "Zacznij pisać by wyszukać",
    isLoading = false,
    disabled = false,
    className,
 }: ComboboxProps) => {
+   //TODO: refactor
    const [open, setOpen] = useState(false)
    const [search, setSearch] = useState("")
    const commandRef = useRef<HTMLDivElement>(null)
@@ -139,7 +142,7 @@ export const Combobox = ({
                disabled={disabled}
                onKeyDown={handleInputKeyDown}
                className={cn(
-                  "capitalize pr-16 border-border",
+                  "pr-16 border-border",
                   "hover:border-primary focus:border-primary focus:ring-primary",
                   className,
                )}
@@ -182,7 +185,7 @@ export const Combobox = ({
                         Wyszukiwanie...
                      </div>
                   ) : isEmpty(filteredOptions) ? (
-                     <CommandEmpty>{emptyText}</CommandEmpty>
+                     <CommandEmpty>{isEmpty(value) ? defaultText : emptyText}</CommandEmpty>
                   ) : (
                      <CommandGroup>
                         {filteredOptions.map(option => (

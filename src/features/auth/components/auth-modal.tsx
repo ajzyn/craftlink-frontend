@@ -9,6 +9,7 @@ import { useEffect } from "react"
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden"
 import { AuthLayout } from "@/features/auth/components/auth-layout"
 import { LoginForm } from "@/features/auth/components/login-form"
+import { useNavigate } from "@tanstack/react-router"
 
 interface AuthModalProps {
    isOpen: boolean
@@ -16,11 +17,16 @@ interface AuthModalProps {
 }
 
 export const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
+   const navigate = useNavigate()
    const user = useAuthStore(state => state.user)
 
    useEffect(() => {
-      if (user) onClose()
-   }, [onClose, user])
+      if (user) {
+         onClose()
+
+         navigate({ to: "/" })
+      }
+   }, [onClose, user, navigate])
 
    return (
       <Dialog open={isOpen} onOpenChange={onClose}>

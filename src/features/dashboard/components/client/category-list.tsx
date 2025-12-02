@@ -1,7 +1,7 @@
 import { useRouter } from "@tanstack/react-router"
 import { BackendErrorFallback } from "@/shared/components/backend-error-fallback"
 import { DynamicIcon } from "@/shared/components/dynamic-icon"
-import { ListSkeleton } from "@/features/dashboard/components/list-skeleton"
+import { CategoryListSkeleton } from "@/features/dashboard/components/client/category-list-skeleton"
 import { useAllCategoriesQuery } from "@/entities/category"
 
 export const CategoryList = () => {
@@ -9,7 +9,7 @@ export const CategoryList = () => {
    const { data: categories, isError, isLoading, refetch } = useAllCategoriesQuery()
 
    const handleCategoryClick = (categorySlug: string) => {
-      router.navigate({ to: `/kategoria/${categorySlug}` })
+      router.navigate({ to: `/zlecenia/nowe/${categorySlug}` })
    }
 
    if (isError) {
@@ -20,7 +20,7 @@ export const CategoryList = () => {
       <div className="mt-12">
          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-6">
             {isLoading || !categories ? (
-               <ListSkeleton />
+               <CategoryListSkeleton />
             ) : (
                categories?.map(category => (
                   <button

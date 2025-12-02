@@ -33,10 +33,10 @@ export const appRoutes: AppRouteConfig[] = [
       path: `/zarejestruj`,
       element: lazyRouteComponent(() => import("@/features/auth/pages/register-specialist-page")),
    },
-   {
-      path: "/kategoria/$categorySlug",
-      element: lazyRouteComponent(() => import("@/features/categories/pages/category-page")),
-   },
+   // {
+   //    path: "/kategoria/$categorySlug",
+   //    element: lazyRouteComponent(() => import("@/features/categories/pages/category-page")),
+   // },
    {
       path: "/wiadomosci",
       children: [
@@ -62,10 +62,27 @@ export const appRoutes: AppRouteConfig[] = [
             ),
          },
          {
-            path: "/stworz/$serviceSlug",
-            element: lazyRouteComponent(
-               () => import("@/features/job-request/create/pages/create-job-request-page"),
-            ),
+            path: "/nowe",
+            children: [
+               {
+                  path: "/",
+                  element: lazyRouteComponent(
+                     () => import("@/features/job-request/create/pages/select-category-page"),
+                  ),
+               },
+               {
+                  path: "/$categorySlug",
+                  element: lazyRouteComponent(
+                     () => import("@/features/job-request/create/pages/select-service-page"),
+                  ),
+               },
+               {
+                  path: "/$categorySlug/$serviceSlug",
+                  element: lazyRouteComponent(
+                     () => import("@/features/job-request/create/pages/create-job-request-page"),
+                  ),
+               },
+            ],
          },
          {
             path: "moje",
@@ -81,8 +98,8 @@ export const appRoutes: AppRouteConfig[] = [
          },
       ],
    },
-   {
-      path: "/kontakt",
-      element: lazyRouteComponent(() => import("@/features/categories/pages/category-page")), //TODO: create this pages
-   },
+   // {
+   //    path: "/kontakt",
+   //    element: lazyRouteComponent(() => import("@/features/categories/pages/category-page")), //TODO: create this pages
+   // },
 ]
