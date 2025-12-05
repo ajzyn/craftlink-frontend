@@ -24,8 +24,8 @@ export interface ComboboxOption {
    label: string
 }
 
-interface ComboboxProps {
-   options: ComboboxOption[]
+interface ComboboxProps<T extends ComboboxOption> {
+   options: T[]
    value?: string
    onChange: (value: string | null) => void
    onSearchChange?: (search: string) => void
@@ -37,7 +37,7 @@ interface ComboboxProps {
    className?: string
 }
 
-export const Combobox = ({
+export const Combobox = <T extends ComboboxOption>({
    options,
    value,
    onChange,
@@ -48,7 +48,7 @@ export const Combobox = ({
    isLoading = false,
    disabled = false,
    className,
-}: ComboboxProps) => {
+}: ComboboxProps<T>) => {
    //TODO: refactor
    const [open, setOpen] = useState(false)
    const [search, setSearch] = useState("")

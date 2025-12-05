@@ -1,8 +1,10 @@
 import { apiClient } from "@/shared/api/http-client"
-import type { ServiceBasicDto, ServiceDetailsDto } from "./types"
+import type { ServiceDetailsDto, ServiceSearchResultDto } from "./types"
 
 export const searchServiceByText = async (searchPhrase: string) => {
-   const response = await apiClient.get<ServiceBasicDto[]>(`/services?searchPhrase=${searchPhrase}`)
+   const response = await apiClient.get<ServiceSearchResultDto[]>(
+      `/services?searchPhrase=${searchPhrase}`,
+   )
    return response.data
 }
 

@@ -1,12 +1,11 @@
-import { Card, CardContent } from "@/shared/components/ui/card"
 import { ServiceSelect } from "@/features/dashboard/components/client/service-select"
 import { CategoryList } from "@/features/dashboard/components/client/category-list"
+import { Section } from "@/shared/components/section"
 import { Button } from "@/shared/components/ui/button"
-import { useNavigate } from "@tanstack/react-router"
+import { Link } from "@tanstack/react-router"
+import { ChevronRight } from "lucide-react"
 
 export const View = () => {
-   const navigate = useNavigate()
-
    //TODO: cTA
 
    return (
@@ -24,22 +23,28 @@ export const View = () => {
          </div>
 
          <section className="max-w-5xl mx-auto">
-            <Card className="shadow-xl">
-               <CardContent className="p-6 sm:p-8">
+            <Section className="px-0 bg-transparent backdrop-blur-none">
+               <div className="p-6 sm:p-8">
                   <ServiceSelect />
+
                   <CategoryList />
 
-                  <div className="mt-8 text-center">
+                  <div className="mt-8 w-full flex justify-end">
                      <Button
-                        variant="outline"
-                        onClick={() => navigate({ to: "/zlecenia/nowe" })}
-                        className="w-full sm:w-auto"
+                        variant="ghost"
+                        className="sm:w-auto flex items-center gap-2 px-4 py-2 text-primary hover:bg-primary/10"
                      >
-                        Zobacz wszystkie kategorie
+                        <Link
+                           to="/zlecenia/nowe"
+                           className="flex items-center gap-2 no-underline text-primary"
+                        >
+                           Zobacz wszystkie kategorie
+                           <ChevronRight className="h-4 w-4" />
+                        </Link>
                      </Button>
                   </div>
-               </CardContent>
-            </Card>
+               </div>
+            </Section>
          </section>
       </>
    )

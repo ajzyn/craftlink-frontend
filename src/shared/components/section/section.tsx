@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils"
 
 interface SectionProps {
-   label: React.ReactNode
+   label?: React.ReactNode
    children: React.ReactNode
    className?: string
 }
@@ -16,9 +16,11 @@ export const Section = ({ label, children, className }: SectionProps) => {
             className,
          )}
       >
-         <div className="mb-10 border-b-1 border-gray-100 pb-6 md:px-6">
-            <h2 className="text-xl font-semibold md:text-heading-lg">{label}</h2>
-         </div>
+         {label && (
+            <div className="mb-10 border-b-1 border-gray-100 pb-6 md:px-6">
+               <h2 className="text-xl font-semibold md:text-heading-lg">{label}</h2>
+            </div>
+         )}
 
          <div>{children}</div>
       </div>

@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
 import { serviceKeys } from "@/entities/service/query-keys"
 import { getServiceBySlug, searchServiceByText } from "@/entities/service/api"
-import type { ComboboxOption } from "@/shared/components/autocomplete/combobox"
+import type { ServiceSearchComboboxOption } from "@/entities/service/types"
 
 export const useServiceDetailsQuery = (slug?: string) => {
    return useQuery({
@@ -22,8 +22,9 @@ export const useSearchServiceQuery = (text?: string) => {
             s =>
                ({
                   label: s.name,
-                  value: s.id.toString(),
-               }) as ComboboxOption,
+                  value: s.slug,
+                  categorySlug: s.categorySlug,
+               }) as ServiceSearchComboboxOption,
          ),
    })
 }
