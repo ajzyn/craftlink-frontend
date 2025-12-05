@@ -1,12 +1,11 @@
 import { Search } from "lucide-react"
-import { FormControl, FormField, FormItem, FormMessage } from "@/shared/components/ui/form"
+import { FormField, FormItem, FormMessage } from "@/shared/components/ui/form"
 import { useFormContext } from "react-hook-form"
 import type { JobRequestData } from "@/features/job-request/create/utils/form-schema"
-import { FormAutocomplete } from "@/shared/components/autocomplete/autocomplete"
 import { BackendErrorFallback } from "@/shared/components/backend-error-fallback"
 import { useCityDistrictsQuery } from "@/entities/location/queries"
 import { useMemo } from "react"
-import { capitalizeFirstLetter } from "@/shared/utils/string-utils"
+import { ComboboxWithSearchIcon } from "@/shared/components/autocomplete/combobox-with-search-icon"
 
 interface DistrictStepProps {
    cityName: string
@@ -20,7 +19,7 @@ export const DistrictStep = ({ cityName }: DistrictStepProps) => {
       if (!data) {
          return []
       }
-      return data.map(cityName => capitalizeFirstLetter(cityName))
+      return data.map(cityName => ({ value: cityName, label: cityName }))
    }, [data])
 
    if (isError) {
@@ -35,15 +34,14 @@ export const DistrictStep = ({ cityName }: DistrictStepProps) => {
             <FormItem>
                <div className="relative">
                   <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground w-5 h-5 z-10" />
-                  <FormControl>
-                     <FormAutocomplete
-                        placeholder="Wybierz dzielnicę..."
-                        options={districts}
-                        value={field.value ?? ""}
-                        onChange={val => field.onChange(val ?? "")}
-                        onBlur={field.onBlur}
-                     />
-                  </FormControl>
+                  <ComboboxWithSearchIcon
+                     placeholder="Wyszukaj dzielnice..."
+                     options={districts}
+                     isLoading={isLoading}
+                     value={field.value ?? ""}
+                     onOptionChange={val => field.onChange(val ?? "")}
+                     onBlur={field.onBlur}
+                  />
                </div>
                <FormMessage />
             </FormItem>

@@ -58,7 +58,7 @@ export const CreationModal = ({
    }
 
    return (
-      <Dialog open={isOpen} onOpenChange={handleClose}>
+      <Dialog open={isOpen} onOpenChange={handleClose} modal={true}>
          <DialogContent className="max-w-[2000px] min-h-80 space-y-6">
             <DialogHeader>
                <DialogTitle className="text-xl font-semibold">

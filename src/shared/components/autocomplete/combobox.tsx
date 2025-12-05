@@ -1,4 +1,4 @@
-import { Check, ChevronDown, X } from "lucide-react"
+import { Check, ChevronDown, Loader2, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 import {
    Command,
@@ -35,6 +35,8 @@ interface ComboboxProps<T extends ComboboxOption> {
    isLoading?: boolean
    disabled?: boolean
    className?: string
+   onBlur?: VoidFunction
+   name?: string
 }
 
 export const Combobox = <T extends ComboboxOption>({
@@ -44,10 +46,12 @@ export const Combobox = <T extends ComboboxOption>({
    onSearchChange,
    placeholder = "Wybierz...",
    emptyText = "Nie znaleziono",
-   defaultText = "Zacznij pisać by wyszukać",
+   defaultText = "Zacznij pisać by zobaczyć sugestie",
    isLoading = false,
    disabled = false,
    className,
+   onBlur,
+   name,
 }: ComboboxProps<T>) => {
    //TODO: refactor
    const [open, setOpen] = useState(false)
@@ -124,7 +128,15 @@ export const Combobox = <T extends ComboboxOption>({
    }
 
    return (
-      <Popover open={open} onOpenChange={setOpen}>
+      <Popover
+         open={open}
+         onOpenChange={isOpen => {
+            setOpen(isOpen)
+            if (!isOpen && onBlur) {
+               onBlur()
+            }
+         }}
+      >
          <div className="relative">
             <PopoverTrigger asChild>
                <button
@@ -135,11 +147,13 @@ export const Combobox = <T extends ComboboxOption>({
             </PopoverTrigger>
             <Input
                ref={inputRef}
+               name={name}
                value={displayValue}
                onChange={handleSearchChange}
                onFocus={handleFocus}
                placeholder={placeholder}
                disabled={disabled}
+               onBlur={onBlur}
                onKeyDown={handleInputKeyDown}
                className={cn(
                   "pr-16 border-border",
@@ -158,12 +172,16 @@ export const Combobox = <T extends ComboboxOption>({
                      <X className="h-4 w-4" />
                   </button>
                )}
-               <ChevronDown
-                  className={cn(
-                     "h-4 w-4 opacity-50 transition-transform pointer-events-none",
-                     open && "rotate-180",
-                  )}
-               />
+               {isLoading ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+               ) : (
+                  <ChevronDown
+                     className={cn(
+                        "h-4 w-4 opacity-50 transition-transform pointer-events-none",
+                        open && "rotate-180",
+                     )}
+                  />
+               )}
             </div>
          </div>
          <PopoverContent
@@ -181,7 +199,7 @@ export const Combobox = <T extends ComboboxOption>({
                <CommandList>
                   {isLoading ? (
                      <div className="px-4 py-3 text-sm text-muted-foreground flex items-center gap-2">
-                        <div className="h-4 w-4 animate-spin rounded-full border-2 border-muted-foreground border-t-transparent" />
+                        <Loader2 className="h-4 w-4 animate-spin" />
                         Wyszukiwanie...
                      </div>
                   ) : isEmpty(filteredOptions) ? (
@@ -194,7 +212,7 @@ export const Combobox = <T extends ComboboxOption>({
                               value={option.value}
                               onSelect={handleSelect}
                               className={cn(
-                                 "capitalize justify-between",
+                                 "capitalize justify-between cursor-pointer",
                                  value === option.value && "text-primary",
                               )}
                            >

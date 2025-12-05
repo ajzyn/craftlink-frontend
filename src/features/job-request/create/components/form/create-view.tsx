@@ -1,15 +1,13 @@
 import { HeroSection } from "@/features/job-request/create/components/form/hero-section"
 import { CreationModal } from "@/features/job-request/create/components/form/creation-modal"
 import { useJobRequestUI } from "@/features/job-request/create/hooks/use-job-request-ui"
-import type { CityDto } from "@/entities/location"
 import type { ServiceDetailsDto } from "@/entities/service"
 
 interface CreateViewProps {
    selectedService?: ServiceDetailsDto
-   cities?: CityDto[]
 }
 
-export const CreateView = ({ selectedService, cities }: CreateViewProps) => {
+export const CreateView = ({ selectedService }: CreateViewProps) => {
    const { isStepperOpen, selectedCity, handleSelectCity, handleModalClose } = useJobRequestUI()
 
    if (!selectedService) {
@@ -18,7 +16,7 @@ export const CreateView = ({ selectedService, cities }: CreateViewProps) => {
 
    return (
       <div>
-         <HeroSection cities={cities ?? []} handleSelectLocation={handleSelectCity} />
+         <HeroSection onSelectLocation={handleSelectCity} />
 
          {selectedCity && isStepperOpen && (
             <CreationModal

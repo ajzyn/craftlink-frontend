@@ -1,24 +1,52 @@
-import { Search } from "lucide-react"
-import { FormAutocomplete } from "@/shared/components/autocomplete/autocomplete"
-import type { CityDto } from "@/entities/location"
+import { type CityDto, useCitiesQuery } from "@/entities/location"
+import { toast } from "sonner"
+import { useCallback, useMemo } from "react"
+import { ComboboxWithSearchIcon } from "@/shared/components/autocomplete/combobox-with-search-icon"
 
 interface ServiceRequestHeroProps {
-   cities: CityDto[]
-   handleSelectLocation: (city: CityDto | null) => void
+   onSelectLocation: (city: CityDto) => void
 }
 
-export const HeroSection = ({ cities, handleSelectLocation }: ServiceRequestHeroProps) => {
+export const HeroSection = ({ onSelectLocation }: ServiceRequestHeroProps) => {
+   const { data: cities, isLoading, isError } = useCitiesQuery()
+
+   if (isError) {
+      toast.error("Wystąpił błąd. Proszę spróbować później")
+   }
+
+   const handleSelectLocation = useCallback(
+      (result: string | null) => {
+         if (!result) {
+            return
+         }
+
+         const city = cities?.find(city => city.name === result)
+         if (city) {
+            onSelectLocation(city)
+         }
+      },
+      [onSelectLocation, cities],
+   )
+
+   const citiesOptions = useMemo(() => {
+      if (!cities) {
+         return []
+      }
+
+      return cities.map(city => ({ value: city.name, label: city.name }))
+   }, [cities])
+
    return (
       <div className="section-content flex flex-col gap-4 items-center mt-12">
          <p className="text-heading-2xl text-center">
             Wyszukaj lokalizacji dla wybranej <span className="text-primary">usługi</span>
          </p>
-         <div className="relative w-full max-w-[600px]">
-            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5 z-10" />
-            <FormAutocomplete
-               placeholder="Wybierz lokalizacje..."
-               onChange={handleSelectLocation}
-               options={cities ?? []}
+         <div className="w-full max-w-[600px]">
+            <ComboboxWithSearchIcon
+               placeholder="Wyszukaj lokalizacje..."
+               options={citiesOptions}
+               isLoading={isLoading}
+               onOptionChange={handleSelectLocation}
             />
          </div>
       </div>
