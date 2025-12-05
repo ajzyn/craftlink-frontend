@@ -1,18 +1,21 @@
 import type { JobRequestStep } from "@/features/job-request/create/types/stepper"
-import { useStepper } from "@/shared/hooks/use-stepper"
-import { useJobRequestForm } from "./use-job-request-form"
+import { useStepper } from "@/shared/hooks"
+import type { UseFormTrigger } from "react-hook-form"
+import type { JobRequestData } from "@/features/job-request/create/utils/form-schema"
 
-export const useJobRequestStepper = (hasDistricts: boolean, steps: JobRequestStep[]) => {
+export const useJobRequestStepper = (
+   steps: JobRequestStep[],
+   validateStep: UseFormTrigger<JobRequestData>,
+) => {
    const stepper = useStepper(steps)
-   const form = useJobRequestForm(hasDistricts)
 
    const handleMoveForward = async (e: React.MouseEvent) => {
       e.preventDefault()
       const step = stepper.activeStep
       if (!step) return
 
-      if (step.validate) {
-         const isValid = await form.trigger(step.validate)
+      if (step.name) {
+         const isValid = await validateStep(step.name)
          if (!isValid) return
       }
 
@@ -20,7 +23,6 @@ export const useJobRequestStepper = (hasDistricts: boolean, steps: JobRequestSte
    }
 
    return {
-      form,
       ...stepper,
       handleMoveForward,
    }

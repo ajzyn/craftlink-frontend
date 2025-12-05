@@ -1,11 +1,8 @@
-import axios, { type AxiosInstance, type AxiosResponse } from "axios"
+import axios, { type AxiosInstance, type AxiosRequestConfig, type AxiosResponse } from "axios"
 import { useAuthStore } from "@/features/auth/stores/use-auth-store"
-import type { AuthenticationResponse, JwtPayload, UserDto } from "@/features/auth/types/auth-types"
-import { jwtDecode } from "jwt-decode"
+import type { AuthenticationDto } from "@/features/auth/api/types"
 
-//TODO: move to env vars
-export const BACKEND_BASE_URL = "http://localhost:8080"
-const API_BASE_URL = `${BACKEND_BASE_URL}/api`
+const API_BASE_URL = import.meta.env.VITE_REST_API_BASE_URL
 
 class ApiClient {
    private static instance: ApiClient
@@ -34,26 +31,36 @@ class ApiClient {
       return ApiClient.instance
    }
 
-   async get<T>(url: string): Promise<AxiosResponse<T>> {
-      return this.client.get(url)
+   async get<T>(url: string, params: AxiosRequestConfig = {}): Promise<AxiosResponse<T>> {
+      return this.client.get(url, params)
    }
 
    async post<TResponse, TRequest = unknown>(
       url: string,
       data?: TRequest,
+      params: AxiosRequestConfig = {},
    ): Promise<AxiosResponse<TResponse, TRequest>> {
-      return this.client.post<TResponse, AxiosResponse<TResponse, TRequest>, TRequest>(url, data)
+      return this.client.post<TResponse, AxiosResponse<TResponse, TRequest>, TRequest>(
+         url,
+         data,
+         params,
+      )
    }
 
    async put<TResponse, TRequest = unknown>(
       url: string,
       data?: TRequest,
+      params: AxiosRequestConfig = {},
    ): Promise<AxiosResponse<TResponse, TRequest>> {
-      return this.client.put<TResponse, AxiosResponse<TResponse, TRequest>, TRequest>(url, data)
+      return this.client.put<TResponse, AxiosResponse<TResponse, TRequest>, TRequest>(
+         url,
+         data,
+         params,
+      )
    }
 
-   async delete<T>(url: string): Promise<AxiosResponse<T>> {
-      return this.client.delete(url)
+   async delete<T>(url: string, params: AxiosRequestConfig = {}): Promise<AxiosResponse<T>> {
+      return this.client.delete(url, params)
    }
 
    private processQueue(error: any, token: string | null = null) {
@@ -100,7 +107,6 @@ class ApiClient {
             if (originalRequest.url?.includes("/auth/refresh-token")) {
                this.isRefreshing = false
                useAuthStore.getState().logout()
-               window.location.href = "/login"
                return Promise.reject(error)
             }
 
@@ -121,17 +127,7 @@ class ApiClient {
 
             try {
                const { data } = await this.refreshToken()
-               const decoded = jwtDecode<JwtPayload>(data.token)
-               const user: UserDto = {
-                  email: decoded.email,
-                  id: decoded.sub,
-                  username: decoded.username,
-                  authorities: decoded.authorities,
-                  userType: decoded.userType,
-               }
-
                useAuthStore.getState().setAccessToken(data.token)
-               useAuthStore.getState().setUser(user)
 
                this.processQueue(null, data.token)
 
@@ -140,9 +136,6 @@ class ApiClient {
             } catch (refreshError) {
                this.processQueue(refreshError, null)
                useAuthStore.getState().logout()
-               if (window.location.pathname !== "/") {
-                  window.location.href = "/"
-               }
                return Promise.reject(refreshError)
             } finally {
                this.isRefreshing = false
@@ -159,7 +152,7 @@ class ApiClient {
          withCredentials: true,
       })
 
-      return refreshClient.get<AuthenticationResponse>("/auth/refresh-token")
+      return refreshClient.get<AuthenticationDto>("/auth/refresh-token")
    }
 }
 
